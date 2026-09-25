@@ -2,48 +2,854 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>VELORÉ — Modern Clothing</title>
+<title>Novair — Modern Essentials</title>
 
-<link rel="stylesheet" href="style.css">
+<meta name="description" content="Novair — modern essentials designed for everyday life.">
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+
+<style>
+/* =========================================================
+   NOVAIR — PREMIUM FASHION HOMEPAGE
+========================================================= */
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:#f4f1eb;
+  color:#171714;
+  font-family:"DM Sans",sans-serif;
+  line-height:1.5;
+  overflow-x:hidden;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+button{
+  font:inherit;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.header{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  z-index:20;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:28px 5vw;
+
+  color:#fff;
+}
+
+.logo{
+  font-size:20px;
+  font-weight:600;
+  letter-spacing:.18em;
+}
+
+.nav{
+  display:flex;
+  align-items:center;
+  gap:38px;
+}
+
+.nav a,
+.header-right a{
+  font-size:13px;
+  letter-spacing:.04em;
+  opacity:.88;
+  transition:opacity .25s ease;
+}
+
+.nav a:hover,
+.header-right a:hover{
+  opacity:1;
+}
+
+.header-right{
+  display:flex;
+  align-items:center;
+  gap:24px;
+}
+
+.cart-count{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  min-width:19px;
+  height:19px;
+  padding:0 5px;
+
+  margin-left:4px;
+
+  border:1px solid rgba(255,255,255,.5);
+  border-radius:50%;
+
+  font-size:10px;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+  min-height:100svh;
+  position:relative;
+
+  display:flex;
+  align-items:flex-end;
+
+  color:#fff;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,.35) 0%,
+      rgba(0,0,0,.05) 40%,
+      rgba(0,0,0,.60) 100%
+    ),
+    linear-gradient(
+      110deg,
+      #262521 0%,
+      #59564d 45%,
+      #1b1b19 100%
+    );
+
+  overflow:hidden;
+}
+
+/*
+  Replace this background later with Novair's
+  actual campaign image.
+*/
+
+.hero::before{
+  content:"";
+  position:absolute;
+  inset:0;
+
+  background:
+    radial-gradient(
+      circle at 72% 30%,
+      rgba(255,255,255,.12),
+      transparent 28%
+    );
+
+  pointer-events:none;
+}
+
+.hero-content{
+  position:relative;
+  z-index:2;
+
+  width:min(900px,90%);
+  padding:0 0 9vh 5vw;
+}
+
+.eyebrow{
+  font-size:10px;
+  letter-spacing:.22em;
+  text-transform:uppercase;
+  font-weight:600;
+  margin-bottom:20px;
+  opacity:.72;
+}
+
+.hero h1{
+  font-size:clamp(58px,9vw,132px);
+  line-height:.88;
+  letter-spacing:-.055em;
+  font-weight:500;
+  max-width:900px;
+}
+
+.hero h1 em{
+  font-family:"Playfair Display",serif;
+  font-weight:500;
+}
+
+.hero-text{
+  max-width:430px;
+  margin-top:30px;
+
+  font-size:15px;
+  line-height:1.7;
+  opacity:.78;
+}
+
+.hero-button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  margin-top:34px;
+
+  padding:15px 24px;
+
+  background:#f4f1eb;
+  color:#171714;
+
+  font-size:12px;
+  font-weight:600;
+  letter-spacing:.04em;
+
+  transition:
+    transform .25s ease,
+    background .25s ease;
+}
+
+.hero-button:hover{
+  transform:translateY(-2px);
+  background:#fff;
+}
+
+
+/* =========================================================
+   MARQUEE
+========================================================= */
+
+.marquee{
+  overflow:hidden;
+  white-space:nowrap;
+  background:#171714;
+  color:#f4f1eb;
+}
+
+.marquee-track{
+  display:inline-flex;
+  align-items:center;
+
+  padding:17px 0;
+
+  animation:marquee 24s linear infinite;
+}
+
+.marquee span{
+  font-size:10px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  margin:0 28px;
+}
+
+.marquee-dot{
+  opacity:.45;
+}
+
+@keyframes marquee{
+  from{
+    transform:translateX(0);
+  }
+  to{
+    transform:translateX(-50%);
+  }
+}
+
+
+/* =========================================================
+   SECTION BASE
+========================================================= */
+
+.section{
+  padding:120px 5vw;
+}
+
+.section-top{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+
+  margin-bottom:55px;
+}
+
+.section-label{
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.2em;
+  opacity:.5;
+  margin-bottom:14px;
+}
+
+.section h2{
+  font-size:clamp(42px,6vw,76px);
+  line-height:.95;
+  letter-spacing:-.05em;
+  font-weight:500;
+}
+
+.section h2 em{
+  font-family:"Playfair Display",serif;
+  font-weight:500;
+}
+
+.text-link{
+  font-size:12px;
+  border-bottom:1px solid rgba(23,23,20,.4);
+  padding-bottom:5px;
+}
+
+
+/* =========================================================
+   PRODUCT GRID
+========================================================= */
+
+.product-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+}
+
+.product-card{
+  display:block;
+}
+
+.product-image{
+  position:relative;
+  aspect-ratio:3/4;
+  overflow:hidden;
+
+  background:#dedad1;
+}
+
+.product-image::after{
+  content:"";
+  position:absolute;
+  inset:0;
+
+  background:linear-gradient(
+    135deg,
+    rgba(255,255,255,.14),
+    transparent 45%
+  );
+
+  pointer-events:none;
+}
+
+.product-placeholder{
+  width:100%;
+  height:100%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  color:#99958c;
+  font-size:11px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+}
+
+.product-info{
+  padding:16px 2px 0;
+}
+
+.product-name{
+  font-size:13px;
+  font-weight:500;
+}
+
+.product-meta{
+  display:flex;
+  justify-content:space-between;
+
+  margin-top:6px;
+
+  font-size:12px;
+  opacity:.52;
+}
+
+.product-card:hover .product-placeholder{
+  transform:scale(1.025);
+}
+
+.product-placeholder{
+  transition:transform .6s cubic-bezier(.2,.7,.2,1);
+}
+
+
+/* =========================================================
+   BRAND STORY
+========================================================= */
+
+.story{
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  min-height:720px;
+
+  background:#dedbd3;
+}
+
+.story-image{
+  min-height:600px;
+
+  background:
+    linear-gradient(
+      145deg,
+      #9c978b,
+      #4b4942
+    );
+
+  position:relative;
+}
+
+.story-image::after{
+  content:"NOVAIR";
+
+  position:absolute;
+  left:35px;
+  bottom:30px;
+
+  color:rgba(255,255,255,.72);
+
+  font-size:11px;
+  letter-spacing:.25em;
+}
+
+.story-content{
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+
+  padding:80px 8vw;
+}
+
+.story-content .section-label{
+  margin-bottom:20px;
+}
+
+.story-content h2{
+  font-size:clamp(45px,5.5vw,78px);
+  line-height:.94;
+  letter-spacing:-.055em;
+  font-weight:500;
+}
+
+.story-content h2 em{
+  font-family:"Playfair Display",serif;
+}
+
+.story-content p{
+  max-width:440px;
+
+  margin-top:30px;
+
+  font-size:14px;
+  line-height:1.9;
+
+  color:#56534d;
+}
+
+.story-link{
+  width:max-content;
+
+  margin-top:32px;
+
+  font-size:12px;
+
+  border-bottom:1px solid #77736b;
+  padding-bottom:5px;
+}
+
+
+/* =========================================================
+   EDITORIAL STATEMENT
+========================================================= */
+
+.statement{
+  padding:150px 5vw;
+
+  background:#f4f1eb;
+}
+
+.statement-inner{
+  max-width:1100px;
+}
+
+.statement p{
+  font-size:clamp(38px,6vw,82px);
+  line-height:1.02;
+  letter-spacing:-.055em;
+  font-weight:500;
+}
+
+.statement p em{
+  font-family:"Playfair Display",serif;
+  font-weight:500;
+}
+
+
+/* =========================================================
+   CTA
+========================================================= */
+
+.cta{
+  position:relative;
+
+  padding:150px 5vw;
+
+  background:#1a1a17;
+  color:#f4f1eb;
+
+  overflow:hidden;
+}
+
+.cta::before{
+  content:"";
+
+  position:absolute;
+
+  width:420px;
+  height:420px;
+
+  right:-120px;
+  top:-180px;
+
+  border:1px solid rgba(244,241,235,.13);
+  border-radius:50%;
+}
+
+.cta::after{
+  content:"";
+
+  position:absolute;
+
+  width:600px;
+  height:600px;
+
+  right:-200px;
+  top:-270px;
+
+  border:1px solid rgba(244,241,235,.07);
+  border-radius:50%;
+}
+
+.cta-content{
+  position:relative;
+  z-index:2;
+}
+
+.cta .section-label{
+  color:#f4f1eb;
+}
+
+.cta h2{
+  font-size:clamp(50px,8vw,110px);
+  line-height:.9;
+  letter-spacing:-.06em;
+  font-weight:500;
+}
+
+.cta h2 em{
+  font-family:"Playfair Display",serif;
+}
+
+.cta-button{
+  display:inline-flex;
+
+  margin-top:40px;
+
+  padding:16px 25px;
+
+  background:#f4f1eb;
+  color:#171714;
+
+  font-size:12px;
+  font-weight:600;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer{
+  padding:60px 5vw 28px;
+
+  background:#171714;
+  color:#f4f1eb;
+}
+
+.footer-main{
+  display:flex;
+  justify-content:space-between;
+  gap:50px;
+
+  padding-bottom:90px;
+}
+
+.footer-brand h3{
+  font-size:20px;
+  letter-spacing:.18em;
+}
+
+.footer-brand p{
+  max-width:270px;
+
+  margin-top:18px;
+
+  font-size:12px;
+  line-height:1.7;
+  opacity:.5;
+}
+
+.footer-links{
+  display:flex;
+  gap:70px;
+}
+
+.footer-column{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.footer-column span:first-child{
+  margin-bottom:8px;
+
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.18em;
+  opacity:.4;
+}
+
+.footer-column a{
+  font-size:12px;
+  opacity:.7;
+
+  transition:opacity .2s ease;
+}
+
+.footer-column a:hover{
+  opacity:1;
+}
+
+.footer-bottom{
+  display:flex;
+  justify-content:space-between;
+
+  padding-top:22px;
+
+  border-top:1px solid rgba(244,241,235,.12);
+
+  font-size:10px;
+  opacity:.4;
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:900px){
+
+  .header{
+    padding:22px 5vw;
+  }
+
+  .nav{
+    display:none;
+  }
+
+  .header-right{
+    gap:15px;
+  }
+
+  .hero-content{
+    padding:0 5vw 7vh;
+  }
+
+  .hero h1{
+    font-size:clamp(58px,17vw,100px);
+  }
+
+  .hero-text{
+    font-size:13px;
+    max-width:340px;
+  }
+
+  .section{
+    padding:85px 5vw;
+  }
+
+  .section-top{
+    align-items:flex-start;
+    gap:25px;
+  }
+
+  .section h2{
+    font-size:48px;
+  }
+
+  .product-grid{
+    grid-template-columns:repeat(2,1fr);
+    gap:28px 12px;
+  }
+
+  .story{
+    grid-template-columns:1fr;
+  }
+
+  .story-image{
+    min-height:500px;
+  }
+
+  .story-content{
+    padding:75px 8vw;
+  }
+
+  .story-content h2{
+    font-size:55px;
+  }
+
+  .statement{
+    padding:100px 5vw;
+  }
+
+  .statement p{
+    font-size:45px;
+  }
+
+  .cta{
+    padding:100px 5vw;
+  }
+
+  .cta h2{
+    font-size:62px;
+  }
+
+  .footer-main{
+    flex-direction:column;
+    padding-bottom:65px;
+  }
+
+  .footer-links{
+    gap:50px;
+  }
+
+  .footer-bottom{
+    flex-direction:column;
+    gap:8px;
+  }
+}
+
+@media(max-width:480px){
+
+  .logo{
+    font-size:17px;
+  }
+
+  .header-right a:first-child{
+    display:none;
+  }
+
+  .hero h1{
+    font-size:58px;
+  }
+
+  .hero-text{
+    margin-top:24px;
+  }
+
+  .section-top{
+    flex-direction:column;
+    margin-bottom:38px;
+  }
+
+  .section h2{
+    font-size:44px;
+  }
+
+  .story-image{
+    min-height:430px;
+  }
+
+  .story-content{
+    padding:65px 7vw;
+  }
+
+  .story-content h2{
+    font-size:48px;
+  }
+
+  .statement p{
+    font-size:38px;
+  }
+
+  .cta h2{
+    font-size:52px;
+  }
+
+  .footer-links{
+    gap:35px;
+  }
+}
+</style>
 </head>
+
 
 <body>
 
-<!-- =========================
+
+<!-- =====================================================
      HEADER
-========================= -->
+===================================================== -->
 
 <header class="header">
 
   <a href="index.html" class="logo">
-    VELORÉ
+    NOVAIR
   </a>
 
   <nav class="nav">
-
     <a href="index.html">Home</a>
-
     <a href="shop.html">Shop</a>
-
     <a href="about.html">About</a>
-
     <a href="contact.html">Contact</a>
-
   </nav>
 
-  <a href="shop.html" class="cart">
-    Cart <span id="cartCount">0</span>
-  </a>
+  <div class="header-right">
+
+    <a href="shop.html">
+      Search
+    </a>
+
+    <a href="shop.html">
+      Cart <span class="cart-count" id="cartCount">0</span>
+    </a>
+
+  </div>
 
 </header>
 
 
-<!-- =========================
+<!-- =====================================================
      HERO
-========================= -->
+===================================================== -->
 
 <main>
 
@@ -52,22 +858,21 @@
   <div class="hero-content">
 
     <p class="eyebrow">
-      NEW COLLECTION · 2026
+      NOVAIR / COLLECTION 01
     </p>
 
     <h1>
-      Wear what<br>
-      feels <em>right.</em>
+      Made for<br>
+      the <em>everyday.</em>
     </h1>
 
     <p class="hero-text">
-      Thoughtfully designed essentials
-      made for everyday movement,
-      confidence and effortless style.
+      Modern essentials shaped around movement,
+      comfort and a quieter kind of confidence.
     </p>
 
-    <a href="shop.html" class="button">
-      Explore Collection
+    <a href="shop.html" class="hero-button">
+      Explore collection
     </a>
 
   </div>
@@ -75,22 +880,50 @@
 </section>
 
 
-<!-- =========================
-     FEATURED
-========================= -->
+<!-- =====================================================
+     MARQUEE
+===================================================== -->
+
+<div class="marquee">
+
+  <div class="marquee-track">
+
+    <span>Modern essentials</span>
+    <span class="marquee-dot">✦</span>
+    <span>Designed for everyday</span>
+    <span class="marquee-dot">✦</span>
+    <span>Novair collection 01</span>
+    <span class="marquee-dot">✦</span>
+
+    <span>Modern essentials</span>
+    <span class="marquee-dot">✦</span>
+    <span>Designed for everyday</span>
+    <span class="marquee-dot">✦</span>
+    <span>Novair collection 01</span>
+    <span class="marquee-dot">✦</span>
+
+  </div>
+
+</div>
+
+
+<!-- =====================================================
+     FEATURED PRODUCTS
+===================================================== -->
 
 <section class="section">
 
-  <div class="section-heading">
+  <div class="section-top">
 
     <div>
 
-      <p class="eyebrow">
-        SHOP THE COLLECTION
+      <p class="section-label">
+        The collection
       </p>
 
       <h2>
-        New arrivals
+        New<br>
+        arrivals.
       </h2>
 
     </div>
@@ -102,50 +935,143 @@
   </div>
 
 
-  <div
-    id="featuredProducts"
-    class="product-grid"
-  >
+  <div id="featuredProducts" class="product-grid">
 
-    <div class="product-loading">
-      Loading products...
-    </div>
+    <!--
+      Products will be loaded from Supabase here.
+      Until the product system is connected,
+      these are intentionally empty placeholders.
+    -->
+
+    <article class="product-card">
+
+      <div class="product-image">
+        <div class="product-placeholder">
+          Product 01
+        </div>
+      </div>
+
+      <div class="product-info">
+
+        <div class="product-name">
+          Coming soon
+        </div>
+
+        <div class="product-meta">
+          <span>Novair</span>
+          <span>—</span>
+        </div>
+
+      </div>
+
+    </article>
+
+
+    <article class="product-card">
+
+      <div class="product-image">
+        <div class="product-placeholder">
+          Product 02
+        </div>
+      </div>
+
+      <div class="product-info">
+
+        <div class="product-name">
+          Coming soon
+        </div>
+
+        <div class="product-meta">
+          <span>Novair</span>
+          <span>—</span>
+        </div>
+
+      </div>
+
+    </article>
+
+
+    <article class="product-card">
+
+      <div class="product-image">
+        <div class="product-placeholder">
+          Product 03
+        </div>
+      </div>
+
+      <div class="product-info">
+
+        <div class="product-name">
+          Coming soon
+        </div>
+
+        <div class="product-meta">
+          <span>Novair</span>
+          <span>—</span>
+        </div>
+
+      </div>
+
+    </article>
+
+
+    <article class="product-card">
+
+      <div class="product-image">
+        <div class="product-placeholder">
+          Product 04
+        </div>
+      </div>
+
+      <div class="product-info">
+
+        <div class="product-name">
+          Coming soon
+        </div>
+
+        <div class="product-meta">
+          <span>Novair</span>
+          <span>—</span>
+        </div>
+
+      </div>
+
+    </article>
 
   </div>
 
 </section>
 
 
-<!-- =========================
+<!-- =====================================================
      BRAND STORY
-========================= -->
+===================================================== -->
 
 <section class="story">
 
-  <div class="story-image">
-  </div>
+  <div class="story-image"></div>
 
   <div class="story-content">
 
-    <p class="eyebrow">
-      THE VELORÉ STANDARD
+    <p class="section-label">
+      The Novair standard
     </p>
 
     <h2>
       Less noise.<br>
-      Better clothes.
+      More <em>presence.</em>
     </h2>
 
     <p>
-      We believe clothing should feel as good
-      as it looks. Every piece is designed
-      around clean silhouettes, considered
-      materials and the details that make
-      everyday dressing easier.
+      Novair is built around a simple idea:
+      clothing doesn't need to shout to be noticed.
+      Clean silhouettes, considered details and
+      everyday comfort come together in pieces
+      designed to stay relevant beyond a season.
     </p>
 
-    <a href="about.html" class="text-link">
-      Our story →
+    <a href="about.html" class="story-link">
+      Discover our story →
     </a>
 
   </div>
@@ -153,80 +1079,140 @@
 </section>
 
 
-<!-- =========================
+<!-- =====================================================
+     STATEMENT
+===================================================== -->
+
+<section class="statement">
+
+  <div class="statement-inner">
+
+    <p>
+      Clothes should move with you,
+      not <em>define</em> you.
+    </p>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
      CTA
-========================= -->
+===================================================== -->
 
 <section class="cta">
 
-  <p class="eyebrow">
-    FIND YOUR STYLE
-  </p>
+  <div class="cta-content">
 
-  <h2>
-    Built for your<br>
-    everyday.
-  </h2>
+    <p class="section-label">
+      Your everyday wardrobe
+    </p>
 
-  <a href="shop.html" class="button">
-    Shop now
-  </a>
+    <h2>
+      Find what<br>
+      feels <em>right.</em>
+    </h2>
+
+    <a href="shop.html" class="cta-button">
+      Shop Novair
+    </a>
+
+  </div>
 
 </section>
 
 </main>
 
 
-<!-- =========================
+<!-- =====================================================
      FOOTER
-========================= -->
+===================================================== -->
 
 <footer class="footer">
 
-  <div class="footer-brand">
+  <div class="footer-main">
 
-    <div class="logo">
-      VELORÉ
+    <div class="footer-brand">
+
+      <h3>NOVAIR</h3>
+
+      <p>
+        Modern essentials designed
+        for everyday life.
+      </p>
+
     </div>
 
-    <p>
-      Modern clothing for everyday life.
-    </p>
 
-  </div>
+    <div class="footer-links">
+
+      <div class="footer-column">
+
+        <span>Explore</span>
+
+        <a href="shop.html">Shop</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+
+      </div>
 
 
-  <div class="footer-links">
+      <div class="footer-column">
 
-    <a href="shop.html">Shop</a>
+        <span>Information</span>
 
-    <a href="about.html">About</a>
+        <a href="#">Shipping</a>
+        <a href="#">Returns</a>
+        <a href="#">Privacy</a>
 
-    <a href="contact.html">Contact</a>
+      </div>
+
+    </div>
 
   </div>
 
 
   <div class="footer-bottom">
 
-    © 2026 VELORÉ. All rights reserved.
+    <span>
+      © 2026 Novair
+    </span>
+
+    <span>
+      All rights reserved.
+    </span>
 
   </div>
 
 </footer>
 
 
+<!-- =====================================================
+     NOVAIR / SUPABASE
+===================================================== -->
+
 <script>
 
 const SUPABASE_URL =
-  "YOUR_SUPABASE_URL";
+  "https://sjtykmeactnxwwywdjcr.supabase.co";
 
 const SUPABASE_KEY =
   "YOUR_SUPABASE_PUBLISHABLE_KEY";
 
+const STORE_ID =
+  "novair";
 
-/* We'll connect the product system here
-   after the Supabase project is created. */
+
+/*
+  Product loading will be connected after
+  the remaining Novair pages are created.
+
+  IMPORTANT:
+  Only the Supabase publishable key belongs here.
+  Never put the Supabase service_role/secret key
+  into frontend code.
+*/
 
 
 </script>
