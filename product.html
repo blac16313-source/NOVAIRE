@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Product — Novair</title>
+
+<meta name="description" content="Discover the Novair collection.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:#f4f1eb;
+  color:#171714;
+  font-family:"DM Sans",sans-serif;
+  line-height:1.5;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+button,
+select{
+  font:inherit;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:27px 5vw;
+
+  border-bottom:1px solid rgba(23,23,20,.1);
+}
+
+.logo{
+  font-size:20px;
+  font-weight:600;
+  letter-spacing:.18em;
+}
+
+.nav{
+  display:flex;
+  gap:38px;
+}
+
+.nav a,
+.header-right a{
+  font-size:13px;
+  opacity:.65;
+  transition:opacity .2s ease;
+}
+
+.nav a:hover,
+.header-right a:hover{
+  opacity:1;
+}
+
+.nav a.active{
+  opacity:1;
+}
+
+.header-right{
+  display:flex;
+  gap:24px;
+  align-items:center;
+}
+
+.cart-count{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  min-width:19px;
+  height:19px;
+
+  padding:0 5px;
+  margin-left:4px;
+
+  border:1px solid rgba(23,23,20,.35);
+  border-radius:50%;
+
+  font-size:10px;
+}
+
+
+/* =====================================================
+   PRODUCT
+===================================================== */
+
+.product-page{
+  padding:70px 5vw 130px;
+}
+
+.breadcrumb{
+  display:flex;
+  align-items:center;
+  gap:10px;
+
+  margin-bottom:45px;
+
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+
+  color:#77736b;
+}
+
+.product-layout{
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:7vw;
+
+  align-items:start;
+}
+
+
+/* =====================================================
+   IMAGE AREA
+===================================================== */
+
+.product-gallery{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:12px;
+}
+
+.gallery-image{
+  aspect-ratio:3/4;
+
+  background:#dedad1;
+
+  overflow:hidden;
+
+  position:relative;
+}
+
+.gallery-placeholder{
+  width:100%;
+  height:100%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  color:#99958c;
+
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+
+  transition:transform .7s cubic-bezier(.2,.7,.2,1);
+}
+
+.gallery-image:hover .gallery-placeholder{
+  transform:scale(1.03);
+}
+
+
+/* =====================================================
+   PRODUCT DETAILS
+===================================================== */
+
+.product-details{
+  position:sticky;
+  top:35px;
+}
+
+.product-label{
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.2em;
+
+  color:#77736b;
+
+  margin-bottom:18px;
+}
+
+.product-title{
+  font-size:clamp(45px,5vw,72px);
+
+  line-height:.93;
+  letter-spacing:-.055em;
+
+  font-weight:500;
+}
+
+.product-price{
+  margin-top:22px;
+
+  font-size:15px;
+}
+
+.product-description{
+  max-width:470px;
+
+  margin-top:30px;
+
+  color:#656159;
+
+  font-size:13px;
+  line-height:1.9;
+}
+
+
+/* =====================================================
+   DIVIDER
+===================================================== */
+
+.divider{
+  height:1px;
+
+  margin:34px 0;
+
+  background:rgba(23,23,20,.13);
+}
+
+
+/* =====================================================
+   SIZE
+===================================================== */
+
+.option-label{
+  display:flex;
+  justify-content:space-between;
+
+  margin-bottom:13px;
+
+  font-size:10px;
+
+  text-transform:uppercase;
+  letter-spacing:.15em;
+}
+
+.size-grid{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.size-button{
+  min-width:58px;
+
+  padding:12px 16px;
+
+  border:1px solid rgba(23,23,20,.2);
+
+  background:transparent;
+
+  cursor:pointer;
+
+  font-size:11px;
+
+  transition:
+    background .2s ease,
+    color .2s ease;
+}
+
+.size-button:hover,
+.size-button.selected{
+  background:#171714;
+  color:#f4f1eb;
+  border-color:#171714;
+}
+
+
+/* =====================================================
+   ADD TO CART
+===================================================== */
+
+.add-button{
+  width:100%;
+
+  margin-top:30px;
+
+  padding:17px 20px;
+
+  border:1px solid #171714;
+
+  background:#171714;
+  color:#f4f1eb;
+
+  cursor:pointer;
+
+  font-size:12px;
+  font-weight:600;
+
+  transition:
+    background .2s ease,
+    color .2s ease;
+}
+
+.add-button:hover{
+  background:transparent;
+  color:#171714;
+}
+
+.add-button:disabled{
+  opacity:.45;
+  cursor:not-allowed;
+}
+
+
+/* =====================================================
+   PRODUCT NOTES
+===================================================== */
+
+.product-notes{
+  margin-top:38px;
+
+  display:flex;
+  flex-direction:column;
+  gap:0;
+}
+
+.note{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+
+  padding:17px 0;
+
+  border-top:1px solid rgba(23,23,20,.12);
+
+  font-size:11px;
+}
+
+.note:last-child{
+  border-bottom:1px solid rgba(23,23,20,.12);
+}
+
+.note span:last-child{
+  color:#77736b;
+}
+
+
+/* =====================================================
+   RELATED
+===================================================== */
+
+.related{
+  padding:0 5vw 130px;
+}
+
+.related-heading{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+
+  margin-bottom:45px;
+}
+
+.related-label{
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.2em;
+  color:#77736b;
+  margin-bottom:13px;
+}
+
+.related h2{
+  font-size:clamp(40px,5vw,65px);
+  line-height:.95;
+  letter-spacing:-.05em;
+  font-weight:500;
+}
+
+.related h2 em{
+  font-family:"Playfair Display",serif;
+}
+
+.related-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:18px;
+}
+
+.related-card{
+  display:block;
+}
+
+.related-image{
+  aspect-ratio:3/4;
+  background:#dedad1;
+  overflow:hidden;
+}
+
+.related-placeholder{
+  width:100%;
+  height:100%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  color:#99958c;
+
+  font-size:10px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
+
+  transition:transform .7s cubic-bezier(.2,.7,.2,1);
+}
+
+.related-card:hover .related-placeholder{
+  transform:scale(1.035);
+}
+
+.related-info{
+  padding-top:15px;
+}
+
+.related-name{
+  font-size:13px;
+}
+
+.related-price{
+  margin-top:5px;
+
+  color:#77736b;
+
+  font-size:12px;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer{
+  padding:60px 5vw 28px;
+
+  background:#171714;
+  color:#f4f1eb;
+}
+
+.footer-main{
+  display:flex;
+  justify-content:space-between;
+
+  gap:50px;
+
+  padding-bottom:90px;
+}
+
+.footer-brand h3{
+  font-size:20px;
+  letter-spacing:.18em;
+}
+
+.footer-brand p{
+  max-width:270px;
+
+  margin-top:18px;
+
+  font-size:12px;
+  line-height:1.7;
+
+  opacity:.5;
+}
+
+.footer-links{
+  display:flex;
+  gap:70px;
+}
+
+.footer-column{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.footer-column span:first-child{
+  margin-bottom:8px;
+
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.18em;
+
+  opacity:.4;
+}
+
+.footer-column a{
+  font-size:12px;
+  opacity:.7;
+}
+
+.footer-column a:hover{
+  opacity:1;
+}
+
+.footer-bottom{
+  display:flex;
+  justify-content:space-between;
+
+  padding-top:22px;
+
+  border-top:1px solid rgba(244,241,235,.12);
+
+  font-size:10px;
+  opacity:.4;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:900px){
+
+  .header{
+    padding:22px 5vw;
+  }
+
+  .nav{
+    display:none;
+  }
+
+  .product-page{
+    padding-top:45px;
+  }
+
+  .product-layout{
+    grid-template-columns:1fr;
+    gap:55px;
+  }
+
+  .product-details{
+    position:static;
+  }
+
+  .product-gallery{
+    gap:8px;
+  }
+
+  .related-grid{
+    grid-template-columns:repeat(2,1fr);
+    gap:30px 12px;
+  }
+
+  .footer-main{
+    flex-direction:column;
+    padding-bottom:65px;
+  }
+
+  .footer-links{
+    gap:45px;
+  }
+}
+
+
+@media(max-width:480px){
+
+  .logo{
+    font-size:17px;
+  }
+
+  .header-right a:first-child{
+    display:none;
+  }
+
+  .product-gallery{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .product-title{
+    font-size:48px;
+  }
+
+  .product-description{
+    font-size:12px;
+  }
+
+  .size-button{
+    min-width:52px;
+    padding:11px 13px;
+  }
+
+  .related h2{
+    font-size:45px;
+  }
+
+  .footer-links{
+    gap:30px;
+  }
+
+  .footer-bottom{
+    flex-direction:column;
+    gap:8px;
+  }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+  <a href="index.html" class="logo">
+    NOVAIR
+  </a>
+
+  <nav class="nav">
+
+    <a href="index.html">
+      Home
+    </a>
+
+    <a href="shop.html" class="active">
+      Shop
+    </a>
+
+    <a href="about.html">
+      About
+    </a>
+
+    <a href="contact.html">
+      Contact
+    </a>
+
+  </nav>
+
+  <div class="header-right">
+
+    <a href="shop.html">
+      Back to shop
+    </a>
+
+    <a href="shop.html">
+      Cart
+      <span class="cart-count" id="cartCount">0</span>
+    </a>
+
+  </div>
+
+</header>
+
+
+<!-- =====================================================
+     PRODUCT
+===================================================== -->
+
+<main>
+
+<section class="product-page">
+
+  <div class="breadcrumb">
+
+    <a href="shop.html">
+      Shop
+    </a>
+
+    <span>/</span>
+
+    <span id="breadcrumbName">
+      Product
+    </span>
+
+  </div>
+
+
+  <div class="product-layout">
+
+
+    <!-- ================================================
+         GALLERY
+    ================================================= -->
+
+    <div class="product-gallery" id="productGallery">
+
+      <div class="gallery-image">
+
+        <div class="gallery-placeholder">
+          Product image
+        </div>
+
+      </div>
+
+      <div class="gallery-image">
+
+        <div class="gallery-placeholder">
+          Product image
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- ================================================
+         DETAILS
+    ================================================= -->
+
+    <div class="product-details">
+
+      <p class="product-label" id="productCategory">
+        NOVAIR / COLLECTION 01
+      </p>
+
+      <h1 class="product-title" id="productName">
+        Product name
+      </h1>
+
+      <p class="product-price" id="productPrice">
+        ₹ —
+      </p>
+
+      <p class="product-description" id="productDescription">
+        Product details will appear here once the Novair
+        product catalogue is connected.
+      </p>
+
+
+      <div class="divider"></div>
+
+
+      <div class="option-label">
+
+        <span>
+          Select size
+        </span>
+
+        <span id="selectedSize">
+          Choose
+        </span>
+
+      </div>
+
+
+      <div class="size-grid" id="sizeGrid">
+
+        <button class="size-button">
+          S
+        </button>
+
+        <button class="size-button">
+          M
+        </button>
+
+        <button class="size-button">
+          L
+        </button>
+
+        <button class="size-button">
+          XL
+        </button>
+
+      </div>
+
+
+      <button
+        class="add-button"
+        id="addToCart"
+      >
+        Add to cart
+      </button>
+
+
+      <div class="product-notes">
+
+        <div class="note">
+
+          <span>
+            Shipping
+          </span>
+
+          <span>
+            Calculated at checkout
+          </span>
+
+        </div>
+
+        <div class="note">
+
+          <span>
+            Returns
+          </span>
+
+          <span>
+            Easy returns
+          </span>
+
+        </div>
+
+        <div class="note">
+
+          <span>
+            Product
+          </span>
+
+          <span>
+            Novair collection
+          </span>
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     RELATED PRODUCTS
+===================================================== -->
+
+<section class="related">
+
+  <div class="related-heading">
+
+    <div>
+
+      <p class="related-label">
+        Continue exploring
+      </p>
+
+      <h2>
+        You may<br>
+        <em>also like.</em>
+      </h2>
+
+    </div>
+
+    <a href="shop.html" class="text-link">
+      View collection →
+    </a>
+
+  </div>
+
+
+  <div class="related-grid">
+
+    <a href="product.html" class="related-card">
+
+      <div class="related-image">
+
+        <div class="related-placeholder">
+          Novair / 01
+        </div>
+
+      </div>
+
+      <div class="related-info">
+
+        <div class="related-name">
+          Coming soon
+        </div>
+
+        <div class="related-price">
+          ₹ —
+        </div>
+
+      </div>
+
+    </a>
+
+
+    <a href="product.html" class="related-card">
+
+      <div class="related-image">
+
+        <div class="related-placeholder">
+          Novair / 02
+        </div>
+
+      </div>
+
+      <div class="related-info">
+
+        <div class="related-name">
+          Coming soon
+        </div>
+
+        <div class="related-price">
+          ₹ —
+        </div>
+
+      </div>
+
+    </a>
+
+
+    <a href="product.html" class="related-card">
+
+      <div class="related-image">
+
+        <div class="related-placeholder">
+          Novair / 03
+        </div>
+
+      </div>
+
+      <div class="related-info">
+
+        <div class="related-name">
+          Coming soon
+        </div>
+
+        <div class="related-price">
+          ₹ —
+        </div>
+
+      </div>
+
+    </a>
+
+
+    <a href="product.html" class="related-card">
+
+      <div class="related-image">
+
+        <div class="related-placeholder">
+          Novair / 04
+        </div>
+
+      </div>
+
+      <div class="related-info">
+
+        <div class="related-name">
+          Coming soon
+        </div>
+
+        <div class="related-price">
+          ₹ —
+        </div>
+
+      </div>
+
+    </a>
+
+  </div>
+
+</section>
+
+</main>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="footer">
+
+  <div class="footer-main">
+
+    <div class="footer-brand">
+
+      <h3>NOVAIR</h3>
+
+      <p>
+        Modern essentials designed
+        for everyday life.
+      </p>
+
+    </div>
+
+
+    <div class="footer-links">
+
+      <div class="footer-column">
+
+        <span>Explore</span>
+
+        <a href="shop.html">
+          Shop
+        </a>
+
+        <a href="about.html">
+          About
+        </a>
+
+        <a href="contact.html">
+          Contact
+        </a>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <span>Information</span>
+
+        <a href="#">
+          Shipping
+        </a>
+
+        <a href="#">
+          Returns
+        </a>
+
+        <a href="#">
+          Privacy
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="footer-bottom">
+
+    <span>
+      © 2026 Novair
+    </span>
+
+    <span>
+      All rights reserved.
+    </span>
+
+  </div>
+
+</footer>
+
+
+<!-- =====================================================
+     NOVAIR / PRODUCT SYSTEM
+===================================================== -->
+
+<script>
+
+const SUPABASE_URL =
+  "https://sjtykmeactnxwwywdjcr.supabase.co";
+
+const SUPABASE_KEY =
+  "YOUR_SUPABASE_PUBLISHABLE_KEY";
+
+const STORE_ID =
+  "novair";
+
+
+/*
+  Supabase product loading will be connected
+  after the Novair admin/product-management
+  system is created.
+
+  Product URL will eventually work like:
+
+  product.html?id=PRODUCT_ID
+*/
+
+
+/* =====================================================
+   SIZE SELECTION
+===================================================== */
+
+const sizeButtons =
+  document.querySelectorAll(".size-button");
+
+const selectedSize =
+  document.getElementById("selectedSize");
+
+
+sizeButtons.forEach(button => {
+
+  button.addEventListener("click", () => {
+
+    sizeButtons.forEach(item => {
+      item.classList.remove("selected");
+    });
+
+    button.classList.add("selected");
+
+    selectedSize.textContent =
+      button.textContent.trim();
+
+  });
+
+});
+
+
+/* =====================================================
+   ADD TO CART
+===================================================== */
+
+const addToCart =
+  document.getElementById("addToCart");
+
+
+addToCart.addEventListener("click", () => {
+
+  const selected =
+    document.querySelector(".size-button.selected");
+
+  if(!selected){
+
+    alert("Please select a size.");
+
+    return;
+
+  }
+
+  alert(
+    "Cart functionality will be connected with the Novair product system."
+  );
+
+});
+
+
+</script>
+
+</body>
+</html>
