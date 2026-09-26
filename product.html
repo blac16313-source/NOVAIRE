@@ -12,6 +12,8 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
 
 *{
@@ -41,18 +43,13 @@ select{
   font:inherit;
 }
 
-
-/* =====================================================
-   HEADER
-===================================================== */
+/* HEADER */
 
 .header{
   display:flex;
   align-items:center;
   justify-content:space-between;
-
   padding:27px 5vw;
-
   border-bottom:1px solid rgba(23,23,20,.1);
 }
 
@@ -93,23 +90,16 @@ select{
   display:inline-flex;
   align-items:center;
   justify-content:center;
-
   min-width:19px;
   height:19px;
-
   padding:0 5px;
   margin-left:4px;
-
   border:1px solid rgba(23,23,20,.35);
   border-radius:50%;
-
   font-size:10px;
 }
 
-
-/* =====================================================
-   PRODUCT
-===================================================== */
+/* PRODUCT */
 
 .product-page{
   padding:70px 5vw 130px;
@@ -119,13 +109,10 @@ select{
   display:flex;
   align-items:center;
   gap:10px;
-
   margin-bottom:45px;
-
   font-size:10px;
   text-transform:uppercase;
   letter-spacing:.16em;
-
   color:#77736b;
 }
 
@@ -133,56 +120,43 @@ select{
   display:grid;
   grid-template-columns:1.15fr .85fr;
   gap:7vw;
-
   align-items:start;
 }
 
-
-/* =====================================================
-   IMAGE AREA
-===================================================== */
+/* IMAGE */
 
 .product-gallery{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:12px;
+  width:100%;
 }
 
 .gallery-image{
+  width:100%;
   aspect-ratio:3/4;
-
   background:#dedad1;
-
   overflow:hidden;
-
   position:relative;
+}
+
+.gallery-image img{
+  width:100%;
+  height:100%;
+  display:block;
+  object-fit:cover;
 }
 
 .gallery-placeholder{
   width:100%;
   height:100%;
-
   display:flex;
   align-items:center;
   justify-content:center;
-
   color:#99958c;
-
   font-size:10px;
   text-transform:uppercase;
   letter-spacing:.16em;
-
-  transition:transform .7s cubic-bezier(.2,.7,.2,1);
 }
 
-.gallery-image:hover .gallery-placeholder{
-  transform:scale(1.03);
-}
-
-
-/* =====================================================
-   PRODUCT DETAILS
-===================================================== */
+/* DETAILS */
 
 .product-details{
   position:sticky;
@@ -193,64 +167,43 @@ select{
   font-size:10px;
   text-transform:uppercase;
   letter-spacing:.2em;
-
   color:#77736b;
-
   margin-bottom:18px;
 }
 
 .product-title{
   font-size:clamp(45px,5vw,72px);
-
   line-height:.93;
   letter-spacing:-.055em;
-
   font-weight:500;
 }
 
 .product-price{
   margin-top:22px;
-
   font-size:15px;
 }
 
 .product-description{
   max-width:470px;
-
   margin-top:30px;
-
   color:#656159;
-
   font-size:13px;
   line-height:1.9;
 }
 
-
-/* =====================================================
-   DIVIDER
-===================================================== */
-
 .divider{
   height:1px;
-
   margin:34px 0;
-
   background:rgba(23,23,20,.13);
 }
 
-
-/* =====================================================
-   SIZE
-===================================================== */
+/* SIZE */
 
 .option-label{
   display:flex;
   justify-content:space-between;
-
   margin-bottom:13px;
-
   font-size:10px;
-
   text-transform:uppercase;
   letter-spacing:.15em;
 }
@@ -263,17 +216,11 @@ select{
 
 .size-button{
   min-width:58px;
-
   padding:12px 16px;
-
   border:1px solid rgba(23,23,20,.2);
-
   background:transparent;
-
   cursor:pointer;
-
   font-size:11px;
-
   transition:
     background .2s ease,
     color .2s ease;
@@ -286,28 +233,18 @@ select{
   border-color:#171714;
 }
 
-
-/* =====================================================
-   ADD TO CART
-===================================================== */
+/* CART */
 
 .add-button{
   width:100%;
-
   margin-top:30px;
-
   padding:17px 20px;
-
   border:1px solid #171714;
-
   background:#171714;
   color:#f4f1eb;
-
   cursor:pointer;
-
   font-size:12px;
   font-weight:600;
-
   transition:
     background .2s ease,
     color .2s ease;
@@ -318,19 +255,10 @@ select{
   color:#171714;
 }
 
-.add-button:disabled{
-  opacity:.45;
-  cursor:not-allowed;
-}
-
-
-/* =====================================================
-   PRODUCT NOTES
-===================================================== */
+/* NOTES */
 
 .product-notes{
   margin-top:38px;
-
   display:flex;
   flex-direction:column;
   gap:0;
@@ -340,11 +268,8 @@ select{
   display:flex;
   justify-content:space-between;
   align-items:center;
-
   padding:17px 0;
-
   border-top:1px solid rgba(23,23,20,.12);
-
   font-size:11px;
 }
 
@@ -356,10 +281,7 @@ select{
   color:#77736b;
 }
 
-
-/* =====================================================
-   RELATED
-===================================================== */
+/* RELATED */
 
 .related{
   padding:0 5vw 130px;
@@ -369,7 +291,6 @@ select{
   display:flex;
   justify-content:space-between;
   align-items:flex-end;
-
   margin-bottom:45px;
 }
 
@@ -408,25 +329,28 @@ select{
   overflow:hidden;
 }
 
-.related-placeholder{
+.related-image img{
   width:100%;
   height:100%;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  color:#99958c;
-
-  font-size:10px;
-  letter-spacing:.14em;
-  text-transform:uppercase;
-
+  display:block;
+  object-fit:cover;
   transition:transform .7s cubic-bezier(.2,.7,.2,1);
 }
 
-.related-card:hover .related-placeholder{
+.related-card:hover .related-image img{
   transform:scale(1.035);
+}
+
+.related-placeholder{
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  color:#99958c;
+  font-size:10px;
+  letter-spacing:.14em;
+  text-transform:uppercase;
 }
 
 .related-info{
@@ -439,20 +363,14 @@ select{
 
 .related-price{
   margin-top:5px;
-
   color:#77736b;
-
   font-size:12px;
 }
 
-
-/* =====================================================
-   FOOTER
-===================================================== */
+/* FOOTER */
 
 .footer{
   padding:60px 5vw 28px;
-
   background:#171714;
   color:#f4f1eb;
 }
@@ -460,9 +378,7 @@ select{
 .footer-main{
   display:flex;
   justify-content:space-between;
-
   gap:50px;
-
   padding-bottom:90px;
 }
 
@@ -473,12 +389,9 @@ select{
 
 .footer-brand p{
   max-width:270px;
-
   margin-top:18px;
-
   font-size:12px;
   line-height:1.7;
-
   opacity:.5;
 }
 
@@ -495,11 +408,9 @@ select{
 
 .footer-column span:first-child{
   margin-bottom:8px;
-
   font-size:9px;
   text-transform:uppercase;
   letter-spacing:.18em;
-
   opacity:.4;
 }
 
@@ -515,19 +426,13 @@ select{
 .footer-bottom{
   display:flex;
   justify-content:space-between;
-
   padding-top:22px;
-
   border-top:1px solid rgba(244,241,235,.12);
-
   font-size:10px;
   opacity:.4;
 }
 
-
-/* =====================================================
-   MOBILE
-===================================================== */
+/* MOBILE */
 
 @media(max-width:900px){
 
@@ -552,10 +457,6 @@ select{
     position:static;
   }
 
-  .product-gallery{
-    gap:8px;
-  }
-
   .related-grid{
     grid-template-columns:repeat(2,1fr);
     gap:30px 12px;
@@ -571,7 +472,6 @@ select{
   }
 }
 
-
 @media(max-width:480px){
 
   .logo{
@@ -580,10 +480,6 @@ select{
 
   .header-right a:first-child{
     display:none;
-  }
-
-  .product-gallery{
-    grid-template-columns:1fr 1fr;
   }
 
   .product-title{
@@ -616,13 +512,7 @@ select{
 </style>
 </head>
 
-
 <body>
-
-
-<!-- =====================================================
-     HEADER
-===================================================== -->
 
 <header class="header">
 
@@ -665,11 +555,6 @@ select{
 
 </header>
 
-
-<!-- =====================================================
-     PRODUCT
-===================================================== -->
-
 <main>
 
 <section class="product-page">
@@ -688,47 +573,28 @@ select{
 
   </div>
 
-
   <div class="product-layout">
-
-
-    <!-- ================================================
-         GALLERY
-    ================================================= -->
 
     <div class="product-gallery" id="productGallery">
 
       <div class="gallery-image">
 
         <div class="gallery-placeholder">
-          Product image
-        </div>
-
-      </div>
-
-      <div class="gallery-image">
-
-        <div class="gallery-placeholder">
-          Product image
+          Loading product...
         </div>
 
       </div>
 
     </div>
 
-
-    <!-- ================================================
-         DETAILS
-    ================================================= -->
-
     <div class="product-details">
 
       <p class="product-label" id="productCategory">
-        NOVAIR / COLLECTION 01
+        NOVAIR / COLLECTION
       </p>
 
       <h1 class="product-title" id="productName">
-        Product name
+        Loading...
       </h1>
 
       <p class="product-price" id="productPrice">
@@ -736,13 +602,10 @@ select{
       </p>
 
       <p class="product-description" id="productDescription">
-        Product details will appear here once the Novair
-        product catalogue is connected.
+        Loading product details...
       </p>
 
-
       <div class="divider"></div>
-
 
       <div class="option-label">
 
@@ -756,27 +619,7 @@ select{
 
       </div>
 
-
-      <div class="size-grid" id="sizeGrid">
-
-        <button class="size-button">
-          S
-        </button>
-
-        <button class="size-button">
-          M
-        </button>
-
-        <button class="size-button">
-          L
-        </button>
-
-        <button class="size-button">
-          XL
-        </button>
-
-      </div>
-
+      <div class="size-grid" id="sizeGrid"></div>
 
       <button
         class="add-button"
@@ -784,7 +627,6 @@ select{
       >
         Add to cart
       </button>
-
 
       <div class="product-notes">
 
@@ -818,7 +660,7 @@ select{
             Product
           </span>
 
-          <span>
+          <span id="productNote">
             Novair collection
           </span>
 
@@ -831,11 +673,6 @@ select{
   </div>
 
 </section>
-
-
-<!-- =====================================================
-     RELATED PRODUCTS
-===================================================== -->
 
 <section class="related">
 
@@ -860,118 +697,11 @@ select{
 
   </div>
 
-
-  <div class="related-grid">
-
-    <a href="product.html" class="related-card">
-
-      <div class="related-image">
-
-        <div class="related-placeholder">
-          Novair / 01
-        </div>
-
-      </div>
-
-      <div class="related-info">
-
-        <div class="related-name">
-          Coming soon
-        </div>
-
-        <div class="related-price">
-          ₹ —
-        </div>
-
-      </div>
-
-    </a>
-
-
-    <a href="product.html" class="related-card">
-
-      <div class="related-image">
-
-        <div class="related-placeholder">
-          Novair / 02
-        </div>
-
-      </div>
-
-      <div class="related-info">
-
-        <div class="related-name">
-          Coming soon
-        </div>
-
-        <div class="related-price">
-          ₹ —
-        </div>
-
-      </div>
-
-    </a>
-
-
-    <a href="product.html" class="related-card">
-
-      <div class="related-image">
-
-        <div class="related-placeholder">
-          Novair / 03
-        </div>
-
-      </div>
-
-      <div class="related-info">
-
-        <div class="related-name">
-          Coming soon
-        </div>
-
-        <div class="related-price">
-          ₹ —
-        </div>
-
-      </div>
-
-    </a>
-
-
-    <a href="product.html" class="related-card">
-
-      <div class="related-image">
-
-        <div class="related-placeholder">
-          Novair / 04
-        </div>
-
-      </div>
-
-      <div class="related-info">
-
-        <div class="related-name">
-          Coming soon
-        </div>
-
-        <div class="related-price">
-          ₹ —
-        </div>
-
-      </div>
-
-    </a>
-
-  </div>
+  <div class="related-grid" id="relatedGrid"></div>
 
 </section>
 
 </main>
-
-
-<!-- =====================================================
-     FOOTER
-===================================================== -->
 
 <footer class="footer">
 
@@ -987,7 +717,6 @@ select{
       </p>
 
     </div>
-
 
     <div class="footer-links">
 
@@ -1008,7 +737,6 @@ select{
         </a>
 
       </div>
-
 
       <div class="footer-column">
 
@@ -1032,7 +760,6 @@ select{
 
   </div>
 
-
   <div class="footer-bottom">
 
     <span>
@@ -1047,92 +774,645 @@ select{
 
 </footer>
 
-
-<!-- =====================================================
-     NOVAIR / PRODUCT SYSTEM
-===================================================== -->
-
 <script>
+
+/* =====================================================
+   NOVAIR / SUPABASE
+===================================================== */
 
 const SUPABASE_URL =
   "https://sjtykmeactnxwwywdjcr.supabase.co";
 
 const SUPABASE_KEY =
-  "YOUR_SUPABASE_PUBLISHABLE_KEY";
+  "sb_publishable_fB56OtJ845eqt7lIAwU-VA_VgM2ZqJW";
 
 const STORE_ID =
   "novair";
 
-
-/*
-  Supabase product loading will be connected
-  after the Novair admin/product-management
-  system is created.
-
-  Product URL will eventually work like:
-
-  product.html?id=PRODUCT_ID
-*/
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
 
 
 /* =====================================================
-   SIZE SELECTION
+   ELEMENTS
 ===================================================== */
 
-const sizeButtons =
-  document.querySelectorAll(".size-button");
+const productGallery =
+  document.getElementById("productGallery");
+
+const productCategory =
+  document.getElementById("productCategory");
+
+const productName =
+  document.getElementById("productName");
+
+const productPrice =
+  document.getElementById("productPrice");
+
+const productDescription =
+  document.getElementById("productDescription");
+
+const breadcrumbName =
+  document.getElementById("breadcrumbName");
+
+const sizeGrid =
+  document.getElementById("sizeGrid");
 
 const selectedSize =
   document.getElementById("selectedSize");
 
+const addToCart =
+  document.getElementById("addToCart");
 
-sizeButtons.forEach(button => {
+const relatedGrid =
+  document.getElementById("relatedGrid");
 
-  button.addEventListener("click", () => {
+const productNote =
+  document.getElementById("productNote");
 
-    sizeButtons.forEach(item => {
-      item.classList.remove("selected");
-    });
 
-    button.classList.add("selected");
+/* =====================================================
+   GET PRODUCT ID FROM URL
+===================================================== */
 
-    selectedSize.textContent =
-      button.textContent.trim();
+const params =
+  new URLSearchParams(
+    window.location.search
+  );
+
+const productId =
+  params.get("id");
+
+
+/* =====================================================
+   LOAD PRODUCT
+===================================================== */
+
+let currentProduct = null;
+
+async function loadProduct(){
+
+  if(!productId){
+
+    showError("No product was selected.");
+
+    return;
+  }
+
+  const {
+    data,
+    error
+  } = await supabaseClient
+    .from("products")
+    .select("*")
+    .eq("id", productId)
+    .eq("store_id", STORE_ID)
+    .single();
+
+  if(error || !data){
+
+    console.error(
+      "Product loading error:",
+      error
+    );
+
+    showError(
+      "This product could not be found."
+    );
+
+    return;
+  }
+
+  currentProduct = data;
+
+  renderProduct(data);
+
+  loadRelatedProducts(data.id);
+}
+
+
+/* =====================================================
+   RENDER PRODUCT
+===================================================== */
+
+function renderProduct(product){
+
+  const name =
+    product.name || "Untitled product";
+
+  const price =
+    product.price !== null &&
+    product.price !== undefined
+      ? Number(product.price).toLocaleString("en-IN")
+      : "—";
+
+  const category =
+    product.category || "Novair collection";
+
+  const description =
+    product.description ||
+    "A refined piece from the Novair collection.";
+
+  const imageUrl =
+    product.image_url || "";
+
+
+  document.title =
+    `${name} — Novair`;
+
+
+  breadcrumbName.textContent =
+    name;
+
+
+  productCategory.textContent =
+    `NOVAIR / ${category}`;
+
+
+  productName.textContent =
+    name;
+
+
+  productPrice.textContent =
+    `₹ ${price}`;
+
+
+  productDescription.textContent =
+    description;
+
+
+  productNote.textContent =
+    category;
+
+
+  /* IMAGE */
+
+  if(imageUrl){
+
+    productGallery.innerHTML = `
+
+      <div class="gallery-image">
+
+        <img
+          src="${escapeAttribute(imageUrl)}"
+          alt="${escapeAttribute(name)}"
+        >
+
+      </div>
+
+    `;
+
+  }else{
+
+    productGallery.innerHTML = `
+
+      <div class="gallery-image">
+
+        <div class="gallery-placeholder">
+          No image available
+        </div>
+
+      </div>
+
+    `;
+
+  }
+
+
+  /* SIZES */
+
+  renderSizes(
+    Array.isArray(product.sizes)
+      ? product.sizes
+      : []
+  );
+
+}
+
+
+/* =====================================================
+   SIZES
+===================================================== */
+
+function renderSizes(sizes){
+
+  sizeGrid.innerHTML = "";
+
+  selectedSize.textContent =
+    "Choose";
+
+
+  if(!sizes.length){
+
+    sizeGrid.innerHTML = `
+
+      <span style="
+        font-size:11px;
+        color:#77736b;
+      ">
+        One size
+      </span>
+
+    `;
+
+    return;
+  }
+
+
+  sizes.forEach(size => {
+
+    const button =
+      document.createElement("button");
+
+    button.className =
+      "size-button";
+
+    button.type =
+      "button";
+
+    button.textContent =
+      size;
+
+
+    button.addEventListener(
+      "click",
+      () => {
+
+        document
+          .querySelectorAll(
+            ".size-button"
+          )
+          .forEach(item => {
+
+            item.classList.remove(
+              "selected"
+            );
+
+          });
+
+
+        button.classList.add(
+          "selected"
+        );
+
+
+        selectedSize.textContent =
+          size;
+
+      }
+    );
+
+
+    sizeGrid.appendChild(button);
 
   });
 
-});
+}
+
+
+/* =====================================================
+   RELATED PRODUCTS
+===================================================== */
+
+async function loadRelatedProducts(
+  currentProductId
+){
+
+  const {
+    data,
+    error
+  } = await supabaseClient
+    .from("products")
+    .select("*")
+    .eq("store_id", STORE_ID)
+    .neq("id", currentProductId)
+    .order("created_at", {
+      ascending:false
+    })
+    .limit(4);
+
+
+  if(error){
+
+    console.error(
+      "Related products error:",
+      error
+    );
+
+    relatedGrid.innerHTML = "";
+
+    return;
+  }
+
+
+  renderRelatedProducts(
+    data || []
+  );
+
+}
+
+
+/* =====================================================
+   RENDER RELATED
+===================================================== */
+
+function renderRelatedProducts(
+  products
+){
+
+  relatedGrid.innerHTML = "";
+
+
+  if(!products.length){
+
+    relatedGrid.innerHTML = `
+
+      <p style="
+        grid-column:1/-1;
+        font-size:12px;
+        color:#77736b;
+      ">
+        More products coming soon.
+      </p>
+
+    `;
+
+    return;
+  }
+
+
+  products.forEach(product => {
+
+    const card =
+      document.createElement("a");
+
+    card.className =
+      "related-card";
+
+    card.href =
+      `product.html?id=${encodeURIComponent(product.id)}`;
+
+
+    const image =
+      product.image_url
+        ? `
+          <img
+            src="${escapeAttribute(product.image_url)}"
+            alt="${escapeAttribute(product.name)}"
+            loading="lazy"
+          >
+        `
+        : `
+          <div class="related-placeholder">
+            Novair
+          </div>
+        `;
+
+
+    const price =
+      product.price !== null &&
+      product.price !== undefined
+        ? Number(product.price).toLocaleString("en-IN")
+        : "—";
+
+
+    card.innerHTML = `
+
+      <div class="related-image">
+        ${image}
+      </div>
+
+      <div class="related-info">
+
+        <div class="related-name">
+          ${escapeHTML(product.name)}
+        </div>
+
+        <div class="related-price">
+          ₹ ${price}
+        </div>
+
+      </div>
+
+    `;
+
+
+    relatedGrid.appendChild(card);
+
+  });
+
+}
 
 
 /* =====================================================
    ADD TO CART
 ===================================================== */
 
-const addToCart =
-  document.getElementById("addToCart");
+addToCart.addEventListener(
+  "click",
+  () => {
+
+    if(!currentProduct){
+
+      return;
+    }
 
 
-addToCart.addEventListener("click", () => {
+    const selected =
+      document.querySelector(
+        ".size-button.selected"
+      );
 
-  const selected =
-    document.querySelector(".size-button.selected");
 
-  if(!selected){
+    if(
+      Array.isArray(currentProduct.sizes) &&
+      currentProduct.sizes.length &&
+      !selected
+    ){
 
-    alert("Please select a size.");
+      alert(
+        "Please select a size."
+      );
 
-    return;
+      return;
+    }
+
+
+    const cartItem = {
+
+      id:
+        currentProduct.id,
+
+      name:
+        currentProduct.name,
+
+      price:
+        currentProduct.price,
+
+      image_url:
+        currentProduct.image_url,
+
+      size:
+        selected
+          ? selected.textContent.trim()
+          : null
+
+    };
+
+
+    let cart = [];
+
+
+    try{
+
+      cart =
+        JSON.parse(
+          localStorage.getItem(
+            "novair_cart"
+          )
+        ) || [];
+
+    }catch{
+
+      cart = [];
+
+    }
+
+
+    cart.push(cartItem);
+
+
+    localStorage.setItem(
+      "novair_cart",
+      JSON.stringify(cart)
+    );
+
+
+    updateCartCount();
+
+
+    addToCart.textContent =
+      "Added to cart";
+
+
+    setTimeout(() => {
+
+      addToCart.textContent =
+        "Add to cart";
+
+    },1500);
+
+  }
+);
+
+
+/* =====================================================
+   CART COUNT
+===================================================== */
+
+function updateCartCount(){
+
+  let cart = [];
+
+
+  try{
+
+    cart =
+      JSON.parse(
+        localStorage.getItem(
+          "novair_cart"
+        )
+      ) || [];
+
+  }catch{
+
+    cart = [];
 
   }
 
-  alert(
-    "Cart functionality will be connected with the Novair product system."
-  );
 
-});
+  document.getElementById(
+    "cartCount"
+  ).textContent =
+    cart.length;
 
+}
+
+
+/* =====================================================
+   ERROR
+===================================================== */
+
+function showError(message){
+
+  productName.textContent =
+    "Product unavailable";
+
+  productPrice.textContent =
+    "₹ —";
+
+  productDescription.textContent =
+    message;
+
+  productCategory.textContent =
+    "NOVAIR / SHOP";
+
+
+  productGallery.innerHTML = `
+
+    <div class="gallery-image">
+
+      <div class="gallery-placeholder">
+        Product unavailable
+      </div>
+
+    </div>
+
+  `;
+
+
+  sizeGrid.innerHTML = "";
+
+  addToCart.disabled =
+    true;
+
+}
+/* =====================================================
+   SECURITY HELPERS
+===================================================== */
+
+function escapeHTML(value){
+
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+function escapeAttribute(value){
+
+  return escapeHTML(value);
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+updateCartCount();
+
+loadProduct();
 
 </script>
 
 </body>
 </html>
+
