@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Contact — NOVAIR</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:#f3f0e9;
+  color:#171714;
+  font-family:"DM Sans",sans-serif;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+button,
+input,
+textarea{
+  font:inherit;
+}
+
+.container{
+  width:min(1400px,calc(100% - 48px));
+  margin:auto;
+}
+
+/* HEADER */
+
+header{
+  border-bottom:1px solid rgba(23,23,20,.12);
+}
+
+.nav{
+  height:82px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.logo{
+  font-size:24px;
+  font-weight:600;
+  letter-spacing:.22em;
+}
+
+.nav-links{
+  display:flex;
+  gap:36px;
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+}
+
+.nav-links a{
+  position:relative;
+}
+
+.nav-links a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-7px;
+  width:0;
+  height:1px;
+  background:#171714;
+  transition:.3s;
+}
+
+.nav-links a:hover::after{
+  width:100%;
+}
+
+.nav-right{
+  display:flex;
+  gap:15px;
+  align-items:center;
+}
+
+.nav-icon{
+  width:36px;
+  height:36px;
+  border:1px solid rgba(23,23,20,.15);
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+}
+
+.menu{
+  display:none;
+  width:36px;
+  height:36px;
+  border:1px solid rgba(23,23,20,.15);
+  border-radius:50%;
+  background:none;
+}
+
+/* HERO */
+
+.hero{
+  padding:120px 0 100px;
+  border-bottom:1px solid rgba(23,23,20,.12);
+}
+
+.eyebrow{
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.22em;
+  opacity:.55;
+  margin-bottom:30px;
+}
+
+.hero h1{
+  font-family:"Playfair Display",serif;
+  font-weight:400;
+  font-size:clamp(70px,12vw,170px);
+  line-height:.84;
+  letter-spacing:-.06em;
+}
+
+.hero h1 em{
+  font-style:italic;
+}
+
+.hero-intro{
+  max-width:520px;
+  margin-top:50px;
+  font-size:15px;
+  line-height:1.85;
+  color:#626057;
+}
+
+/* CONTACT AREA */
+
+.contact-area{
+  display:grid;
+  grid-template-columns:1fr 1.15fr;
+  gap:100px;
+  padding:130px 0 160px;
+}
+
+.contact-info h2{
+  font-family:"Playfair Display",serif;
+  font-weight:400;
+  font-size:clamp(42px,5vw,70px);
+  line-height:.95;
+  letter-spacing:-.045em;
+}
+
+.contact-info h2 em{
+  font-style:italic;
+}
+
+.info-text{
+  margin-top:35px;
+  max-width:430px;
+  color:#68655e;
+  font-size:14px;
+  line-height:1.8;
+}
+
+.contact-details{
+  margin-top:65px;
+  border-top:1px solid rgba(23,23,20,.18);
+}
+
+.detail{
+  padding:23px 0;
+  border-bottom:1px solid rgba(23,23,20,.14);
+}
+
+.detail-label{
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.2em;
+  opacity:.5;
+  margin-bottom:8px;
+}
+
+.detail a,
+.detail span{
+  font-size:14px;
+}
+
+.detail a:hover{
+  text-decoration:underline;
+}
+
+/* FORM */
+
+.form-wrap{
+  border-top:1px solid #171714;
+}
+
+.form-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:25px;
+}
+
+.field{
+  padding:28px 0;
+  border-bottom:1px solid rgba(23,23,20,.18);
+}
+
+.field label{
+  display:block;
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.2em;
+  opacity:.55;
+  margin-bottom:13px;
+}
+
+.field input,
+.field textarea{
+  width:100%;
+  border:0;
+  outline:0;
+  background:transparent;
+  color:#171714;
+  font-size:15px;
+}
+
+.field input{
+  height:35px;
+}
+
+.field textarea{
+  min-height:150px;
+  resize:vertical;
+  line-height:1.7;
+}
+
+.field input::placeholder,
+.field textarea::placeholder{
+  color:#99958b;
+}
+
+.submit-row{
+  padding-top:35px;
+  display:flex;
+  justify-content:flex-end;
+}
+
+.submit{
+  border:0;
+  background:#171714;
+  color:#f3f0e9;
+  min-width:190px;
+  height:55px;
+  padding:0 30px;
+  cursor:pointer;
+  text-transform:uppercase;
+  letter-spacing:.15em;
+  font-size:10px;
+  transition:.3s;
+}
+
+.submit:hover{
+  background:#33322e;
+  transform:translateY(-2px);
+}
+
+/* MESSAGE */
+
+.form-message{
+  margin-top:20px;
+  font-size:12px;
+  line-height:1.6;
+  display:none;
+}
+
+.form-message.success{
+  display:block;
+  color:#3e6046;
+}
+
+.form-message.error{
+  display:block;
+  color:#8b4039;
+}
+
+/* FOOTER */
+
+footer{
+  background:#171714;
+  color:#f3f0e9;
+  padding:70px 0 35px;
+}
+
+.footer-top{
+  display:grid;
+  grid-template-columns:1.5fr 1fr 1fr 1fr;
+  gap:50px;
+  padding-bottom:80px;
+}
+
+.footer-brand{
+  font-size:27px;
+  letter-spacing:.2em;
+}
+
+.footer-description{
+  margin-top:25px;
+  max-width:300px;
+  font-size:13px;
+  line-height:1.8;
+  color:#99968e;
+}
+
+.footer-column h4{
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.18em;
+  color:#77746d;
+  margin-bottom:22px;
+}
+
+.footer-column a{
+  display:block;
+  font-size:13px;
+  margin-bottom:13px;
+  color:#d2cfc7;
+}
+
+.footer-column a:hover{
+  color:#fff;
+}
+
+.footer-bottom{
+  border-top:1px solid rgba(243,240,233,.14);
+  padding-top:25px;
+  display:flex;
+  justify-content:space-between;
+  color:#77746d;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+  .container{
+    width:min(100% - 32px,1400px);
+  }
+
+  .nav{
+    height:70px;
+  }
+
+  .nav-links{
+    display:none;
+  }
+
+  .menu{
+    display:block;
+  }
+
+  .hero{
+    padding:85px 0 75px;
+  }
+
+  .hero h1{
+    font-size:clamp(65px,18vw,110px);
+  }
+
+  .contact-area{
+    grid-template-columns:1fr;
+    gap:80px;
+    padding:90px 0 110px;
+  }
+
+  .contact-details{
+    margin-top:45px;
+  }
+
+  .form-row{
+    grid-template-columns:1fr;
+    gap:0;
+  }
+
+  .submit-row{
+    justify-content:flex-start;
+  }
+
+  .footer-top{
+    grid-template-columns:1fr 1fr;
+    gap:50px 25px;
+  }
+
+  .footer-brand{
+    grid-column:1/-1;
+  }
+
+  .footer-bottom{
+    display:block;
+  }
+
+  .footer-bottom span{
+    display:block;
+    margin-bottom:10px;
+  }
+}
+
+@media(max-width:520px){
+
+  .footer-top{
+    grid-template-columns:1fr;
+  }
+
+  .footer-brand{
+    grid-column:auto;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+
+  <div class="container nav">
+
+    <a href="index.html" class="logo">NOVAIR</a>
+
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <div class="nav-right">
+
+      <a href="shop.html" class="nav-icon">↗</a>
+
+      <button class="menu" onclick="toggleMenu()">☰</button>
+
+    </div>
+
+  </div>
+
+</header>
+
+
+<main>
+
+  <!-- HERO -->
+
+  <section class="container hero">
+
+    <div class="eyebrow">
+      Get in touch
+    </div>
+
+    <h1>
+      Let's<br>
+      <em>talk.</em>
+    </h1>
+
+    <p class="hero-intro">
+      Questions about an order, a product, or NOVAIR in general?
+      Send us a message and we'll get back to you.
+    </p>
+
+  </section>
+
+
+  <!-- CONTACT -->
+
+  <section class="container contact-area">
+
+    <!-- INFO -->
+
+    <div class="contact-info">
+
+      <h2>
+        We're here<br>
+        when you <em>need us.</em>
+      </h2>
+
+      <p class="info-text">
+        Whether you're looking for help with an order
+        or simply want to say hello, we'd love to hear from you.
+      </p>
+
+      <div class="contact-details">
+
+        <div class="detail">
+
+          <div class="detail-label">
+            Email
+          </div>
+
+          <a href="mailto:hello@novair.com">
+            hello@novair.com
+          </a>
+
+        </div>
+
+
+        <div class="detail">
+
+          <div class="detail-label">
+            Customer support
+          </div>
+
+          <span>
+            Monday — Friday · 10:00 — 18:00
+          </span>
+
+        </div>
+
+
+        <div class="detail">
+
+          <div class="detail-label">
+            Social
+          </div>
+
+          <a href="#" onclick="return false;">
+            Instagram ↗
+          </a>
+
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- FORM -->
+
+    <div>
+
+      <form class="form-wrap" id="contactForm">
+
+        <div class="form-row">
+
+          <div class="field">
+
+            <label for="name">
+              Name
+            </label>
+
+            <input
+              type="text"
+              id="name"
+              name="name"
+              placeholder="Your name"
+              required
+            >
+
+          </div>
+
+
+          <div class="field">
+
+            <label for="email">
+              Email
+            </label>
+
+            <input
+              type="email"
+              id="email"
+              name="email"
+              placeholder="you@example.com"
+              required
+            >
+
+          </div>
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="subject">
+            Subject
+          </label>
+
+          <input
+            type="text"
+            id="subject"
+            name="subject"
+            placeholder="What can we help with?"
+            required
+          >
+
+        </div>
+
+
+        <div class="field">
+
+          <label for="message">
+            Message
+          </label>
+
+          <textarea
+            id="message"
+            name="message"
+            placeholder="Write your message..."
+            required
+          ></textarea>
+
+        </div>
+
+
+        <div class="submit-row">
+
+          <button type="submit" class="submit">
+            Send Message
+          </button>
+
+        </div>
+
+        <div id="formMessage" class="form-message"></div>
+
+      </form>
+
+    </div>
+
+  </section>
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+  <div class="container">
+
+    <div class="footer-top">
+
+      <div>
+
+        <div class="footer-brand">
+          NOVAIR
+        </div>
+
+        <p class="footer-description">
+          Contemporary clothing designed with intention,
+          restraint and a sense of permanence.
+        </p>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <h4>Explore</h4>
+
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <h4>Collection</h4>
+
+        <a href="shop.html">New Arrivals</a>
+        <a href="shop.html">Tops</a>
+        <a href="shop.html">Bottoms</a>
+        <a href="shop.html">Outerwear</a>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <h4>Follow</h4>
+
+        <a href="#" onclick="return false;">Instagram</a>
+        <a href="#" onclick="return false;">Pinterest</a>
+        <a href="#" onclick="return false;">Newsletter</a>
+
+      </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+      <span>© 2026 NOVAIR</span>
+
+      <span>Designed with intention</span>
+
+    </div>
+
+  </div>
+
+</footer>
+
+
+<script>
+
+function toggleMenu(){
+
+  const links = document.querySelector(".nav-links");
+
+  if(links.style.display === "flex"){
+
+    links.style.display = "none";
+
+  }else{
+
+    links.style.display = "flex";
+    links.style.position = "absolute";
+    links.style.top = "70px";
+    links.style.left = "0";
+    links.style.right = "0";
+    links.style.background = "#f3f0e9";
+    links.style.padding = "25px 20px";
+    links.style.flexDirection = "column";
+    links.style.alignItems = "flex-start";
+    links.style.gap = "22px";
+    links.style.borderBottom = "1px solid rgba(23,23,20,.12)";
+    links.style.zIndex = "20";
+
+  }
+
+}
+
+
+/* TEMPORARY FORM BEHAVIOUR
+   Supabase connection will be added later.
+*/
+
+document.getElementById("contactForm").addEventListener("submit",function(e){
+
+  e.preventDefault();
+
+  const message = document.getElementById("formMessage");
+
+  message.className = "form-message success";
+  message.textContent =
+    "Thanks — your message has been received. We'll be in touch soon.";
+
+  this.reset();
+
+});
+
+</script>
+
+</body>
+</html>
