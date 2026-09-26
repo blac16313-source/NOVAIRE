@@ -1,0 +1,974 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>About — NOVAIR</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+<style>
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:#f3f0e9;
+  color:#171714;
+  font-family:"DM Sans",sans-serif;
+  line-height:1.5;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+button{
+  font:inherit;
+}
+
+.container{
+  width:min(1400px,calc(100% - 48px));
+  margin:auto;
+}
+
+/* HEADER */
+
+header{
+  position:relative;
+  z-index:10;
+  background:#f3f0e9;
+  border-bottom:1px solid rgba(23,23,20,.12);
+}
+
+.nav{
+  height:82px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.logo{
+  font-size:24px;
+  letter-spacing:.22em;
+  font-weight:600;
+}
+
+.nav-links{
+  display:flex;
+  align-items:center;
+  gap:36px;
+  font-size:12px;
+  text-transform:uppercase;
+  letter-spacing:.14em;
+}
+
+.nav-links a{
+  position:relative;
+}
+
+.nav-links a::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-7px;
+  width:0;
+  height:1px;
+  background:#171714;
+  transition:.3s ease;
+}
+
+.nav-links a:hover::after{
+  width:100%;
+}
+
+.nav-right{
+  display:flex;
+  align-items:center;
+  gap:18px;
+}
+
+.nav-icon{
+  width:36px;
+  height:36px;
+  border:1px solid rgba(23,23,20,.15);
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  font-size:14px;
+  transition:.3s ease;
+}
+
+.nav-icon:hover{
+  background:#171714;
+  color:#f3f0e9;
+}
+
+.menu{
+  display:none;
+}
+
+/* HERO */
+
+.hero{
+  min-height:72vh;
+  display:grid;
+  grid-template-columns:1.05fr .95fr;
+  border-bottom:1px solid rgba(23,23,20,.12);
+}
+
+.hero-copy{
+  padding:110px 8% 100px 0;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+
+.eyebrow{
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.22em;
+  margin-bottom:30px;
+  opacity:.65;
+}
+
+.hero h1{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(64px,9vw,145px);
+  line-height:.86;
+  font-weight:400;
+  letter-spacing:-.055em;
+  max-width:800px;
+}
+
+.hero h1 em{
+  font-style:italic;
+}
+
+.hero-text{
+  max-width:480px;
+  margin-top:45px;
+  font-size:15px;
+  line-height:1.8;
+  color:#55534c;
+}
+
+.hero-visual{
+  min-height:650px;
+  background:
+    linear-gradient(145deg,rgba(0,0,0,.03),rgba(0,0,0,.18)),
+    radial-gradient(circle at 50% 35%,#ded9cf 0,#b8b1a5 35%,#6e6a63 100%);
+  position:relative;
+  overflow:hidden;
+}
+
+.hero-visual::before{
+  content:"N";
+  position:absolute;
+  font-family:"Playfair Display",serif;
+  font-size:55vw;
+  line-height:.7;
+  color:rgba(255,255,255,.08);
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-48%);
+}
+
+.visual-caption{
+  position:absolute;
+  left:32px;
+  bottom:30px;
+  color:#f5f3ed;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.18em;
+}
+
+/* INTRO */
+
+.intro{
+  padding:150px 0;
+  display:grid;
+  grid-template-columns:.8fr 1.2fr;
+  gap:100px;
+}
+
+.intro-label{
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.2em;
+  opacity:.55;
+}
+
+.intro h2{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(42px,5vw,76px);
+  line-height:1;
+  font-weight:400;
+  letter-spacing:-.04em;
+  max-width:850px;
+}
+
+.intro h2 em{
+  font-style:italic;
+}
+
+.intro-body{
+  margin-top:48px;
+  max-width:620px;
+  font-size:16px;
+  line-height:1.9;
+  color:#55534c;
+}
+
+/* IMAGE STRIP */
+
+.image-section{
+  width:min(1500px,calc(100% - 48px));
+  margin:auto;
+  height:650px;
+  display:grid;
+  grid-template-columns:1fr 1.35fr 1fr;
+  gap:12px;
+}
+
+.image-box{
+  position:relative;
+  overflow:hidden;
+  background:#d7d2c9;
+}
+
+.image-box:nth-child(1){
+  background:
+    linear-gradient(180deg,rgba(0,0,0,.03),rgba(0,0,0,.12)),
+    linear-gradient(135deg,#bdb8ae,#77736c);
+}
+
+.image-box:nth-child(2){
+  background:
+    linear-gradient(180deg,rgba(0,0,0,.02),rgba(0,0,0,.22)),
+    linear-gradient(145deg,#d6d0c5,#8c877e);
+}
+
+.image-box:nth-child(3){
+  background:
+    linear-gradient(180deg,rgba(0,0,0,.04),rgba(0,0,0,.2)),
+    linear-gradient(135deg,#a49f96,#5e5b55);
+}
+
+.image-box::after{
+  content:"NOVAIR";
+  position:absolute;
+  left:22px;
+  bottom:22px;
+  color:rgba(255,255,255,.7);
+  font-size:9px;
+  letter-spacing:.2em;
+}
+
+/* VALUES */
+
+.values{
+  padding:170px 0;
+}
+
+.values-header{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  margin-bottom:80px;
+}
+
+.values-header h2{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(50px,7vw,100px);
+  font-weight:400;
+  line-height:.9;
+  letter-spacing:-.05em;
+}
+
+.values-header p{
+  max-width:300px;
+  font-size:13px;
+  line-height:1.7;
+  color:#66635c;
+}
+
+.value-grid{
+  border-top:1px solid rgba(23,23,20,.2);
+}
+
+.value{
+  display:grid;
+  grid-template-columns:100px 1fr 1fr;
+  gap:40px;
+  padding:38px 0;
+  border-bottom:1px solid rgba(23,23,20,.16);
+  align-items:start;
+}
+
+.value-number{
+  font-family:"Playfair Display",serif;
+  font-size:28px;
+}
+
+.value h3{
+  font-size:18px;
+  font-weight:500;
+}
+
+.value p{
+  color:#68655e;
+  font-size:14px;
+  line-height:1.8;
+  max-width:480px;
+}
+
+/* STATEMENT */
+
+.statement{
+  background:#171714;
+  color:#f3f0e9;
+  padding:180px 0;
+}
+
+.statement-inner{
+  max-width:1100px;
+}
+
+.statement-label{
+  font-size:10px;
+  letter-spacing:.2em;
+  text-transform:uppercase;
+  opacity:.5;
+  margin-bottom:50px;
+}
+
+.statement h2{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(50px,7vw,110px);
+  font-weight:400;
+  line-height:.92;
+  letter-spacing:-.055em;
+}
+
+.statement h2 em{
+  font-style:italic;
+}
+
+.statement p{
+  margin-top:55px;
+  max-width:580px;
+  font-size:15px;
+  line-height:1.9;
+  color:#aaa79e;
+}
+
+/* CTA */
+
+.cta{
+  padding:150px 0;
+  text-align:center;
+}
+
+.cta-label{
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.2em;
+  opacity:.55;
+  margin-bottom:25px;
+}
+
+.cta h2{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(50px,8vw,115px);
+  line-height:.9;
+  font-weight:400;
+  letter-spacing:-.05em;
+}
+
+.cta h2 em{
+  font-style:italic;
+}
+
+.cta-button{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  margin-top:50px;
+  min-width:190px;
+  height:56px;
+  padding:0 30px;
+  background:#171714;
+  color:#f3f0e9;
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.15em;
+  transition:.3s ease;
+}
+
+.cta-button:hover{
+  transform:translateY(-3px);
+  background:#302f2b;
+}
+
+/* FOOTER */
+
+footer{
+  background:#171714;
+  color:#f3f0e9;
+  padding:70px 0 35px;
+}
+
+.footer-top{
+  display:grid;
+  grid-template-columns:1.5fr 1fr 1fr 1fr;
+  gap:50px;
+  padding-bottom:80px;
+}
+
+.footer-brand{
+  font-size:27px;
+  letter-spacing:.2em;
+}
+
+.footer-description{
+  margin-top:25px;
+  max-width:300px;
+  font-size:13px;
+  line-height:1.8;
+  color:#99968e;
+}
+
+.footer-column h4{
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.18em;
+  color:#77746d;
+  margin-bottom:22px;
+}
+
+.footer-column a{
+  display:block;
+  font-size:13px;
+  margin-bottom:13px;
+  color:#d2cfc7;
+  transition:.2s;
+}
+
+.footer-column a:hover{
+  color:#fff;
+}
+
+.footer-bottom{
+  border-top:1px solid rgba(243,240,233,.14);
+  padding-top:25px;
+  display:flex;
+  justify-content:space-between;
+  color:#77746d;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+}
+
+/* MOBILE */
+
+@media(max-width:900px){
+
+  .container{
+    width:min(100% - 32px,1400px);
+  }
+
+  .nav{
+    height:70px;
+  }
+
+  .nav-links{
+    display:none;
+  }
+
+  .menu{
+    display:block;
+    width:36px;
+    height:36px;
+    border:1px solid rgba(23,23,20,.15);
+    border-radius:50%;
+    background:none;
+    cursor:pointer;
+  }
+
+  .hero{
+    display:block;
+    min-height:0;
+  }
+
+  .hero-copy{
+    padding:80px 0 70px;
+  }
+
+  .hero h1{
+    font-size:clamp(62px,18vw,110px);
+  }
+
+  .hero-text{
+    margin-top:35px;
+  }
+
+  .hero-visual{
+    min-height:500px;
+  }
+
+  .intro{
+    display:block;
+    padding:100px 0;
+  }
+
+  .intro-label{
+    margin-bottom:45px;
+  }
+
+  .intro h2{
+    font-size:clamp(42px,11vw,70px);
+  }
+
+  .intro-body{
+    margin-top:35px;
+  }
+
+  .image-section{
+    width:calc(100% - 32px);
+    height:auto;
+    grid-template-columns:1fr;
+  }
+
+  .image-box{
+    height:430px;
+  }
+
+  .image-box:nth-child(2){
+    height:540px;
+  }
+
+  .values{
+    padding:110px 0;
+  }
+
+  .values-header{
+    display:block;
+    margin-bottom:55px;
+  }
+
+  .values-header p{
+    margin-top:30px;
+  }
+
+  .value{
+    grid-template-columns:55px 1fr;
+    gap:20px;
+  }
+
+  .value p{
+    grid-column:2;
+    margin-top:-5px;
+  }
+
+  .statement{
+    padding:110px 0;
+  }
+
+  .statement h2{
+    font-size:clamp(48px,12vw,85px);
+  }
+
+  .cta{
+    padding:110px 0;
+  }
+
+  .cta h2{
+    font-size:clamp(52px,14vw,90px);
+  }
+
+  .footer-top{
+    grid-template-columns:1fr 1fr;
+    gap:50px 25px;
+  }
+
+  .footer-brand{
+    grid-column:1/-1;
+  }
+
+  .footer-bottom{
+    display:block;
+  }
+
+  .footer-bottom span{
+    display:block;
+    margin-bottom:10px;
+  }
+}
+
+@media(max-width:520px){
+
+  .hero-visual{
+    min-height:420px;
+  }
+
+  .image-box{
+    height:350px;
+  }
+
+  .image-box:nth-child(2){
+    height:440px;
+  }
+
+  .footer-top{
+    grid-template-columns:1fr;
+  }
+
+  .footer-brand{
+    grid-column:auto;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="container nav">
+
+    <a href="index.html" class="logo">NOVAIR</a>
+
+    <nav class="nav-links">
+      <a href="index.html">Home</a>
+      <a href="shop.html">Shop</a>
+      <a href="about.html">About</a>
+      <a href="contact.html">Contact</a>
+    </nav>
+
+    <div class="nav-right">
+      <a href="shop.html" class="nav-icon">↗</a>
+      <button class="menu" onclick="toggleMenu()">☰</button>
+    </div>
+
+  </div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+
+  <section class="hero container">
+
+    <div class="hero-copy">
+
+      <div class="eyebrow">The world of Novair</div>
+
+      <h1>
+        Made for<br>
+        the <em>now.</em>
+      </h1>
+
+      <p class="hero-text">
+        NOVAIR is an independent fashion label built around a simple idea:
+        clothing should feel considered, effortless and unmistakably yours.
+      </p>
+
+    </div>
+
+    <div class="hero-visual">
+      <div class="visual-caption">
+        NOVAIR — EST. 2026
+      </div>
+    </div>
+
+  </section>
+
+
+  <!-- INTRO -->
+
+  <section class="container intro">
+
+    <div class="intro-label">
+      Our philosophy
+    </div>
+
+    <div>
+
+      <h2>
+        Less noise.<br>
+        More <em>meaning.</em>
+      </h2>
+
+      <p class="intro-body">
+        We believe the best pieces do not need to shout.
+        NOVAIR focuses on thoughtful silhouettes, refined materials
+        and details that reveal themselves over time.
+        Every collection is designed to live beyond a season —
+        becoming part of the way you move through the world.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- VISUAL STRIP -->
+
+  <section class="image-section">
+
+    <div class="image-box"></div>
+
+    <div class="image-box"></div>
+
+    <div class="image-box"></div>
+
+  </section>
+
+
+  <!-- VALUES -->
+
+  <section class="container values">
+
+    <div class="values-header">
+
+      <h2>
+        What<br>
+        we <em>value.</em>
+      </h2>
+
+      <p>
+        The principles behind every NOVAIR collection,
+        from the first sketch to the final stitch.
+      </p>
+
+    </div>
+
+    <div class="value-grid">
+
+      <div class="value">
+
+        <div class="value-number">01</div>
+
+        <h3>Intentional design</h3>
+
+        <p>
+          Every element has a reason to exist.
+          We remove what does not add value and
+          keep what makes the piece feel right.
+        </p>
+
+      </div>
+
+
+      <div class="value">
+
+        <div class="value-number">02</div>
+
+        <h3>Quiet confidence</h3>
+
+        <p>
+          We are interested in clothing that feels
+          distinctive without relying on noise,
+          logos or passing trends.
+        </p>
+
+      </div>
+
+
+      <div class="value">
+
+        <div class="value-number">03</div>
+
+        <h3>Built to stay</h3>
+
+        <p>
+          Our approach is rooted in longevity.
+          Pieces should work today, tomorrow and
+          long after the season changes.
+        </p>
+
+      </div>
+
+
+      <div class="value">
+
+        <div class="value-number">04</div>
+
+        <h3>Individual expression</h3>
+
+        <p>
+          NOVAIR creates the foundation.
+          How you wear it, combine it and make
+          it your own is entirely up to you.
+        </p>
+
+      </div>
+
+    </div>
+
+  </section>
+
+
+  <!-- STATEMENT -->
+
+  <section class="statement">
+
+    <div class="container statement-inner">
+
+      <div class="statement-label">
+        A note from NOVAIR
+      </div>
+
+      <h2>
+        Style isn't about<br>
+        being <em>seen.</em><br>
+        It's about being <em>felt.</em>
+      </h2>
+
+      <p>
+        We want NOVAIR to become part of your everyday language —
+        something familiar, personal and quietly expressive.
+        Not another thing competing for attention,
+        but something that earns its place.
+      </p>
+
+    </div>
+
+  </section>
+
+
+  <!-- CTA -->
+
+  <section class="container cta">
+
+    <div class="cta-label">
+      Discover the collection
+    </div>
+
+    <h2>
+      Find your<br>
+      <em>next piece.</em>
+    </h2>
+
+    <a href="shop.html" class="cta-button">
+      Explore Shop
+    </a>
+
+  </section>
+
+</main>
+
+
+<!-- FOOTER -->
+
+<footer>
+
+  <div class="container">
+
+    <div class="footer-top">
+
+      <div>
+
+        <div class="footer-brand">
+          NOVAIR
+        </div>
+
+        <p class="footer-description">
+          Contemporary clothing designed with intention,
+          restraint and a sense of permanence.
+        </p>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <h4>Explore</h4>
+
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="about.html">About</a>
+        <a href="contact.html">Contact</a>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <h4>Collection</h4>
+
+        <a href="shop.html">New Arrivals</a>
+        <a href="shop.html">Tops</a>
+        <a href="shop.html">Bottoms</a>
+        <a href="shop.html">Outerwear</a>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <h4>Follow</h4>
+
+        <a href="#" onclick="return false;">Instagram</a>
+        <a href="#" onclick="return false;">Pinterest</a>
+        <a href="#" onclick="return false;">Newsletter</a>
+
+      </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+      <span>© 2026 NOVAIR</span>
+
+      <span>Designed with intention</span>
+
+    </div>
+
+  </div>
+
+</footer>
+
+
+<script>
+
+function toggleMenu(){
+
+  const links = document.querySelector(".nav-links");
+
+  if(links.style.display === "flex"){
+    links.style.display = "none";
+  }else{
+
+    links.style.display = "flex";
+
+    links.style.position = "absolute";
+    links.style.top = "70px";
+    links.style.left = "0";
+    links.style.right = "0";
+    links.style.background = "#f3f0e9";
+    links.style.padding = "25px 20px";
+    links.style.flexDirection = "column";
+    links.style.alignItems = "flex-start";
+    links.style.gap = "22px";
+    links.style.borderBottom = "1px solid rgba(23,23,20,.12)";
+  }
+
+}
+
+</script>
+
+</body>
+</html>
