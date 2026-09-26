@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Products — NOVAIR</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+body{
+  background:#f3f0e9;
+  color:#171714;
+  font-family:"DM Sans",sans-serif;
+}
+
+button,
+input,
+textarea,
+select{
+  font:inherit;
+}
+
+button{
+  cursor:pointer;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+/* =========================
+   LAYOUT
+========================= */
+
+.page{
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:250px 1fr;
+}
+
+
+/* =========================
+   SIDEBAR
+========================= */
+
+.sidebar{
+  background:#171714;
+  color:#f3f0e9;
+  min-height:100vh;
+  padding:30px 22px;
+  position:sticky;
+  top:0;
+  height:100vh;
+}
+
+.brand{
+  font-size:22px;
+  font-weight:600;
+  letter-spacing:.2em;
+  padding:10px 8px 55px;
+}
+
+.brand span{
+  display:block;
+  font-size:9px;
+  letter-spacing:.18em;
+  color:#85827b;
+  margin-top:9px;
+  font-weight:400;
+}
+
+.sidebar-label{
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.18em;
+  color:#6f6c65;
+  padding:0 10px;
+  margin-bottom:12px;
+}
+
+.side-nav{
+  display:flex;
+  flex-direction:column;
+  gap:4px;
+}
+
+.side-nav button,
+.side-nav a{
+  border:0;
+  background:transparent;
+  color:#aaa79f;
+  text-align:left;
+  width:100%;
+  padding:13px 10px;
+  font-size:12px;
+  border-radius:4px;
+  transition:.2s;
+}
+
+.side-nav button:hover,
+.side-nav a:hover,
+.side-nav .active{
+  background:#292824;
+  color:#f3f0e9;
+}
+
+.sidebar-bottom{
+  position:absolute;
+  left:22px;
+  right:22px;
+  bottom:25px;
+}
+
+.store-status{
+  border-top:1px solid rgba(243,240,233,.12);
+  padding:20px 10px 0;
+}
+
+.status-label{
+  color:#6f6c65;
+  font-size:8px;
+  letter-spacing:.18em;
+  text-transform:uppercase;
+}
+
+.status{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  margin-top:8px;
+  font-size:11px;
+}
+
+.status-dot{
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#7c997e;
+}
+
+
+/* =========================
+   MAIN
+========================= */
+
+.main{
+  min-width:0;
+}
+
+.topbar{
+  height:80px;
+  padding:0 45px;
+  border-bottom:1px solid rgba(23,23,20,.12);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+}
+
+.page-title{
+  font-family:"Playfair Display",serif;
+  font-size:28px;
+  font-weight:400;
+}
+
+.top-actions{
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+
+.view-site{
+  border:1px solid rgba(23,23,20,.2);
+  background:transparent;
+  padding:10px 16px;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.13em;
+}
+
+.view-site:hover{
+  background:#171714;
+  color:#f3f0e9;
+}
+
+.avatar{
+  width:38px;
+  height:38px;
+  border-radius:50%;
+  background:#d4cec1;
+  display:grid;
+  place-items:center;
+  font-size:11px;
+}
+
+
+/* =========================
+   CONTENT
+========================= */
+
+.content{
+  padding:45px;
+}
+
+.page-intro{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  margin-bottom:35px;
+}
+
+.intro-copy p{
+  margin-top:8px;
+  color:#77736a;
+  font-size:13px;
+}
+
+.add-button{
+  border:0;
+  background:#171714;
+  color:#f3f0e9;
+  height:48px;
+  padding:0 23px;
+  text-transform:uppercase;
+  letter-spacing:.13em;
+  font-size:10px;
+  transition:.25s;
+}
+
+.add-button:hover{
+  background:#35332e;
+  transform:translateY(-2px);
+}
+
+
+/* =========================
+   STATS
+========================= */
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:14px;
+  margin-bottom:35px;
+}
+
+.stat{
+  background:#fffdf8;
+  border:1px solid rgba(23,23,20,.09);
+  padding:25px;
+}
+
+.stat-label{
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  color:#817d74;
+}
+
+.stat-number{
+  font-family:"Playfair Display",serif;
+  font-size:42px;
+  margin-top:13px;
+}
+
+
+/* =========================
+   TABLE
+========================= */
+
+.products-box{
+  background:#fffdf8;
+  border:1px solid rgba(23,23,20,.09);
+}
+
+.products-head{
+  padding:22px 25px;
+  border-bottom:1px solid rgba(23,23,20,.1);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+
+.products-head h2{
+  font-size:13px;
+  font-weight:500;
+}
+
+.search{
+  border:1px solid rgba(23,23,20,.15);
+  background:transparent;
+  height:38px;
+  width:230px;
+  padding:0 12px;
+  outline:none;
+  font-size:12px;
+}
+
+.search:focus{
+  border-color:#171714;
+}
+
+.table{
+  width:100%;
+  border-collapse:collapse;
+}
+
+.table th{
+  text-align:left;
+  padding:15px 25px;
+  font-size:8px;
+  text-transform:uppercase;
+  letter-spacing:.15em;
+  color:#817d74;
+  border-bottom:1px solid rgba(23,23,20,.1);
+}
+
+.table td{
+  padding:17px 25px;
+  border-bottom:1px solid rgba(23,23,20,.08);
+  font-size:12px;
+}
+
+.table tbody tr:hover{
+  background:#f8f5ee;
+}
+
+.product-name{
+  font-weight:500;
+}
+
+.product-id{
+  color:#8b877e;
+  font-size:10px;
+  margin-top:4px;
+}
+
+.price{
+  font-family:"Playfair Display",serif;
+  font-size:17px;
+}
+
+.category{
+  color:#77736a;
+}
+
+.badge{
+  display:inline-flex;
+  padding:5px 9px;
+  border:1px solid rgba(23,23,20,.13);
+  font-size:8px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+}
+
+.actions{
+  display:flex;
+  gap:7px;
+}
+
+.action{
+  border:1px solid rgba(23,23,20,.15);
+  background:transparent;
+  padding:7px 10px;
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.1em;
+}
+
+.action:hover{
+  background:#171714;
+  color:#fff;
+}
+
+.empty{
+  text-align:center;
+  padding:90px 25px;
+  color:#77736a;
+}
+
+.empty-title{
+  font-family:"Playfair Display",serif;
+  font-size:34px;
+  color:#171714;
+  margin-bottom:10px;
+}
+
+
+/* =========================
+   MODAL
+========================= */
+
+.modal-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(23,23,20,.65);
+  display:none;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  z-index:100;
+}
+
+.modal-overlay.show{
+  display:flex;
+}
+
+.modal{
+  width:min(650px,100%);
+  max-height:90vh;
+  overflow:auto;
+  background:#f3f0e9;
+  padding:35px;
+}
+
+.modal-head{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:30px;
+}
+
+.modal-title{
+  font-family:"Playfair Display",serif;
+  font-size:30px;
+  font-weight:400;
+}
+
+.close{
+  border:1px solid rgba(23,23,20,.15);
+  background:transparent;
+  width:35px;
+  height:35px;
+  border-radius:50%;
+}
+
+.close:hover{
+  background:#171714;
+  color:#fff;
+}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+.form-field{
+  margin-bottom:22px;
+}
+
+.form-field.full{
+  grid-column:1/-1;
+}
+
+.form-field label{
+  display:block;
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  color:#77736a;
+  margin-bottom:9px;
+}
+
+.form-field input,
+.form-field textarea,
+.form-field select{
+  width:100%;
+  border:1px solid rgba(23,23,20,.17);
+  background:#fffdf8;
+  padding:12px;
+  outline:none;
+  color:#171714;
+}
+
+.form-field textarea{
+  min-height:120px;
+  resize:vertical;
+}
+
+.form-field input:focus,
+.form-field textarea:focus,
+.form-field select:focus{
+  border-color:#171714;
+}
+
+.modal-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:10px;
+  border-top:1px solid rgba(23,23,20,.12);
+  padding-top:22px;
+  margin-top:8px;
+}
+
+.cancel{
+  border:1px solid rgba(23,23,20,.18);
+  background:transparent;
+  padding:12px 18px;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+}
+
+.save{
+  border:0;
+  background:#171714;
+  color:#f3f0e9;
+  padding:12px 20px;
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+}
+
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:900px){
+
+  .page{
+    display:block;
+  }
+
+  .sidebar{
+    min-height:auto;
+    height:auto;
+    position:relative;
+    padding:20px;
+  }
+
+  .brand{
+    padding:5px 0 20px;
+  }
+
+  .side-nav{
+    flex-direction:row;
+    overflow-x:auto;
+  }
+
+  .side-nav button,
+  .side-nav a{
+    width:auto;
+    white-space:nowrap;
+  }
+
+  .sidebar-bottom{
+    display:none;
+  }
+
+  .topbar{
+    padding:0 20px;
+  }
+
+  .content{
+    padding:25px 20px;
+  }
+
+  .stats{
+    grid-template-columns:1fr;
+  }
+
+  .page-intro{
+    align-items:flex-start;
+    gap:20px;
+    flex-direction:column;
+  }
+
+  .products-head{
+    align-items:flex-start;
+    gap:15px;
+    flex-direction:column;
+  }
+
+  .search{
+    width:100%;
+  }
+
+  .products-box{
+    overflow-x:auto;
+  }
+
+  .table{
+    min-width:700px;
+  }
+
+  .form-grid{
+    grid-template-columns:1fr;
+  }
+
+  .form-field.full{
+    grid-column:auto;
+  }
+
+}
+
+@media(max-width:500px){
+
+  .topbar{
+    height:70px;
+  }
+
+  .page-title{
+    font-size:23px;
+  }
+
+  .view-site{
+    display:none;
+  }
+
+  .content{
+    padding:20px 15px;
+  }
+
+  .modal{
+    padding:25px 20px;
+  }
+
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="page">
+
+  <!-- SIDEBAR -->
+
+  <aside class="sidebar">
+
+    <div class="brand">
+      NOVAIR
+      <span>Store management</span>
+    </div>
+
+    <div class="sidebar-label">
+      Workspace
+    </div>
+
+    <nav class="side-nav">
+
+      <a href="index.html">
+        Storefront
+      </a>
+
+      <button class="active">
+        Products
+      </button>
+
+      <a href="shop.html">
+        Shop preview
+      </a>
+
+      <a href="about.html">
+        About page
+      </a>
+
+      <a href="contact.html">
+        Messages
+      </a>
+
+    </nav>
+
+    <div class="sidebar-bottom">
+
+      <div class="store-status">
+
+        <div class="status-label">
+          Store
+        </div>
+
+        <div class="status">
+          <span class="status-dot"></span>
+          NOVAIR / NOVAIR
+        </div>
+
+      </div>
+
+    </div>
+
+  </aside>
+
+
+  <!-- MAIN -->
+
+  <main class="main">
+
+    <header class="topbar">
+
+      <div class="page-title">
+        Products
+      </div>
+
+      <div class="top-actions">
+
+        <a href="index.html" class="view-site">
+          View Store
+        </a>
+
+        <div class="avatar">
+          JK
+        </div>
+
+      </div>
+
+    </header>
+
+
+    <section class="content">
+
+      <div class="page-intro">
+
+        <div class="intro-copy">
+
+          <h1>
+            Product management
+          </h1>
+
+          <p>
+            Add, edit and manage the NOVAIR collection.
+          </p>
+
+        </div>
+
+        <button class="add-button" onclick="openAddProduct()">
+          + Add Product
+        </button>
+
+      </div>
+
+
+      <!-- STATS -->
+
+      <div class="stats">
+
+        <div class="stat">
+
+          <div class="stat-label">
+            Total products
+          </div>
+
+          <div class="stat-number" id="totalProducts">
+            0
+          </div>
+
+        </div>
+
+
+        <div class="stat">
+
+          <div class="stat-label">
+            Categories
+          </div>
+
+          <div class="stat-number" id="totalCategories">
+            0
+          </div>
+
+        </div>
+
+
+        <div class="stat">
+
+          <div class="stat-label">
+            Store
+          </div>
+
+          <div class="stat-number">
+            N
+          </div>
+
+        </div>
+
+      </div>
+
+
+      <!-- PRODUCTS -->
+
+      <div class="products-box">
+
+        <div class="products-head">
+
+          <h2>
+            All products
+          </h2>
+
+          <input
+            type="search"
+            class="search"
+            id="searchInput"
+            placeholder="Search products..."
+          >
+
+        </div>
+
+
+        <table class="table">
+
+          <thead>
+
+            <tr>
+
+              <th>Product</th>
+              <th>Price</th>
+              <th>Category</th>
+              <th>Status</th>
+              <th>Actions</th>
+
+            </tr>
+
+          </thead>
+
+          <tbody id="productsTable">
+
+            <tr>
+
+              <td colspan="5">
+
+                <div class="empty">
+
+                  <div class="empty-title">
+                    No products yet
+                  </div>
+
+                  <p>
+                    Your NOVAIR collection will appear here.
+                  </p>
+
+                </div>
+
+              </td>
+
+            </tr>
+
+          </tbody>
+
+        </table>
+
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+
+<!-- ADD / EDIT MODAL -->
+
+<div class="modal-overlay" id="productModal">
+
+  <div class="modal">
+
+    <div class="modal-head">
+
+      <div class="modal-title" id="modalTitle">
+        Add product
+      </div>
+
+      <button class="close" onclick="closeModal()">
+        ×
+      </button>
+
+    </div>
+
+
+    <form id="productForm">
+
+      <div class="form-grid">
+
+        <div class="form-field full">
+
+          <label for="productName">
+            Product name
+          </label>
+
+          <input
+            id="productName"
+            type="text"
+            placeholder="Example: Essential Overshirt"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label for="productPrice">
+            Price
+          </label>
+
+          <input
+            id="productPrice"
+            type="number"
+            min="0"
+            step="0.01"
+            placeholder="2999"
+            required
+          >
+
+        </div>
+
+
+        <div class="form-field">
+
+          <label for="productCategory">
+            Category
+          </label>
+
+          <select id="productCategory" required>
+
+            <option value="">
+              Select category
+            </option>
+
+            <option value="Tops">
+              Tops
+            </option>
+
+            <option value="Bottoms">
+              Bottoms
+            </option>
+
+            <option value="Outerwear">
+              Outerwear
+            </option>
+
+            <option value="New">
+              New
+            </option>
+
+          </select>
+
+        </div>
+
+
+        <div class="form-field full">
+
+          <label for="productDescription">
+            Description
+          </label>
+
+          <textarea
+            id="productDescription"
+            placeholder="Describe the product..."
+          ></textarea>
+
+        </div>
+
+
+        <div class="form-field full">
+
+          <label for="productImage">
+            Image URL
+          </label>
+
+          <input
+            id="productImage"
+            type="url"
+            placeholder="https://..."
+          >
+
+        </div>
+
+
+        <div class="form-field full">
+
+          <label for="productSizes">
+            Sizes
+          </label>
+
+          <input
+            id="productSizes"
+            type="text"
+            placeholder="S, M, L, XL"
+          >
+
+        </div>
+
+      </div>
+
+
+      <div class="modal-actions">
+
+        <button
+          type="button"
+          class="cancel"
+          onclick="closeModal()"
+        >
+          Cancel
+        </button>
+
+        <button
+          type="submit"
+          class="save"
+        >
+          Save Product
+        </button>
+
+      </div>
+
+    </form>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/*
+  NOVAIR PRODUCT MANAGEMENT
+
+  Current version:
+  - UI ready
+  - Add-product modal ready
+  - Local browser testing only
+
+  Supabase database connection will be added
+  after authentication is connected.
+*/
+
+
+let products = [];
+
+let editingIndex = null;
+
+
+/* OPEN ADD */
+
+function openAddProduct(){
+
+  editingIndex = null;
+
+  document.getElementById("modalTitle").textContent =
+    "Add product";
+
+  document.getElementById("productForm").reset();
+
+  document
+    .getElementById("productModal")
+    .classList.add("show");
+
+}
+
+
+/* CLOSE */
+
+function closeModal(){
+
+  document
+    .getElementById("productModal")
+    .classList.remove("show");
+
+}
+
+
+/* SAVE */
+
+document
+  .getElementById("productForm")
+  .addEventListener("submit",function(e){
+
+    e.preventDefault();
+
+    const product = {
+
+      name:
+        document.getElementById("productName").value.trim(),
+
+      price:
+        Number(document.getElementById("productPrice").value),
+
+      category:
+        document.getElementById("productCategory").value,
+
+      description:
+        document.getElementById("productDescription").value.trim(),
+
+      image:
+        document.getElementById("productImage").value.trim(),
+
+      sizes:
+        document.getElementById("productSizes").value.trim()
+
+    };
+
+
+    if(editingIndex === null){
+
+      products.push(product);
+
+    }else{
+
+      products[editingIndex] = product;
+
+    }
+
+
+    renderProducts();
+
+    closeModal();
+
+  });
+
+
+/* RENDER */
+
+function renderProducts(){
+
+  const table =
+    document.getElementById("productsTable");
+
+  const search =
+    document
+      .getElementById("searchInput")
+      .value
+      .toLowerCase()
+      .trim();
+
+
+  const filtered =
+    products.filter(product =>
+      product.name.toLowerCase().includes(search) ||
+      product.category.toLowerCase().includes(search)
+    );
+
+
+  document.getElementById("totalProducts").textContent =
+    products.length;
+
+
+  const categories =
+    new Set(
+      products.map(product => product.category)
+    );
+
+  document.getElementById("totalCategories").textContent =
+    categories.size;
+
+
+  if(filtered.length === 0){
+
+    table.innerHTML = `
+
+      <tr>
+
+        <td colspan="5">
+
+          <div class="empty">
+
+            <div class="empty-title">
+              ${products.length === 0
+                ? "No products yet"
+                : "No results"}
+            </div>
+
+            <p>
+              ${products.length === 0
+                ? "Your NOVAIR collection will appear here."
+                : "Try another search."}
+            </p>
+
+          </div>
+
+        </td>
+
+      </tr>
+
+    `;
+
+    return;
+
+  }
+
+
+  table.innerHTML = filtered.map((product,index) => `
+
+    <tr>
+
+      <td>
+
+        <div class="product-name">
+          ${escapeHTML(product.name)}
+        </div>
+
+        <div class="product-id">
+          NOVAIR-${String(index + 1).padStart(3,"0")}
+        </div>
+
+      </td>
+
+
+      <td>
+
+        <div class="price">
+          ₹${Number(product.price).toLocaleString("en-IN")}
+        </div>
+
+      </td>
+
+
+      <td>
+
+        <span class="category">
+          ${escapeHTML(product.category)}
+        </span>
+
+      </td>
+
+
+      <td>
+
+        <span class="badge">
+          Active
+        </span>
+
+      </td>
+
+
+      <td>
+
+        <div class="actions">
+
+          <button
+            class="action"
+            onclick="editProduct(${index})"
+          >
+            Edit
+          </button>
+
+          <button
+            class="action"
+            onclick="deleteProduct(${index})"
+          >
+            Delete
+          </button>
+
+        </div>
+
+      </td>
+
+    </tr>
+
+  `).join("");
+
+}
+
+
+/* EDIT */
+
+function editProduct(index){
+
+  const product = products[index];
+
+  editingIndex = index;
+
+  document.getElementById("modalTitle").textContent =
+    "Edit product";
+
+  document.getElementById("productName").value =
+    product.name;
+
+  document.getElementById("productPrice").value =
+    product.price;
+
+  document.getElementById("productCategory").value =
+    product.category;
+
+  document.getElementById("productDescription").value =
+    product.description;
+
+  document.getElementById("productImage").value =
+    product.image;
+
+  document.getElementById("productSizes").value =
+    product.sizes;
+
+  document
+    .getElementById("productModal")
+    .classList.add("show");
+
+}
+
+
+/* DELETE */
+
+function deleteProduct(index){
+
+  const product = products[index];
+
+  const confirmed =
+    confirm(
+      `Delete "${product.name}"?`
+    );
+
+  if(!confirmed) return;
+
+  products.splice(index,1);
+
+  renderProducts();
+
+}
+
+
+/* SEARCH */
+
+document
+  .getElementById("searchInput")
+  .addEventListener("input",renderProducts);
+
+
+/* ESCAPE HTML */
+
+function escapeHTML(value){
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+
+}
+
+
+/* CLOSE MODAL WHEN CLICKING OUTSIDE */
+
+document
+  .getElementById("productModal")
+  .addEventListener("click",function(e){
+
+    if(e.target === this){      closeModal();
+    }
+
+  });
+
+
+</script>
+
+</body>
+</html>
+ 
