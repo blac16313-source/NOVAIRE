@@ -10,7 +10,10 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
 
@@ -271,6 +274,22 @@ select{
   background:#dedad1;
 }
 
+.product-image img{
+  width:100%;
+  height:100%;
+
+  display:block;
+
+  object-fit:cover;
+
+  transition:
+    transform .7s cubic-bezier(.2,.7,.2,1);
+}
+
+.product-card:hover .product-image img{
+  transform:scale(1.035);
+}
+
 .product-placeholder{
   width:100%;
   height:100%;
@@ -285,7 +304,8 @@ select{
   letter-spacing:.16em;
   text-transform:uppercase;
 
-  transition:transform .7s cubic-bezier(.2,.7,.2,1);
+  transition:
+    transform .7s cubic-bezier(.2,.7,.2,1);
 }
 
 .product-card:hover .product-placeholder{
@@ -322,6 +342,8 @@ select{
   display:flex;
   justify-content:space-between;
 
+  gap:12px;
+
   margin-top:6px;
 
   color:#77736b;
@@ -329,12 +351,18 @@ select{
   font-size:12px;
 }
 
+.product-category{
+  text-transform:capitalize;
+}
+
 
 /* =====================================================
-   LOADING
+   LOADING / EMPTY / ERROR
 ===================================================== */
 
-.loading{
+.loading,
+.empty-state,
+.error-state{
   grid-column:1/-1;
 
   min-height:300px;
@@ -342,12 +370,33 @@ select{
   display:flex;
   align-items:center;
   justify-content:center;
+  flex-direction:column;
+
+  text-align:center;
 
   color:#77736b;
 
   font-size:11px;
   text-transform:uppercase;
   letter-spacing:.15em;
+}
+
+.empty-state p,
+.error-state p{
+  margin-top:10px;
+
+  max-width:350px;
+
+  font-size:11px;
+
+  line-height:1.7;
+
+  text-transform:none;
+  letter-spacing:0;
+}
+
+.error-state{
+  color:#8a4b42;
 }
 
 
@@ -798,163 +847,441 @@ const SUPABASE_URL =
   "https://sjtykmeactnxwwywdjcr.supabase.co";
 
 const SUPABASE_KEY =
-  "YOUR_SUPABASE_PUBLISHABLE_KEY";
+  "sb_publishable_fB56OtJ845eqt7lIAwU-VA_VgM2ZqJW";
 
 const STORE_ID =
   "novair";
 
 
-/*
-  Supabase product loading will be connected
-  after the page structure is confirmed.
-
-  The product system will eventually:
-  - Load Novair products
-  - Filter by category
-  - Search products
-  - Sort by price/name
-  - Open individual product pages
-*/
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
 
 
 const productGrid =
   document.getElementById("productGrid");
 
+const searchInput =
+  document.getElementById("searchInput");
 
-productGrid.innerHTML = `
+const sortSelect =
+  document.getElementById("sortSelect");
 
-  <article class="product-card">
+const filterButtons =
+  document.querySelectorAll(".filter");
 
-    <div class="product-image">
 
+let products = [];
+
+let activeCategory =
+  "all";
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHtml(value){
+
+  if(value === null || value === undefined){
+    return "";
+  }
+
+  return String(value)
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+
+/* =====================================================
+   LOAD PRODUCTS
+===================================================== */
+
+async function loadProducts(){
+
+  productGrid.innerHTML = `
+    <div class="loading">
+      Loading collection...
+    </div>
+  `;
+
+  const { data, error } =
+    await supabaseClient
+      .from("products")
+      .select("*")
+      .eq("store_id", STORE_ID)
+      .order("created_at", {
+        ascending:false
+      });
+
+
+  if(error){
+
+    console.error(
+      "Supabase product error:",
+      error
+    );
+
+    productGrid.innerHTML = `
+      <div class="error-state">
+        Unable to load collection.
+        <p>
+          Please try refreshing the page.
+        </p>
+      </div>
+    `;
+
+    return;
+  }
+
+
+  products =
+    data || [];
+
+
+  renderProducts();
+
+}
+
+
+/* =====================================================
+   RENDER PRODUCTS
+===================================================== */
+
+function renderProducts(){
+
+  let filtered =
+    [...products];
+
+
+  /* CATEGORY */
+
+  if(activeCategory !== "all"){
+
+    filtered =
+      filtered.filter(product => {
+
+        const category =
+          String(
+            product.category || ""
+          ).toLowerCase();
+
+        return category ===
+          activeCategory.toLowerCase();
+
+      });
+
+  }
+
+
+  /* SEARCH */
+
+  const search =
+    searchInput.value
+      .trim()
+      .toLowerCase();
+
+
+  if(search){
+
+    filtered =
+      filtered.filter(product => {
+
+        const name =
+          String(
+            product.name || ""
+          ).toLowerCase();
+
+        const category =
+          String(
+            product.category || ""
+          ).toLowerCase();
+
+        const description =
+          String(
+            product.description || ""
+          ).toLowerCase();
+
+        return (
+          name.includes(search) ||
+          category.includes(search) ||
+          description.includes(search)
+        );
+
+      });
+
+  }
+
+
+  /* SORT */
+
+  const sort =
+    sortSelect.value;
+
+
+  if(sort === "price-low"){
+
+    filtered.sort(
+      (a,b) =>
+        Number(a.price || 0) -
+        Number(b.price || 0)
+    );
+
+  }
+
+
+  if(sort === "price-high"){
+
+    filtered.sort(
+      (a,b) =>
+        Number(b.price || 0) -
+        Number(a.price || 0)
+    );
+
+  }
+
+
+  if(sort === "name"){
+
+    filtered.sort(
+      (a,b) =>
+        String(a.name || "")
+          .localeCompare(
+            String(b.name || "")
+          )
+    );
+
+  }
+
+
+  /* EMPTY */
+
+  if(filtered.length === 0){
+
+    if(products.length === 0){
+
+      productGrid.innerHTML = `
+        <div class="empty-state">
+          No products yet.
+          <p>
+            Products added through the Novair product manager
+            will appear here.
+          </p>
+        </div>
+      `;
+
+    }else{
+
+      productGrid.innerHTML = `
+        <div class="empty-state">
+          No products found.
+          <p>
+            Try another search or category.
+          </p>
+        </div>
+      `;
+
+    }
+
+    return;
+
+  }
+
+
+  /* PRODUCTS */
+
+  productGrid.innerHTML =
+    filtered.map(
+      product =>
+        createProductCard(product)
+    ).join("");
+
+}
+
+
+/* =====================================================
+   PRODUCT CARD
+===================================================== */
+
+function createProductCard(product){
+
+  const id =
+    escapeHtml(product.id);
+
+  const name =
+    escapeHtml(product.name);
+
+  const category =
+    escapeHtml(
+      product.category || "Novair"
+    );
+
+  const price =
+    Number(product.price || 0);
+
+  const imageUrl =
+    product.image_url
+      ? escapeHtml(product.image_url)
+      : "";
+
+
+  let imageHTML = "";
+
+
+  if(imageUrl){
+
+    imageHTML = `
+      <img
+        src="${imageUrl}"
+        alt="${name}"
+        loading="lazy"
+      >
+    `;
+
+  }else{
+
+    imageHTML = `
       <div class="product-placeholder">
-        Novair / 01
+        NOVAIR
       </div>
+    `;
 
-    </div>
-
-    <div class="product-info">
-
-      <div class="product-name">
-        Products coming soon
-      </div>
-
-      <div class="product-meta">
-
-        <span>
-          Novair
-        </span>
-
-        <span>
-          —
-        </span>
-
-      </div>
-
-    </div>
-
-  </article>
+  }
 
 
-  <article class="product-card">
+  return `
 
-    <div class="product-image">
+    <article
+      class="product-card"
+      data-product-id="${id}"
+      onclick="openProduct('${id}')"
+    >
 
-      <div class="product-placeholder">
-        Novair / 02
-      </div>
+      <div class="product-image">
 
-    </div>
-
-    <div class="product-info">
-
-      <div class="product-name">
-        Products coming soon
-      </div>
-
-      <div class="product-meta">
-
-        <span>
-          Novair
-        </span>
-
-        <span>
-          —
-        </span>
+        ${imageHTML}
 
       </div>
 
-    </div>
 
-  </article>
+      <div class="product-info">
+
+        <div class="product-name">
+          ${name}
+        </div>
 
 
-  <article class="product-card">
+        <div class="product-meta">
 
-    <div class="product-image">
+          <span class="product-category">
+            ${category}
+          </span>
 
-      <div class="product-placeholder">
-        Novair / 03
-      </div>
+          <span>
+            ₹${price.toLocaleString("en-IN")}
+          </span>
 
-    </div>
-
-    <div class="product-info">
-
-      <div class="product-name">
-        Products coming soon
-      </div>
-
-      <div class="product-meta">
-
-        <span>
-          Novair
-        </span>
-
-        <span>
-          —
-        </span>
+        </div>
 
       </div>
 
-    </div>
+    </article>
 
-  </article>
+  `;
+
+}
 
 
-  <article class="product-card">
+/* =====================================================
+   OPEN PRODUCT
+===================================================== */
 
-    <div class="product-image">
+function openProduct(id){
 
-      <div class="product-placeholder">
-        Novair / 04
-      </div>
+  if(!id){
+    return;
+  }
 
-    </div>
+  window.location.href =
+    `product.html?id=${encodeURIComponent(id)}`;
 
-    <div class="product-info">
+}
 
-      <div class="product-name">
-        Products coming soon
-      </div>
 
-      <div class="product-meta">
+/* =====================================================
+   CATEGORY FILTERS
+===================================================== */
 
-        <span>
-          Novair
-        </span>
+filterButtons.forEach(button => {
 
-        <span>
-          —
-        </span>
+  button.addEventListener(
+    "click",
+    function(){
 
-      </div>
+      filterButtons.forEach(
+        item =>
+          item.classList.remove(
+            "active"
+          )
+      );
 
-    </div>
 
-  </article>
+      this.classList.add(
+        "active"
+      );
 
-`;
+
+      activeCategory =
+        this.dataset.category ||
+        "all";
+
+
+      renderProducts();
+
+    }
+  );
+
+});
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+searchInput.addEventListener(
+  "input",
+  function(){
+
+    renderProducts();
+
+  }
+);
+
+
+/* =====================================================
+   SORT
+===================================================== */
+
+sortSelect.addEventListener(
+  "change",
+  function(){
+
+    renderProducts();
+
+  }
+);
+
+
+/* =====================================================
+   START
+===================================================== */
+
+loadProducts();
 
 </script>
 
