@@ -10,11 +10,15 @@
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
 <style>
+
 /* =========================================================
-   NOVAIR — PREMIUM FASHION HOMEPAGE
+   NOVAIR — PREMIUM HOMEPAGE
 ========================================================= */
 
 *{
@@ -28,7 +32,7 @@ html{
 }
 
 body{
-  background:#f4f1eb;
+  background:#f3f0e9;
   color:#171714;
   font-family:"DM Sans",sans-serif;
   line-height:1.5;
@@ -82,11 +86,16 @@ button{
   font-size:13px;
   letter-spacing:.04em;
   opacity:.88;
+
   transition:opacity .25s ease;
 }
 
 .nav a:hover,
 .header-right a:hover{
+  opacity:1;
+}
+
+.nav a.active{
   opacity:1;
 }
 
@@ -103,8 +112,8 @@ button{
 
   min-width:19px;
   height:19px;
-  padding:0 5px;
 
+  padding:0 5px;
   margin-left:4px;
 
   border:1px solid rgba(255,255,255,.5);
@@ -120,6 +129,7 @@ button{
 
 .hero{
   min-height:100svh;
+
   position:relative;
 
   display:flex;
@@ -128,38 +138,61 @@ button{
   color:#fff;
 
   background:
-    linear-gradient(
-      180deg,
-      rgba(0,0,0,.35) 0%,
-      rgba(0,0,0,.05) 40%,
-      rgba(0,0,0,.60) 100%
+    radial-gradient(
+      circle at 74% 24%,
+      rgba(180,193,174,.42),
+      transparent 25%
+    ),
+    radial-gradient(
+      circle at 15% 80%,
+      rgba(102,82,75,.28),
+      transparent 32%
     ),
     linear-gradient(
-      110deg,
-      #262521 0%,
-      #59564d 45%,
-      #1b1b19 100%
+      115deg,
+      #1d2925 0%,
+      #39463f 38%,
+      #67675c 68%,
+      #282a26 100%
     );
 
   overflow:hidden;
 }
 
-/*
-  Replace this background later with Novair's
-  actual campaign image.
-*/
-
 .hero::before{
   content:"";
+
   position:absolute;
   inset:0;
 
   background:
-    radial-gradient(
-      circle at 72% 30%,
-      rgba(255,255,255,.12),
-      transparent 28%
+    linear-gradient(
+      180deg,
+      rgba(0,0,0,.34) 0%,
+      rgba(0,0,0,.02) 42%,
+      rgba(0,0,0,.64) 100%
     );
+
+  pointer-events:none;
+}
+
+.hero::after{
+  content:"";
+
+  position:absolute;
+
+  width:520px;
+  height:520px;
+
+  right:-190px;
+  top:18%;
+
+  border:1px solid rgba(255,255,255,.14);
+  border-radius:50%;
+
+  box-shadow:
+    0 0 0 90px rgba(255,255,255,.025),
+    0 0 0 180px rgba(255,255,255,.018);
 
   pointer-events:none;
 }
@@ -169,23 +202,35 @@ button{
   z-index:2;
 
   width:min(900px,90%);
-  padding:0 0 9vh 5vw;
+
+  padding:
+    0
+    0
+    9vh
+    5vw;
 }
 
 .eyebrow{
   font-size:10px;
+
   letter-spacing:.22em;
   text-transform:uppercase;
+
   font-weight:600;
+
   margin-bottom:20px;
+
   opacity:.72;
 }
 
 .hero h1{
   font-size:clamp(58px,9vw,132px);
+
   line-height:.88;
   letter-spacing:-.055em;
+
   font-weight:500;
+
   max-width:900px;
 }
 
@@ -196,10 +241,12 @@ button{
 
 .hero-text{
   max-width:430px;
+
   margin-top:30px;
 
   font-size:15px;
   line-height:1.7;
+
   opacity:.78;
 }
 
@@ -212,7 +259,7 @@ button{
 
   padding:15px 24px;
 
-  background:#f4f1eb;
+  background:#e9eee3;
   color:#171714;
 
   font-size:12px;
@@ -237,8 +284,9 @@ button{
 .marquee{
   overflow:hidden;
   white-space:nowrap;
-  background:#171714;
-  color:#f4f1eb;
+
+  background:#202923;
+  color:#e8ede3;
 }
 
 .marquee-track{
@@ -254,6 +302,7 @@ button{
   font-size:10px;
   letter-spacing:.2em;
   text-transform:uppercase;
+
   margin:0 28px;
 }
 
@@ -262,12 +311,15 @@ button{
 }
 
 @keyframes marquee{
+
   from{
     transform:translateX(0);
   }
+
   to{
     transform:translateX(-50%);
   }
+
 }
 
 
@@ -289,16 +341,21 @@ button{
 
 .section-label{
   font-size:10px;
+
   text-transform:uppercase;
   letter-spacing:.2em;
-  opacity:.5;
+
+  color:#77736b;
+
   margin-bottom:14px;
 }
 
 .section h2{
   font-size:clamp(42px,6vw,76px);
+
   line-height:.95;
   letter-spacing:-.05em;
+
   font-weight:500;
 }
 
@@ -309,8 +366,16 @@ button{
 
 .text-link{
   font-size:12px;
+
   border-bottom:1px solid rgba(23,23,20,.4);
+
   padding-bottom:5px;
+
+  transition:opacity .2s ease;
+}
+
+.text-link:hover{
+  opacity:.55;
 }
 
 
@@ -320,34 +385,65 @@ button{
 
 .product-grid{
   display:grid;
-  grid-template-columns:repeat(4,1fr);
+
+  grid-template-columns:
+    repeat(4,1fr);
+
   gap:18px;
 }
 
 .product-card{
   display:block;
+
+  cursor:pointer;
 }
 
 .product-image{
   position:relative;
+
   aspect-ratio:3/4;
+
   overflow:hidden;
 
-  background:#dedad1;
+  background:
+    linear-gradient(
+      145deg,
+      #e0ddd5,
+      #c7c7bb
+    );
+}
+
+.product-image img{
+  width:100%;
+  height:100%;
+
+  display:block;
+
+  object-fit:cover;
+
+  transition:
+    transform .7s cubic-bezier(.2,.7,.2,1);
 }
 
 .product-image::after{
   content:"";
+
   position:absolute;
   inset:0;
 
-  background:linear-gradient(
-    135deg,
-    rgba(255,255,255,.14),
-    transparent 45%
-  );
+  background:
+    linear-gradient(
+      135deg,
+      rgba(255,255,255,.15),
+      transparent 45%
+    );
 
   pointer-events:none;
+}
+
+.product-card:hover
+.product-image img{
+  transform:scale(1.035);
 }
 
 .product-placeholder{
@@ -359,7 +455,9 @@ button{
   justify-content:center;
 
   color:#99958c;
+
   font-size:11px;
+
   letter-spacing:.12em;
   text-transform:uppercase;
 }
@@ -380,15 +478,24 @@ button{
   margin-top:6px;
 
   font-size:12px;
-  opacity:.52;
+
+  color:#77736b;
 }
 
-.product-card:hover .product-placeholder{
-  transform:scale(1.025);
-}
+.product-empty{
+  grid-column:1/-1;
 
-.product-placeholder{
-  transition:transform .6s cubic-bezier(.2,.7,.2,1);
+  padding:80px 20px;
+
+  text-align:center;
+
+  background:#e9e6de;
+
+  color:#77736b;
+
+  font-size:12px;
+
+  letter-spacing:.08em;
 }
 
 
@@ -398,35 +505,62 @@ button{
 
 .story{
   display:grid;
-  grid-template-columns:1.05fr .95fr;
+
+  grid-template-columns:
+    1.05fr .95fr;
+
   min-height:720px;
 
-  background:#dedbd3;
+  background:#dfe3da;
 }
 
 .story-image{
   min-height:600px;
 
+  position:relative;
+
   background:
+    radial-gradient(
+      circle at 70% 25%,
+      rgba(204,211,193,.42),
+      transparent 28%
+    ),
     linear-gradient(
       145deg,
-      #9c978b,
-      #4b4942
+      #7c887c,
+      #3f4a43 55%,
+      #262d29
     );
+}
 
-  position:relative;
+.story-image::before{
+  content:"";
+
+  position:absolute;
+
+  width:300px;
+  height:300px;
+
+  right:10%;
+  top:15%;
+
+  border:1px solid rgba(255,255,255,.16);
+
+  border-radius:50%;
 }
 
 .story-image::after{
   content:"NOVAIR";
 
   position:absolute;
+
   left:35px;
   bottom:30px;
 
   color:rgba(255,255,255,.72);
 
   font-size:11px;
+
   letter-spacing:.25em;
 }
 
@@ -444,8 +578,10 @@ button{
 
 .story-content h2{
   font-size:clamp(45px,5.5vw,78px);
+
   line-height:.94;
   letter-spacing:-.055em;
+
   font-weight:500;
 }
 
@@ -461,7 +597,7 @@ button{
   font-size:14px;
   line-height:1.9;
 
-  color:#56534d;
+  color:#565f58;
 }
 
 .story-link{
@@ -471,7 +607,8 @@ button{
 
   font-size:12px;
 
-  border-bottom:1px solid #77736b;
+  border-bottom:1px solid #69736b;
+
   padding-bottom:5px;
 }
 
@@ -483,7 +620,7 @@ button{
 .statement{
   padding:150px 5vw;
 
-  background:#f4f1eb;
+  background:#f3f0e9;
 }
 
 .statement-inner{
@@ -492,14 +629,62 @@ button{
 
 .statement p{
   font-size:clamp(38px,6vw,82px);
+
   line-height:1.02;
   letter-spacing:-.055em;
+
   font-weight:500;
 }
 
 .statement p em{
   font-family:"Playfair Display",serif;
   font-weight:500;
+}
+
+
+/* =========================================================
+   COLOUR STRIP
+========================================================= */
+
+.palette-strip{
+  display:grid;
+
+  grid-template-columns:
+    1fr 1fr 1fr 1fr;
+
+  min-height:130px;
+}
+
+.palette-block{
+  display:flex;
+  align-items:flex-end;
+
+  padding:24px;
+
+  font-size:10px;
+
+  letter-spacing:.16em;
+  text-transform:uppercase;
+}
+
+.palette-cream{
+  background:#e8e2d7;
+  color:#38352f;
+}
+
+.palette-sage{
+  background:#9da99a;
+  color:#263129;
+}
+
+.palette-blue{
+  background:#7d8d95;
+  color:#f5f3ee;
+}
+
+.palette-wine{
+  background:#634d4c;
+  color:#f4f1eb;
 }
 
 
@@ -512,7 +697,14 @@ button{
 
   padding:150px 5vw;
 
-  background:#1a1a17;
+  background:
+    radial-gradient(
+      circle at 75% 25%,
+      rgba(127,145,132,.24),
+      transparent 28%
+    ),
+    #1b211d;
+
   color:#f4f1eb;
 
   overflow:hidden;
@@ -530,6 +722,7 @@ button{
   top:-180px;
 
   border:1px solid rgba(244,241,235,.13);
+
   border-radius:50%;
 }
 
@@ -545,6 +738,7 @@ button{
   top:-270px;
 
   border:1px solid rgba(244,241,235,.07);
+
   border-radius:50%;
 }
 
@@ -554,13 +748,15 @@ button{
 }
 
 .cta .section-label{
-  color:#f4f1eb;
+  color:#c8d0c6;
 }
 
 .cta h2{
   font-size:clamp(50px,8vw,110px);
+
   line-height:.9;
   letter-spacing:-.06em;
+
   font-weight:500;
 }
 
@@ -575,7 +771,7 @@ button{
 
   padding:16px 25px;
 
-  background:#f4f1eb;
+  background:#e9eee3;
   color:#171714;
 
   font-size:12px;
@@ -591,12 +787,15 @@ button{
   padding:60px 5vw 28px;
 
   background:#171714;
+
   color:#f4f1eb;
 }
 
 .footer-main{
   display:flex;
+
   justify-content:space-between;
+
   gap:50px;
 
   padding-bottom:90px;
@@ -604,6 +803,7 @@ button{
 
 .footer-brand h3{
   font-size:20px;
+
   letter-spacing:.18em;
 }
 
@@ -614,17 +814,20 @@ button{
 
   font-size:12px;
   line-height:1.7;
+
   opacity:.5;
 }
 
 .footer-links{
   display:flex;
+
   gap:70px;
 }
 
 .footer-column{
   display:flex;
   flex-direction:column;
+
   gap:12px;
 }
 
@@ -632,13 +835,16 @@ button{
   margin-bottom:8px;
 
   font-size:9px;
+
   text-transform:uppercase;
   letter-spacing:.18em;
+
   opacity:.4;
 }
 
 .footer-column a{
   font-size:12px;
+
   opacity:.7;
 
   transition:opacity .2s ease;
@@ -650,13 +856,16 @@ button{
 
 .footer-bottom{
   display:flex;
+
   justify-content:space-between;
 
   padding-top:22px;
 
-  border-top:1px solid rgba(244,241,235,.12);
+  border-top:
+    1px solid rgba(244,241,235,.12);
 
   font-size:10px;
+
   opacity:.4;
 }
 
@@ -680,11 +889,15 @@ button{
   }
 
   .hero-content{
-    padding:0 5vw 7vh;
+    padding:
+      0
+      5vw
+      7vh;
   }
 
   .hero h1{
-    font-size:clamp(58px,17vw,100px);
+    font-size:
+      clamp(58px,17vw,100px);
   }
 
   .hero-text{
@@ -707,6 +920,7 @@ button{
 
   .product-grid{
     grid-template-columns:repeat(2,1fr);
+
     gap:28px 12px;
   }
 
@@ -734,6 +948,14 @@ button{
     font-size:45px;
   }
 
+  .palette-strip{
+    grid-template-columns:1fr 1fr;
+  }
+
+  .palette-block{
+    min-height:110px;
+  }
+
   .cta{
     padding:100px 5vw;
   }
@@ -744,6 +966,7 @@ button{
 
   .footer-main{
     flex-direction:column;
+
     padding-bottom:65px;
   }
 
@@ -756,6 +979,7 @@ button{
     gap:8px;
   }
 }
+
 
 @media(max-width:480px){
 
@@ -777,6 +1001,7 @@ button{
 
   .section-top{
     flex-direction:column;
+
     margin-bottom:38px;
   }
 
@@ -800,6 +1025,12 @@ button{
     font-size:38px;
   }
 
+  .palette-block{
+    min-height:95px;
+    padding:17px;
+    font-size:9px;
+  }
+
   .cta h2{
     font-size:52px;
   }
@@ -808,6 +1039,7 @@ button{
     gap:35px;
   }
 }
+
 </style>
 </head>
 
@@ -826,10 +1058,23 @@ button{
   </a>
 
   <nav class="nav">
-    <a href="index.html">Home</a>
-    <a href="shop.html">Shop</a>
-    <a href="about.html">About</a>
-    <a href="contact.html">Contact</a>
+
+    <a href="index.html" class="active">
+      Home
+    </a>
+
+    <a href="shop.html">
+      Shop
+    </a>
+
+    <a href="about.html">
+      About
+    </a>
+
+    <a href="contact.html">
+      Contact
+    </a>
+
   </nav>
 
   <div class="header-right">
@@ -839,7 +1084,10 @@ button{
     </a>
 
     <a href="shop.html">
-      Cart <span class="cart-count" id="cartCount">0</span>
+      Cart
+      <span class="cart-count" id="cartCount">
+        0
+      </span>
     </a>
 
   </div>
@@ -848,10 +1096,15 @@ button{
 
 
 <!-- =====================================================
-     HERO
+     MAIN
 ===================================================== -->
 
 <main>
+
+
+<!-- =====================================================
+     HERO
+===================================================== -->
 
 <section class="hero">
 
@@ -871,7 +1124,10 @@ button{
       comfort and a quieter kind of confidence.
     </p>
 
-    <a href="shop.html" class="hero-button">
+    <a
+      href="shop.html"
+      class="hero-button"
+    >
       Explore collection
     </a>
 
@@ -890,15 +1146,19 @@ button{
 
     <span>Modern essentials</span>
     <span class="marquee-dot">✦</span>
+
     <span>Designed for everyday</span>
     <span class="marquee-dot">✦</span>
+
     <span>Novair collection 01</span>
     <span class="marquee-dot">✦</span>
 
     <span>Modern essentials</span>
     <span class="marquee-dot">✦</span>
+
     <span>Designed for everyday</span>
     <span class="marquee-dot">✦</span>
+
     <span>Novair collection 01</span>
     <span class="marquee-dot">✦</span>
 
@@ -928,115 +1188,24 @@ button{
 
     </div>
 
-    <a href="shop.html" class="text-link">
+    <a
+      href="shop.html"
+      class="text-link"
+    >
       View all →
     </a>
 
   </div>
 
 
-  <div id="featuredProducts" class="product-grid">
+  <div
+    id="featuredProducts"
+    class="product-grid"
+  >
 
-    <!--
-      Products will be loaded from Supabase here.
-      Until the product system is connected,
-      these are intentionally empty placeholders.
-    -->
-
-    <article class="product-card">
-
-      <div class="product-image">
-        <div class="product-placeholder">
-          Product 01
-        </div>
-      </div>
-
-      <div class="product-info">
-
-        <div class="product-name">
-          Coming soon
-        </div>
-
-        <div class="product-meta">
-          <span>Novair</span>
-          <span>—</span>
-        </div>
-
-      </div>
-
-    </article>
-
-
-    <article class="product-card">
-
-      <div class="product-image">
-        <div class="product-placeholder">
-          Product 02
-        </div>
-      </div>
-
-      <div class="product-info">
-
-        <div class="product-name">
-          Coming soon
-        </div>
-
-        <div class="product-meta">
-          <span>Novair</span>
-          <span>—</span>
-        </div>
-
-      </div>
-
-    </article>
-
-
-    <article class="product-card">
-
-      <div class="product-image">
-        <div class="product-placeholder">
-          Product 03
-        </div>
-      </div>
-
-      <div class="product-info">
-
-        <div class="product-name">
-          Coming soon
-        </div>
-
-        <div class="product-meta">
-          <span>Novair</span>
-          <span>—</span>
-        </div>
-
-      </div>
-
-    </article>
-
-
-    <article class="product-card">
-
-      <div class="product-image">
-        <div class="product-placeholder">
-          Product 04
-        </div>
-      </div>
-
-      <div class="product-info">
-
-        <div class="product-name">
-          Coming soon
-        </div>
-
-        <div class="product-meta">
-          <span>Novair</span>
-          <span>—</span>
-        </div>
-
-      </div>
-
-    </article>
+    <div class="product-empty">
+      Loading collection...
+    </div>
 
   </div>
 
@@ -1070,7 +1239,10 @@ button{
       designed to stay relevant beyond a season.
     </p>
 
-    <a href="about.html" class="story-link">
+    <a
+      href="about.html"
+      class="story-link"
+    >
       Discover our story →
     </a>
 
@@ -1098,6 +1270,31 @@ button{
 
 
 <!-- =====================================================
+     COLOUR PALETTE
+===================================================== -->
+
+<section class="palette-strip">
+
+  <div class="palette-block palette-cream">
+    Quiet essentials
+  </div>
+
+  <div class="palette-block palette-sage">
+    Soft structure
+  </div>
+
+  <div class="palette-block palette-blue">
+    Everyday movement
+  </div>
+
+  <div class="palette-block palette-wine">
+    Considered detail
+  </div>
+
+</section>
+
+
+<!-- =====================================================
      CTA
 ===================================================== -->
 
@@ -1114,13 +1311,17 @@ button{
       feels <em>right.</em>
     </h2>
 
-    <a href="shop.html" class="cta-button">
+    <a
+      href="shop.html"
+      class="cta-button"
+    >
       Shop Novair
     </a>
 
   </div>
 
 </section>
+
 
 </main>
 
@@ -1135,7 +1336,9 @@ button{
 
     <div class="footer-brand">
 
-      <h3>NOVAIR</h3>
+      <h3>
+        NOVAIR
+      </h3>
 
       <p>
         Modern essentials designed
@@ -1149,22 +1352,42 @@ button{
 
       <div class="footer-column">
 
-        <span>Explore</span>
+        <span>
+          Explore
+        </span>
 
-        <a href="shop.html">Shop</a>
-        <a href="about.html">About</a>
-        <a href="contact.html">Contact</a>
+        <a href="shop.html">
+          Shop
+        </a>
+
+        <a href="about.html">
+          About
+        </a>
+
+        <a href="contact.html">
+          Contact
+        </a>
 
       </div>
 
 
       <div class="footer-column">
 
-        <span>Information</span>
+        <span>
+          Information
+        </span>
 
-        <a href="#">Shipping</a>
-        <a href="#">Returns</a>
-        <a href="#">Privacy</a>
+        <a href="#">
+          Shipping
+        </a>
+
+        <a href="#">
+          Returns
+        </a>
+
+        <a href="#">
+          Privacy
+        </a>
 
       </div>
 
@@ -1189,7 +1412,7 @@ button{
 
 
 <!-- =====================================================
-     NOVAIR / SUPABASE
+     NOVAIR / SUPABASE PRODUCT SYSTEM
 ===================================================== -->
 
 <script>
@@ -1198,22 +1421,215 @@ const SUPABASE_URL =
   "https://sjtykmeactnxwwywdjcr.supabase.co";
 
 const SUPABASE_KEY =
-  "YOUR_SUPABASE_PUBLISHABLE_KEY";
+  "sb_publishable_fB56OtJ845eqt7lIAwU-VA_VgM2ZqJW";
 
 const STORE_ID =
   "novair";
 
 
-/*
-  Product loading will be connected after
-  the remaining Novair pages are created.
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
 
-  IMPORTANT:
-  Only the Supabase publishable key belongs here.
-  Never put the Supabase service_role/secret key
-  into frontend code.
-*/
 
+/* =====================================================
+   ELEMENTS
+===================================================== */
+const featuredProducts =
+  document.getElementById(
+    "featuredProducts"
+  );
+
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+  );
+
+
+/* =====================================================
+   FEATURED PRODUCTS
+===================================================== */
+
+async function loadFeaturedProducts(){
+
+  featuredProducts.innerHTML = `
+    <div class="featured-loading">
+      Loading products...
+    </div>
+  `;
+
+  const { data, error } =
+    await supabaseClient
+      .from("products")
+      .select("*")
+      .eq("store_id", STORE_ID)
+      .order("created_at", {
+        ascending: false
+      })
+      .limit(4);
+
+
+  if(error){
+
+    console.error(
+      "Featured products error:",
+      error
+    );
+
+    featuredProducts.innerHTML = `
+      <div class="featured-loading">
+        Products unavailable.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  if(!data || data.length === 0){
+
+    featuredProducts.innerHTML = `
+      <div class="featured-loading">
+        New collection coming soon.
+      </div>
+    `;
+
+    return;
+  }
+
+
+  featuredProducts.innerHTML =
+    data.map(product => {
+
+      const image =
+        product.image_url ||
+        "https://via.placeholder.com/800x1000?text=NOVAIR";
+
+
+      return `
+
+        <a
+          href="product.html?id=${encodeURIComponent(product.id)}"
+          class="product-card"
+        >
+
+          <div class="product-image">
+
+            <img
+              src="${escapeAttribute(image)}"
+              alt="${escapeAttribute(product.name)}"
+              loading="lazy"
+            >
+
+          </div>
+
+
+          <div class="product-info">
+
+            <div>
+
+              <span class="product-category">
+                ${escapeHTML(
+                  product.category || "NOVAIR"
+                )}
+              </span>
+
+              <h3>
+                ${escapeHTML(product.name)}
+              </h3>
+
+            </div>
+
+            <span class="product-price">
+              ₹${Number(product.price).toLocaleString("en-IN")}
+            </span>
+
+          </div>
+
+        </a>
+
+      `;
+
+    }).join("");
+
+}
+
+
+/* =====================================================
+   CART COUNT
+===================================================== */
+
+function updateCartCount(){
+
+  const cartCount =
+    document.getElementById(
+      "cartCount"
+    );
+
+  if(!cartCount) return;
+
+
+  let cart = [];
+
+  try{
+
+    cart =
+      JSON.parse(
+        localStorage.getItem(
+          "novair_cart"
+        )
+      ) || [];
+
+  }catch(error){
+
+    cart = [];
+
+  }
+
+
+  cartCount.textContent =
+    cart.reduce(
+      (total, item) =>
+        total + (item.quantity || 1),
+      0
+    );
+
+}
+
+
+/* =====================================================
+   SECURITY HELPERS
+===================================================== */
+
+function escapeHTML(value){
+
+  return String(value ?? "")
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+function escapeAttribute(value){
+
+  return escapeHTML(value);
+
+}
+
+
+/* =====================================================
+   START
+===================================================== */
+
+loadFeaturedProducts();
+
+updateCartCount();
 
 </script>
 
