@@ -1,14 +1,20 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0"
+>
 
 <title>Product Management — NOVAIR</title>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
+
 *{
   box-sizing:border-box;
   margin:0;
@@ -20,6 +26,7 @@ body{
   background:#f3f0ea;
   color:#111;
 }
+
 
 /* =========================
    LOGIN
@@ -93,6 +100,11 @@ body{
   background:#292929;
 }
 
+.login-btn:disabled{
+  opacity:.6;
+  cursor:not-allowed;
+}
+
 .login-error{
   display:none;
   margin-bottom:18px;
@@ -102,6 +114,7 @@ body{
   color:#b00020;
   font-size:13px;
 }
+
 
 /* =========================
    APP
@@ -175,6 +188,7 @@ body{
   border-color:#555;
 }
 
+
 /* =========================
    MAIN
 ========================= */
@@ -209,6 +223,7 @@ body{
   letter-spacing:1px;
 }
 
+
 /* =========================
    STATS
 ========================= */
@@ -239,6 +254,7 @@ body{
   font-family:Georgia,serif;
   font-size:30px;
 }
+
 
 /* =========================
    PRODUCTS
@@ -351,6 +367,13 @@ td{
   color:#888;
 }
 
+.loading{
+  text-align:center;
+  padding:40px;
+  color:#777;
+}
+
+
 /* =========================
    MODAL
 ========================= */
@@ -424,16 +447,43 @@ td{
   outline:none;
 }
 
-.form-group textarea{
-  min-height:100px;
-  resize:vertical;
-}
-
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus{
   border-color:#111;
 }
+
+.form-group textarea{
+  min-height:100px;
+  resize:vertical;
+}
+
+
+/* IMAGE UPLOAD */
+
+.image-upload{
+  border:1px dashed #ccc;
+  border-radius:12px;
+  padding:20px;
+  text-align:center;
+  background:#fafafa;
+}
+
+.image-upload input{
+  border:0;
+  padding:0;
+  background:transparent;
+}
+
+.image-status{
+  margin-top:9px;
+  font-size:12px;
+  color:#777;
+  line-height:1.5;
+}
+
+
+/* SIZES */
 
 .form-row{
   display:grid;
@@ -460,6 +510,9 @@ td{
   color:#fff;
   border-color:#111;
 }
+
+
+/* MODAL BUTTONS */
 
 .modal-actions{
   display:flex;
@@ -490,11 +543,6 @@ td{
   cursor:not-allowed;
 }
 
-.loading{
-  text-align:center;
-  padding:40px;
-  color:#777;
-}
 
 /* =========================
    MOBILE
@@ -564,11 +612,15 @@ td{
   .login-card{
     padding:28px 22px;
   }
+
 }
+
 </style>
+
 </head>
 
 <body>
+
 
 <!-- =========================
      LOGIN SCREEN
@@ -586,11 +638,16 @@ td{
       Product Management
     </div>
 
-    <div id="loginError" class="login-error"></div>
+    <div
+      id="loginError"
+      class="login-error"
+    ></div>
 
     <form id="loginForm">
 
-      <label>Email</label>
+      <label>
+        Email
+      </label>
 
       <input
         id="loginEmail"
@@ -599,7 +656,9 @@ td{
         required
       >
 
-      <label>Password</label>
+      <label>
+        Password
+      </label>
 
       <input
         id="loginPassword"
@@ -629,6 +688,7 @@ td{
 
 <section id="app">
 
+
   <aside class="sidebar">
 
     <div class="brand">
@@ -639,15 +699,24 @@ td{
       Management
     </div>
 
-    <a href="#" class="nav-item active">
+    <a
+      href="#"
+      class="nav-item active"
+    >
       Products
     </a>
 
-    <a href="index.html" class="nav-item">
+    <a
+      href="index.html"
+      class="nav-item"
+    >
       Website
     </a>
 
-    <button class="logout" id="logoutButton">
+    <button
+      class="logout"
+      id="logoutButton"
+    >
       Sign Out
     </button>
 
@@ -656,17 +725,21 @@ td{
 
   <main class="main">
 
+
     <div class="topbar">
 
-      <div>
-        <div class="page-title">
-          Products
-        </div>
+      <div class="page-title">
+        Products
       </div>
 
       <div class="store-badge">
+
         Store:
-        <strong>NOVAIR</strong>
+
+        <strong>
+          NOVAIR
+        </strong>
+
       </div>
 
     </div>
@@ -675,6 +748,7 @@ td{
     <!-- STATS -->
 
     <div class="stats">
+
 
       <div class="stat">
 
@@ -723,12 +797,14 @@ td{
 
       </div>
 
+
     </div>
 
 
     <!-- PRODUCTS -->
 
     <section class="products-box">
+
 
       <div class="products-header">
 
@@ -756,14 +832,31 @@ td{
           <thead>
 
             <tr>
-              <th>Product</th>
-              <th>Category</th>
-              <th>Price</th>
-              <th>Sizes</th>
-              <th>Actions</th>
+
+              <th>
+                Product
+              </th>
+
+              <th>
+                Category
+              </th>
+
+              <th>
+                Price
+              </th>
+
+              <th>
+                Sizes
+              </th>
+
+              <th>
+                Actions
+              </th>
+
             </tr>
 
           </thead>
+
 
           <tbody id="productsTable">
 
@@ -773,7 +866,9 @@ td{
 
       </div>
 
+
     </section>
+
 
   </main>
 
@@ -786,17 +881,23 @@ td{
 
 <div id="productModal">
 
+
   <div class="modal">
+
 
     <div class="modal-head">
 
-      <div class="modal-title" id="modalTitle">
+      <div
+        class="modal-title"
+        id="modalTitle"
+      >
         Add Product
       </div>
 
       <button
         class="close"
         id="closeModalButton"
+        type="button"
       >
         ×
       </button>
@@ -805,6 +906,7 @@ td{
 
 
     <form id="productForm">
+
 
       <input
         type="hidden"
@@ -829,6 +931,7 @@ td{
 
 
       <div class="form-row">
+
 
         <div class="form-group">
 
@@ -880,6 +983,7 @@ td{
 
         </div>
 
+
       </div>
 
 
@@ -900,14 +1004,25 @@ td{
       <div class="form-group">
 
         <label>
-          Image URL
+          Product Image
         </label>
 
-        <input
-          id="productImage"
-          type="url"
-          placeholder="https://..."
-        >
+        <div class="image-upload">
+
+          <input
+            id="productImage"
+            type="file"
+            accept="image/*"
+          >
+
+          <div
+            id="imageStatus"
+            class="image-status"
+          >
+            Choose an image from your phone.
+          </div>
+
+        </div>
 
       </div>
 
@@ -920,29 +1035,54 @@ td{
 
         <div class="size-options">
 
-          <div class="size-option" data-size="XS">
+
+          <div
+            class="size-option"
+            data-size="XS"
+          >
             XS
           </div>
 
-          <div class="size-option" data-size="S">
+
+          <div
+            class="size-option"
+            data-size="S"
+          >
             S
           </div>
 
-          <div class="size-option" data-size="M">
+
+          <div
+            class="size-option"
+            data-size="M"
+          >
             M
           </div>
 
-          <div class="size-option" data-size="L">
+
+          <div
+            class="size-option"
+            data-size="L"
+          >
             L
           </div>
 
-          <div class="size-option" data-size="XL">
+
+          <div
+            class="size-option"
+            data-size="XL"
+          >
             XL
           </div>
 
-          <div class="size-option" data-size="XXL">
+
+          <div
+            class="size-option"
+            data-size="XXL"
+          >
             XXL
           </div>
+
 
         </div>
 
@@ -969,7 +1109,9 @@ td{
 
       </div>
 
+
     </form>
+
 
   </div>
 
@@ -977,6 +1119,7 @@ td{
 
 
 <script>
+
 
 /* ==========================================
    SUPABASE CONFIG
@@ -988,7 +1131,9 @@ const SUPABASE_URL =
 const SUPABASE_PUBLISHABLE_KEY =
   "sb_publishable_fB56OtJ845eqt7lIAwU-VA_VgM2ZqJW";
 
-const STORE_ID = "novair";
+const STORE_ID =
+  "novair";
+
 
 const supabaseClient =
   window.supabase.createClient(
@@ -1006,6 +1151,8 @@ let products = [];
 let editingProductId = null;
 
 let selectedSizes = [];
+
+let currentImageUrl = null;
 
 
 /* ==========================================
@@ -1060,6 +1207,9 @@ const totalProducts =
 const totalCategories =
   document.getElementById("totalCategories");
 
+const imageStatus =
+  document.getElementById("imageStatus");
+
 
 /* ==========================================
    LOGIN ERROR
@@ -1067,53 +1217,32 @@ const totalCategories =
 
 function showLoginError(message){
 
-  loginError.textContent = message;
+  loginError.textContent =
+    message;
 
-  loginError.style.display = "block";
+  loginError.style.display =
+    "block";
 
 }
 
 
 /* ==========================================
-   CHECK SESSION
+   SHOW LOGIN
 ========================================== */
 
-async function checkSession(){
+function showLogin(){
 
-  const {
-    data,
-    error
-  } = await supabaseClient.auth.getSession();
+  loginScreen.style.display =
+    "flex";
 
-  if(error){
-
-    console.error(error);
-
-    showLoginError(
-      "Could not connect to Supabase."
-    );
-
-    return;
-
-  }
-
-  if(data.session){
-
-    await verifyStoreAccess(
-      data.session.user.id
-    );
-
-  }else{
-
-    showLogin();
-
-  }
+  app.style.display =
+    "none";
 
 }
 
 
 /* ==========================================
-   VERIFY NOVAIR MEMBERSHIP
+   VERIFY STORE ACCESS
 ========================================== */
 
 async function verifyStoreAccess(userId){
@@ -1161,20 +1290,49 @@ async function verifyStoreAccess(userId){
   }
 
 
-  showApp();
+  await showApp();
 
 }
 
 
 /* ==========================================
-   SHOW LOGIN
+   CHECK SESSION
 ========================================== */
 
-function showLogin(){
+async function checkSession(){
 
-  loginScreen.style.display = "flex";
+  const {
+    data,
+    error
+  } = await supabaseClient.auth.getSession();
 
-  app.style.display = "none";
+
+  if(error){
+
+    console.error(error);
+
+    showLoginError(
+      "Could not connect to Supabase."
+    );
+
+    showLogin();
+
+    return;
+
+  }
+
+
+  if(data.session){
+
+    await verifyStoreAccess(
+      data.session.user.id
+    );
+
+  }else{
+
+    showLogin();
+
+  }
 
 }
 
@@ -1185,9 +1343,11 @@ function showLogin(){
 
 async function showApp(){
 
-  loginScreen.style.display = "none";
+  loginScreen.style.display =
+    "none";
 
-  app.style.display = "block";
+  app.style.display =
+    "block";
 
   await loadProducts();
 
@@ -1204,27 +1364,36 @@ loginForm.addEventListener(
 
     event.preventDefault();
 
-    loginError.style.display = "none";
+    loginError.style.display =
+      "none";
+
 
     const email =
-      document.getElementById("loginEmail").value.trim();
+      document.getElementById("loginEmail")
+        .value
+        .trim();
+
 
     const password =
-      document.getElementById("loginPassword").value;
+      document.getElementById("loginPassword")
+        .value;
 
 
-    loginButton.disabled = true;
+    loginButton.disabled =
+      true;
 
-    loginButton.textContent = "Signing in...";
+    loginButton.textContent =
+      "Signing in...";
 
 
     const {
       data,
       error
-    } = await supabaseClient.auth.signInWithPassword({
-      email: email,
-      password: password
-    });
+    } = await supabaseClient.auth
+      .signInWithPassword({
+        email,
+        password
+      });
 
 
     if(error){
@@ -1235,9 +1404,11 @@ loginForm.addEventListener(
         error.message
       );
 
-      loginButton.disabled = false;
+      loginButton.disabled =
+        false;
 
-      loginButton.textContent = "Sign In";
+      loginButton.textContent =
+        "Sign In";
 
       return;
 
@@ -1249,9 +1420,11 @@ loginForm.addEventListener(
     );
 
 
-    loginButton.disabled = false;
+    loginButton.disabled =
+      false;
 
-    loginButton.textContent = "Sign In";
+    loginButton.textContent =
+      "Sign In";
 
   }
 );
@@ -1325,7 +1498,8 @@ async function loadProducts(){
   }
 
 
-  products = data || [];
+  products =
+    data || [];
 
   renderProducts(products);
 
@@ -1350,7 +1524,7 @@ function renderProducts(list){
             <div class="empty">
               No products yet.
               <br><br>
-                            Click "+ Add Product" to create your first one.
+              Click "+ Add Product" to create your first one.
             </div>
           </td>
         </tr>
@@ -1363,10 +1537,12 @@ function renderProducts(list){
       const row =
         document.createElement("tr");
 
+
       const sizes =
         Array.isArray(product.sizes)
           ? product.sizes.join(", ")
           : "-";
+
 
       row.innerHTML =
         `
@@ -1384,7 +1560,9 @@ function renderProducts(list){
 
           <td>
             <div class="price">
-              ₹${Number(product.price || 0).toLocaleString("en-IN")}
+              ₹${Number(
+                product.price || 0
+              ).toLocaleString("en-IN")}
             </div>
           </td>
 
@@ -1393,6 +1571,7 @@ function renderProducts(list){
           </td>
 
           <td>
+
             <div class="actions">
 
               <button
@@ -1410,14 +1589,17 @@ function renderProducts(list){
               </button>
 
             </div>
+
           </td>
         `;
+
 
       productsTable.appendChild(row);
 
     });
 
   }
+
 
   updateStats();
 
@@ -1433,6 +1615,7 @@ function updateStats(){
   totalProducts.textContent =
     products.length;
 
+
   const categories =
     new Set(
       products
@@ -1441,6 +1624,7 @@ function updateStats(){
         })
         .filter(Boolean)
     );
+
 
   totalCategories.textContent =
     categories.size;
@@ -1461,6 +1645,7 @@ searchInput.addEventListener(
         .trim()
         .toLowerCase();
 
+
     const filtered =
       products.filter(function(product){
 
@@ -1475,6 +1660,7 @@ searchInput.addEventListener(
         );
 
       });
+
 
     renderProducts(filtered);
 
@@ -1494,12 +1680,17 @@ addProductButton.addEventListener(
 
     selectedSizes = [];
 
+    currentImageUrl = null;
+
     productForm.reset();
 
     document.getElementById("productId").value = "";
 
     modalTitle.textContent =
       "Add Product";
+
+    imageStatus.textContent =
+      "Choose an image from your phone.";
 
     updateSizeButtons();
 
@@ -1522,38 +1713,62 @@ window.editProduct =
         return item.id === productId;
       });
 
-    if(!product) return;
+
+    if(!product){
+      return;
+    }
+
 
     editingProductId =
       product.id;
 
+
     document.getElementById("productId").value =
       product.id;
+
 
     document.getElementById("productName").value =
       product.name || "";
 
+
     document.getElementById("productPrice").value =
       product.price || "";
+
 
     document.getElementById("productCategory").value =
       product.category || "";
 
+
     document.getElementById("productDescription").value =
       product.description || "";
 
+
+    currentImageUrl =
+      product.image_url || null;
+
+
     document.getElementById("productImage").value =
-      product.image_url || "";
+      "";
+
+
+    imageStatus.textContent =
+      currentImageUrl
+        ? "Current image is saved. Choose a new image to replace it."
+        : "Choose an image from your phone.";
+
 
     selectedSizes =
       Array.isArray(product.sizes)
         ? [...product.sizes]
         : [];
 
+
     updateSizeButtons();
+
 
     modalTitle.textContent =
       "Edit Product";
+
 
     productModal.style.display =
       "flex";
@@ -1573,14 +1788,22 @@ window.deleteProduct =
         return item.id === productId;
       });
 
-    if(!product) return;
+
+    if(!product){
+      return;
+    }
+
 
     const confirmed =
       confirm(
         `Delete "${product.name}"?`
       );
 
-    if(!confirmed) return;
+
+    if(!confirmed){
+      return;
+    }
+
 
     const {
       error
@@ -1589,6 +1812,7 @@ window.deleteProduct =
       .delete()
       .eq("id", productId)
       .eq("store_id", STORE_ID);
+
 
     if(error){
 
@@ -1601,6 +1825,7 @@ window.deleteProduct =
       return;
 
     }
+
 
     await loadProducts();
 
@@ -1622,6 +1847,7 @@ document
         const size =
           button.dataset.size;
 
+
         if(selectedSizes.includes(size)){
 
           selectedSizes =
@@ -1636,6 +1862,7 @@ document
           selectedSizes.push(size);
 
         }
+
 
         updateSizeButtons();
 
@@ -1654,6 +1881,7 @@ function updateSizeButtons(){
       const size =
         button.dataset.size;
 
+
       button.classList.toggle(
         "selected",
         selectedSizes.includes(size)
@@ -1665,6 +1893,67 @@ function updateSizeButtons(){
 
 
 /* ==========================================
+   IMAGE FILE SELECTION
+========================================== */
+
+document
+  .getElementById("productImage")
+  .addEventListener(
+    "change",
+    function(){
+
+      const file =
+        this.files[0];
+
+
+      if(!file){
+
+        imageStatus.textContent =
+          currentImageUrl
+            ? "Current image is saved. Choose a new image to replace it."
+            : "Choose an image from your phone.";
+
+        return;
+
+      }
+
+
+      if(!file.type.startsWith("image/")){
+
+        alert(
+          "Please choose an image file."
+        );
+
+        this.value = "";
+
+        return;
+
+      }
+
+
+      const maxSize =
+        10 * 1024 * 1024;
+
+
+      if(file.size > maxSize){
+
+        alert(
+          "Image must be smaller than 10MB."
+        );
+
+        this.value = "";
+
+        return;
+
+      }
+
+
+      imageStatus.textContent =
+        `Selected: ${file.name}`;
+
+    }
+  );
+/* ==========================================
    SAVE PRODUCT
 ========================================== */
 
@@ -1674,127 +1963,272 @@ productForm.addEventListener(
 
     event.preventDefault();
 
+
     const saveButton =
-      document.getElementById("saveButton");
-
-    const name =
-      document.getElementById("productName")
-        .value
-        .trim();
-
-    const price =
-      Number(
-        document.getElementById("productPrice")
-          .value
+      productForm.querySelector(
+        'button[type="submit"]'
       );
 
+
+    const name =
+      document
+        .getElementById("productName")
+        .value
+        .trim();
+
+
+    const price =
+      document
+        .getElementById("productPrice")
+        .value
+        .trim();
+
+
     const category =
-      document.getElementById("productCategory")
-        .value;
+      document
+        .getElementById("productCategory")
+        .value
+        .trim();
+
 
     const description =
-      document.getElementById("productDescription")
+      document
+        .getElementById("productDescription")
         .value
         .trim();
 
-    const imageUrl =
-      document.getElementById("productImage")
-        .value
-        .trim();
+
+    const imageFile =
+      document
+        .getElementById("productImage")
+        .files[0];
+
 
     if(!name){
 
-      alert("Please enter a product name.");
+      alert(
+        "Please enter a product name."
+      );
+
       return;
 
     }
 
-    if(Number.isNaN(price)){
 
-      alert("Please enter a valid price.");
-      return;
-
-    }
-
-    saveButton.disabled = true;
-
-    saveButton.textContent =
-      "Saving...";
-
-    const productData = {
-
-      store_id: STORE_ID,
-
-      name: name,
-
-      price: price,
-
-      category:
-        category || null,
-
-      description:
-        description || null,
-
-      image_url:
-        imageUrl || null,
-
-      sizes:
-        selectedSizes
-
-    };
-
-    let error;
-
-    if(editingProductId){
-
-      const result =
-        await supabaseClient
-          .from("products")
-          .update(productData)
-          .eq("id", editingProductId)
-          .eq("store_id", STORE_ID);
-
-      error =
-        result.error;
-
-    }else{
-
-      const result =
-        await supabaseClient
-          .from("products")
-          .insert(productData);
-
-      error =
-        result.error;
-
-    }
-
-    if(error){
-
-      console.error(error);
+    if(
+      !price ||
+      isNaN(Number(price))
+    ){
 
       alert(
-        "Could not save the product.\n\n" +
-        error.message
+        "Please enter a valid price."
       );
+
+      return;
+
+    }
+
+
+    try{
+
+      saveButton.disabled = true;
+
+      saveButton.textContent =
+        "Saving...";
+
+
+      let imageUrl =
+        currentImageUrl || null;
+
+
+      /* ======================================
+         UPLOAD NEW IMAGE
+      ====================================== */
+
+      if(imageFile){
+
+        imageStatus.textContent =
+          "Uploading image...";
+
+
+        const extension =
+          imageFile.name
+            .split(".")
+            .pop()
+            .toLowerCase();
+
+
+        const filePath =
+          `${STORE_ID}/${crypto.randomUUID()}.${extension}`;
+
+
+        const uploadResult =
+          await supabaseClient
+            .storage
+            .from("product-images")
+            .upload(
+              filePath,
+              imageFile,
+              {
+                cacheControl: "3600",
+                upsert: false,
+                contentType:
+                  imageFile.type
+              }
+            );
+
+
+        if(uploadResult.error){
+
+          throw uploadResult.error;
+
+        }
+
+
+        const publicResult =
+          supabaseClient
+            .storage
+            .from("product-images")
+            .getPublicUrl(
+              filePath
+            );
+
+
+        imageUrl =
+          publicResult.data.publicUrl;
+
+
+        imageStatus.textContent =
+          "Image uploaded successfully.";
+
+      }
+
+
+      /* ======================================
+         PRODUCT DATA
+      ====================================== */
+
+      const productData = {
+
+        store_id:
+          STORE_ID,
+
+        name:
+          name,
+
+        price:
+          Number(price),
+
+        category:
+          category || null,
+
+        description:
+          description || null,
+
+        image_url:
+          imageUrl,
+
+        sizes:
+          selectedSizes
+
+      };
+
+
+      /* ======================================
+         UPDATE EXISTING PRODUCT
+      ====================================== */
+
+      if(editingProductId){
+
+        const result =
+          await supabaseClient
+            .from("products")
+            .update(
+              productData
+            )
+            .eq(
+              "id",
+              editingProductId
+            )
+            .eq(
+              "store_id",
+              STORE_ID
+            );
+
+
+        if(result.error){
+
+          throw result.error;
+
+        }
+
+
+        alert(
+          "Product updated successfully."
+        );
+
+      }
+
+
+      /* ======================================
+         ADD NEW PRODUCT
+      ====================================== */
+
+      else{
+
+        const result =
+          await supabaseClient
+            .from("products")
+            .insert(
+              productData
+            );
+
+
+        if(result.error){
+
+          throw result.error;
+
+        }
+
+
+        alert(
+          "Product added successfully."
+        );
+
+      }
+
+
+      closeModal();
+
+      await loadProducts();
+
+    }
+
+    catch(error){
+
+      console.error(
+        "Product save error:",
+        error
+      );
+
+
+      alert(
+        error.message ||
+        "Something went wrong while saving the product."
+      );
+
+    }
+
+    finally{
 
       saveButton.disabled = false;
 
       saveButton.textContent =
-        "Save Product";
-
-      return;
+        editingProductId
+          ? "Update Product"
+          : "Add Product";
 
     }
-
-    closeModal();
-
-    await loadProducts();
-
-    saveButton.disabled = false;
-
-    saveButton.textContent =
-      "Save Product";
 
   }
 );
@@ -1809,34 +2243,78 @@ function closeModal(){
   productModal.style.display =
     "none";
 
+
   productForm.reset();
 
-  editingProductId = null;
 
-  selectedSizes = [];
+  editingProductId =
+    null;
+
+
+  selectedSizes =
+    [];
+
+
+  currentImageUrl =
+    null;
+
+
+  imageStatus.textContent =
+    "Choose an image from your phone.";
+
 
   updateSizeButtons();
 
 }
 
 
+/* ==========================================
+   CLOSE MODAL BUTTON
+========================================== */
+
 closeModalButton.addEventListener(
   "click",
-  closeModal
+  function(){
+
+    closeModal();
+
+  }
 );
 
 
-cancelButton.addEventListener(
-  "click",
-  closeModal
-);
-
+/* ==========================================
+   CLOSE MODAL WHEN CLICKING OUTSIDE
+========================================== */
 
 productModal.addEventListener(
   "click",
   function(event){
 
-    if(event.target === productModal){
+    if(
+      event.target ===
+      productModal
+    ){
+
+      closeModal();
+
+    }
+
+  }
+);
+
+
+/* ==========================================
+   ESC KEY
+========================================== */
+
+document.addEventListener(
+  "keydown",
+  function(event){
+
+    if(
+      event.key === "Escape" &&
+      productModal.style.display !== "none"
+    ){
 
       closeModal();
 
@@ -1852,18 +2330,41 @@ productModal.addEventListener(
 
 function escapeHtml(value){
 
+  if(value === null ||
+     value === undefined){
+
+    return "";
+
+  }
+
+
   return String(value)
-    .replaceAll("&","&amp;")
-    .replaceAll("<","&lt;")
-    .replaceAll(">","&gt;")
-    .replaceAll('"',"&quot;")
-    .replaceAll("'","&#039;");
+    .replace(
+      /&/g,
+      "&amp;"
+    )
+    .replace(
+      /</g,
+      "&lt;"
+    )
+    .replace(
+      />/g,
+      "&gt;"
+    )
+    .replace(
+      /"/g,
+      "&quot;"
+    )
+    .replace(
+      /'/g,
+      "&#039;"
+    );
 
 }
 
 
 /* ==========================================
-   START
+   START APP
 ========================================== */
 
 checkSession();
@@ -1872,4 +2373,3 @@ checkSession();
 
 </body>
 </html>
-            
