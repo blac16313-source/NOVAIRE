@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Shop — Novair</title>
+
+<meta name="description" content="Explore the Novair collection.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,500;0,600;1,500;1,600&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+}
+
+html{
+  scroll-behavior:smooth;
+}
+
+body{
+  background:#f4f1eb;
+  color:#171714;
+  font-family:"DM Sans",sans-serif;
+  line-height:1.5;
+}
+
+a{
+  color:inherit;
+  text-decoration:none;
+}
+
+button,
+input,
+select{
+  font:inherit;
+}
+
+
+/* =====================================================
+   HEADER
+===================================================== */
+
+.header{
+  position:relative;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  padding:27px 5vw;
+
+  background:#f4f1eb;
+
+  border-bottom:1px solid rgba(23,23,20,.1);
+
+  z-index:10;
+}
+
+.logo{
+  font-size:20px;
+  font-weight:600;
+  letter-spacing:.18em;
+}
+
+.nav{
+  display:flex;
+  gap:38px;
+}
+
+.nav a,
+.header-right a{
+  font-size:13px;
+  opacity:.65;
+  transition:opacity .2s ease;
+}
+
+.nav a:hover,
+.header-right a:hover{
+  opacity:1;
+}
+
+.nav a.active{
+  opacity:1;
+}
+
+.header-right{
+  display:flex;
+  gap:24px;
+  align-items:center;
+}
+
+.cart-count{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+
+  min-width:19px;
+  height:19px;
+
+  padding:0 5px;
+  margin-left:4px;
+
+  border:1px solid rgba(23,23,20,.35);
+  border-radius:50%;
+
+  font-size:10px;
+}
+
+
+/* =====================================================
+   PAGE INTRO
+===================================================== */
+
+.page-intro{
+  padding:110px 5vw 70px;
+
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+
+  gap:40px;
+}
+
+.page-label{
+  font-size:10px;
+  text-transform:uppercase;
+  letter-spacing:.2em;
+  opacity:.5;
+
+  margin-bottom:18px;
+}
+
+.page-intro h1{
+  font-size:clamp(58px,8vw,110px);
+  line-height:.88;
+  letter-spacing:-.06em;
+  font-weight:500;
+}
+
+.page-intro h1 em{
+  font-family:"Playfair Display",serif;
+  font-weight:500;
+}
+
+.page-description{
+  max-width:330px;
+
+  font-size:13px;
+  line-height:1.8;
+
+  color:#67645d;
+}
+
+
+/* =====================================================
+   SHOP TOOLBAR
+===================================================== */
+
+.shop-toolbar{
+  padding:0 5vw 35px;
+
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+
+  border-bottom:1px solid rgba(23,23,20,.12);
+}
+
+.filters{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+}
+
+.filter{
+  border:1px solid rgba(23,23,20,.2);
+  background:transparent;
+
+  padding:10px 16px;
+
+  font-size:11px;
+  letter-spacing:.04em;
+
+  cursor:pointer;
+
+  transition:
+    background .2s ease,
+    color .2s ease,
+    border .2s ease;
+}
+
+.filter:hover,
+.filter.active{
+  background:#171714;
+  color:#f4f1eb;
+  border-color:#171714;
+}
+
+.shop-tools{
+  display:flex;
+  align-items:center;
+  gap:18px;
+}
+
+.search{
+  width:190px;
+
+  padding:10px 0;
+
+  background:transparent;
+
+  border:none;
+  border-bottom:1px solid rgba(23,23,20,.3);
+
+  outline:none;
+
+  font-size:12px;
+}
+
+.search::placeholder{
+  color:#77736b;
+}
+
+.sort{
+  padding:10px 0;
+
+  background:transparent;
+
+  border:none;
+
+  font-size:12px;
+
+  outline:none;
+
+  cursor:pointer;
+}
+
+
+/* =====================================================
+   PRODUCTS
+===================================================== */
+
+.products-section{
+  padding:55px 5vw 130px;
+}
+
+.product-grid{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:55px 18px;
+}
+
+.product-card{
+  cursor:pointer;
+}
+
+.product-image{
+  position:relative;
+
+  aspect-ratio:3/4;
+
+  overflow:hidden;
+
+  background:#dedad1;
+}
+
+.product-placeholder{
+  width:100%;
+  height:100%;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  color:#9b978e;
+
+  font-size:10px;
+  letter-spacing:.16em;
+  text-transform:uppercase;
+
+  transition:transform .7s cubic-bezier(.2,.7,.2,1);
+}
+
+.product-card:hover .product-placeholder{
+  transform:scale(1.035);
+}
+
+.product-badge{
+  position:absolute;
+
+  top:15px;
+  left:15px;
+
+  z-index:2;
+
+  padding:7px 10px;
+
+  background:#f4f1eb;
+
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.12em;
+}
+
+.product-info{
+  padding:16px 2px 0;
+}
+
+.product-name{
+  font-size:13px;
+  font-weight:500;
+}
+
+.product-meta{
+  display:flex;
+  justify-content:space-between;
+
+  margin-top:6px;
+
+  color:#77736b;
+
+  font-size:12px;
+}
+
+
+/* =====================================================
+   LOADING
+===================================================== */
+
+.loading{
+  grid-column:1/-1;
+
+  min-height:300px;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  color:#77736b;
+
+  font-size:11px;
+  text-transform:uppercase;
+  letter-spacing:.15em;
+}
+
+
+/* =====================================================
+   FOOTER
+===================================================== */
+
+.footer{
+  padding:60px 5vw 28px;
+
+  background:#171714;
+  color:#f4f1eb;
+}
+
+.footer-main{
+  display:flex;
+  justify-content:space-between;
+
+  gap:50px;
+
+  padding-bottom:90px;
+}
+
+.footer-brand h3{
+  font-size:20px;
+  letter-spacing:.18em;
+}
+
+.footer-brand p{
+  max-width:270px;
+
+  margin-top:18px;
+
+  font-size:12px;
+  line-height:1.7;
+
+  opacity:.5;
+}
+
+.footer-links{
+  display:flex;
+  gap:70px;
+}
+
+.footer-column{
+  display:flex;
+  flex-direction:column;
+  gap:12px;
+}
+
+.footer-column span:first-child{
+  margin-bottom:8px;
+
+  font-size:9px;
+  text-transform:uppercase;
+  letter-spacing:.18em;
+
+  opacity:.4;
+}
+
+.footer-column a{
+  font-size:12px;
+  opacity:.7;
+}
+
+.footer-column a:hover{
+  opacity:1;
+}
+
+.footer-bottom{
+  display:flex;
+  justify-content:space-between;
+
+  padding-top:22px;
+
+  border-top:1px solid rgba(244,241,235,.12);
+
+  font-size:10px;
+  opacity:.4;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media(max-width:900px){
+
+  .nav{
+    display:none;
+  }
+
+  .header{
+    padding:22px 5vw;
+  }
+
+  .page-intro{
+    padding:80px 5vw 55px;
+
+    flex-direction:column;
+    align-items:flex-start;
+  }
+
+  .page-intro h1{
+    font-size:65px;
+  }
+
+  .page-description{
+    max-width:400px;
+  }
+
+  .shop-toolbar{
+    align-items:flex-start;
+    flex-direction:column;
+    gap:25px;
+  }
+
+  .shop-tools{
+    width:100%;
+    justify-content:space-between;
+  }
+
+  .search{
+    width:55%;
+  }
+
+  .product-grid{
+    grid-template-columns:repeat(2,1fr);
+    gap:38px 12px;
+  }
+
+  .products-section{
+    padding-bottom:90px;
+  }
+
+  .footer-main{
+    flex-direction:column;
+    padding-bottom:65px;
+  }
+
+  .footer-links{
+    gap:45px;
+  }
+}
+
+
+@media(max-width:480px){
+
+  .logo{
+    font-size:17px;
+  }
+
+  .header-right a:first-child{
+    display:none;
+  }
+
+  .page-intro h1{
+    font-size:56px;
+  }
+
+  .page-description{
+    font-size:12px;
+  }
+
+  .filter{
+    padding:9px 12px;
+  }
+
+  .shop-tools{
+    gap:12px;
+  }
+
+  .search{
+    width:52%;
+  }
+
+  .product-grid{
+    gap:30px 10px;
+  }
+
+  .product-name{
+    font-size:12px;
+  }
+
+  .product-meta{
+    font-size:10px;
+  }
+
+  .footer-links{
+    gap:30px;
+  }
+
+  .footer-bottom{
+    flex-direction:column;
+    gap:8px;
+  }
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header class="header">
+
+  <a href="index.html" class="logo">
+    NOVAIR
+  </a>
+
+  <nav class="nav">
+
+    <a href="index.html">
+      Home
+    </a>
+
+    <a href="shop.html" class="active">
+      Shop
+    </a>
+
+    <a href="about.html">
+      About
+    </a>
+
+    <a href="contact.html">
+      Contact
+    </a>
+
+  </nav>
+
+  <div class="header-right">
+
+    <a href="#products">
+      Search
+    </a>
+
+    <a href="shop.html">
+      Cart
+      <span class="cart-count" id="cartCount">0</span>
+    </a>
+
+  </div>
+
+</header>
+
+
+<!-- =====================================================
+     INTRO
+===================================================== -->
+
+<section class="page-intro">
+
+  <div>
+
+    <p class="page-label">
+      Novair / Collection 01
+    </p>
+
+    <h1>
+      The<br>
+      <em>collection.</em>
+    </h1>
+
+  </div>
+
+  <p class="page-description">
+    A considered collection of modern essentials,
+    designed around comfort, movement and everyday wear.
+  </p>
+
+</section>
+
+
+<!-- =====================================================
+     FILTERS
+===================================================== -->
+
+<section class="shop-toolbar">
+
+  <div class="filters">
+
+    <button class="filter active" data-category="all">
+      All
+    </button>
+
+    <button class="filter" data-category="new">
+      New
+    </button>
+
+    <button class="filter" data-category="tops">
+      Tops
+    </button>
+
+    <button class="filter" data-category="bottoms">
+      Bottoms
+    </button>
+
+    <button class="filter" data-category="outerwear">
+      Outerwear
+    </button>
+
+  </div>
+
+
+  <div class="shop-tools">
+
+    <input
+      id="searchInput"
+      class="search"
+      type="search"
+      placeholder="Search collection"
+      autocomplete="off"
+    >
+
+    <select id="sortSelect" class="sort">
+
+      <option value="featured">
+        Featured
+      </option>
+
+      <option value="price-low">
+        Price: Low
+      </option>
+
+      <option value="price-high">
+        Price: High
+      </option>
+
+      <option value="name">
+        Name
+      </option>
+
+    </select>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     PRODUCTS
+===================================================== -->
+
+<section class="products-section" id="products">
+
+  <div id="productGrid" class="product-grid">
+
+    <div class="loading">
+      Loading collection...
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer class="footer">
+
+  <div class="footer-main">
+
+    <div class="footer-brand">
+
+      <h3>NOVAIR</h3>
+
+      <p>
+        Modern essentials designed
+        for everyday life.
+      </p>
+
+    </div>
+
+
+    <div class="footer-links">
+
+      <div class="footer-column">
+
+        <span>Explore</span>
+
+        <a href="shop.html">
+          Shop
+        </a>
+
+        <a href="about.html">
+          About
+        </a>
+
+        <a href="contact.html">
+          Contact
+        </a>
+
+      </div>
+
+
+      <div class="footer-column">
+
+        <span>Information</span>
+
+        <a href="#">
+          Shipping
+        </a>
+
+        <a href="#">
+          Returns
+        </a>
+
+        <a href="#">
+          Privacy
+        </a>
+
+      </div>
+
+    </div>
+
+  </div>
+
+
+  <div class="footer-bottom">
+
+    <span>
+      © 2026 Novair
+    </span>
+
+    <span>
+      All rights reserved.
+    </span>
+
+  </div>
+
+</footer>
+
+
+<!-- =====================================================
+     NOVAIR / SUPABASE
+===================================================== -->
+
+<script>
+
+const SUPABASE_URL =
+  "https://sjtykmeactnxwwywdjcr.supabase.co";
+
+const SUPABASE_KEY =
+  "YOUR_SUPABASE_PUBLISHABLE_KEY";
+
+const STORE_ID =
+  "novair";
+
+
+/*
+  Supabase product loading will be connected
+  after the page structure is confirmed.
+
+  The product system will eventually:
+  - Load Novair products
+  - Filter by category
+  - Search products
+  - Sort by price/name
+  - Open individual product pages
+*/
+
+
+const productGrid =
+  document.getElementById("productGrid");
+
+
+productGrid.innerHTML = `
+
+  <article class="product-card">
+
+    <div class="product-image">
+
+      <div class="product-placeholder">
+        Novair / 01
+      </div>
+
+    </div>
+
+    <div class="product-info">
+
+      <div class="product-name">
+        Products coming soon
+      </div>
+
+      <div class="product-meta">
+
+        <span>
+          Novair
+        </span>
+
+        <span>
+          —
+        </span>
+
+      </div>
+
+    </div>
+
+  </article>
+
+
+  <article class="product-card">
+
+    <div class="product-image">
+
+      <div class="product-placeholder">
+        Novair / 02
+      </div>
+
+    </div>
+
+    <div class="product-info">
+
+      <div class="product-name">
+        Products coming soon
+      </div>
+
+      <div class="product-meta">
+
+        <span>
+          Novair
+        </span>
+
+        <span>
+          —
+        </span>
+
+      </div>
+
+    </div>
+
+  </article>
+
+
+  <article class="product-card">
+
+    <div class="product-image">
+
+      <div class="product-placeholder">
+        Novair / 03
+      </div>
+
+    </div>
+
+    <div class="product-info">
+
+      <div class="product-name">
+        Products coming soon
+      </div>
+
+      <div class="product-meta">
+
+        <span>
+          Novair
+        </span>
+
+        <span>
+          —
+        </span>
+
+      </div>
+
+    </div>
+
+  </article>
+
+
+  <article class="product-card">
+
+    <div class="product-image">
+
+      <div class="product-placeholder">
+        Novair / 04
+      </div>
+
+    </div>
+
+    <div class="product-info">
+
+      <div class="product-name">
+        Products coming soon
+      </div>
+
+      <div class="product-meta">
+
+        <span>
+          Novair
+        </span>
+
+        <span>
+          —
+        </span>
+
+      </div>
+
+    </div>
+
+  </article>
+
+`;
+
+</script>
+
+</body>
+</html>
