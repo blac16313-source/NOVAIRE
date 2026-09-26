@@ -4,245 +4,210 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Products — NOVAIR</title>
+<title>Product Management — NOVAIR</title>
 
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
-
 *{
+  box-sizing:border-box;
   margin:0;
   padding:0;
-  box-sizing:border-box;
 }
 
 body{
-  background:#f3f0e9;
-  color:#171714;
-  font-family:"DM Sans",sans-serif;
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f3f0ea;
+  color:#111;
 }
 
-button,
-input,
-textarea,
-select{
-  font:inherit;
+/* =========================
+   LOGIN
+========================= */
+
+#loginScreen{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:24px;
 }
 
-button{
+.login-card{
+  width:100%;
+  max-width:430px;
+  background:#fff;
+  border-radius:24px;
+  padding:40px;
+  box-shadow:0 20px 60px rgba(0,0,0,.08);
+}
+
+.login-logo{
+  font-size:28px;
+  letter-spacing:5px;
+  font-weight:700;
+  margin-bottom:8px;
+}
+
+.login-subtitle{
+  color:#777;
+  font-size:14px;
+  margin-bottom:32px;
+}
+
+.login-card label{
+  display:block;
+  font-size:12px;
+  font-weight:600;
+  margin-bottom:8px;
+  text-transform:uppercase;
+  letter-spacing:1px;
+}
+
+.login-card input{
+  width:100%;
+  padding:15px;
+  border:1px solid #ddd;
+  border-radius:10px;
+  margin-bottom:18px;
+  font-size:14px;
+  outline:none;
+}
+
+.login-card input:focus{
+  border-color:#111;
+}
+
+.login-btn{
+  width:100%;
+  border:0;
+  background:#111;
+  color:#fff;
+  padding:16px;
+  border-radius:10px;
+  font-size:14px;
   cursor:pointer;
 }
 
-a{
-  color:inherit;
-  text-decoration:none;
+.login-btn:hover{
+  background:#292929;
+}
+
+.login-error{
+  display:none;
+  margin-bottom:18px;
+  padding:12px;
+  border-radius:8px;
+  background:#fff0f0;
+  color:#b00020;
+  font-size:13px;
 }
 
 /* =========================
-   LAYOUT
+   APP
 ========================= */
 
-.page{
+#app{
+  display:none;
   min-height:100vh;
-  display:grid;
-  grid-template-columns:250px 1fr;
 }
-
-
-/* =========================
-   SIDEBAR
-========================= */
 
 .sidebar{
-  background:#171714;
-  color:#f3f0e9;
-  min-height:100vh;
-  padding:30px 22px;
-  position:sticky;
+  position:fixed;
+  left:0;
   top:0;
-  height:100vh;
+  bottom:0;
+  width:240px;
+  background:#111;
+  color:#fff;
+  padding:28px 20px;
 }
 
 .brand{
-  font-size:22px;
-  font-weight:600;
-  letter-spacing:.2em;
-  padding:10px 8px 55px;
+  font-size:25px;
+  letter-spacing:5px;
+  font-weight:700;
+  padding:0 12px;
+  margin-bottom:50px;
 }
 
-.brand span{
-  display:block;
-  font-size:9px;
-  letter-spacing:.18em;
-  color:#85827b;
-  margin-top:9px;
-  font-weight:400;
-}
-
-.sidebar-label{
-  font-size:9px;
+.nav-title{
+  font-size:10px;
+  color:#777;
+  letter-spacing:2px;
   text-transform:uppercase;
-  letter-spacing:.18em;
-  color:#6f6c65;
-  padding:0 10px;
+  padding:0 12px;
   margin-bottom:12px;
 }
 
-.side-nav{
-  display:flex;
-  flex-direction:column;
-  gap:4px;
-}
-
-.side-nav button,
-.side-nav a{
-  border:0;
-  background:transparent;
-  color:#aaa79f;
-  text-align:left;
+.nav-item{
+  display:block;
   width:100%;
-  padding:13px 10px;
-  font-size:12px;
-  border-radius:4px;
-  transition:.2s;
+  padding:13px 12px;
+  border-radius:9px;
+  color:#aaa;
+  text-decoration:none;
+  font-size:13px;
+  margin-bottom:5px;
 }
 
-.side-nav button:hover,
-.side-nav a:hover,
-.side-nav .active{
-  background:#292824;
-  color:#f3f0e9;
+.nav-item.active,
+.nav-item:hover{
+  background:#242424;
+  color:#fff;
 }
 
-.sidebar-bottom{
+.logout{
   position:absolute;
-  left:22px;
-  right:22px;
+  left:20px;
+  right:20px;
   bottom:25px;
+  border:1px solid #333;
+  background:transparent;
+  color:#aaa;
+  padding:12px;
+  border-radius:9px;
+  cursor:pointer;
 }
 
-.store-status{
-  border-top:1px solid rgba(243,240,233,.12);
-  padding:20px 10px 0;
+.logout:hover{
+  color:#fff;
+  border-color:#555;
 }
-
-.status-label{
-  color:#6f6c65;
-  font-size:8px;
-  letter-spacing:.18em;
-  text-transform:uppercase;
-}
-
-.status{
-  display:flex;
-  align-items:center;
-  gap:7px;
-  margin-top:8px;
-  font-size:11px;
-}
-
-.status-dot{
-  width:6px;
-  height:6px;
-  border-radius:50%;
-  background:#7c997e;
-}
-
 
 /* =========================
    MAIN
 ========================= */
 
 .main{
-  min-width:0;
+  margin-left:240px;
+  padding:40px;
 }
 
 .topbar{
-  height:80px;
-  padding:0 45px;
-  border-bottom:1px solid rgba(23,23,20,.12);
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-}
-
-.page-title{
-  font-family:"Playfair Display",serif;
-  font-size:28px;
-  font-weight:400;
-}
-
-.top-actions{
-  display:flex;
-  align-items:center;
-  gap:12px;
-}
-
-.view-site{
-  border:1px solid rgba(23,23,20,.2);
-  background:transparent;
-  padding:10px 16px;
-  font-size:10px;
-  text-transform:uppercase;
-  letter-spacing:.13em;
-}
-
-.view-site:hover{
-  background:#171714;
-  color:#f3f0e9;
-}
-
-.avatar{
-  width:38px;
-  height:38px;
-  border-radius:50%;
-  background:#d4cec1;
-  display:grid;
-  place-items:center;
-  font-size:11px;
-}
-
-
-/* =========================
-   CONTENT
-========================= */
-
-.content{
-  padding:45px;
-}
-
-.page-intro{
   display:flex;
   justify-content:space-between;
-  align-items:flex-end;
+  align-items:center;
   margin-bottom:35px;
 }
 
-.intro-copy p{
-  margin-top:8px;
-  color:#77736a;
-  font-size:13px;
+.page-title{
+  font-family:Georgia,serif;
+  font-size:38px;
+  font-weight:400;
 }
 
-.add-button{
-  border:0;
-  background:#171714;
-  color:#f3f0e9;
-  height:48px;
-  padding:0 23px;
-  text-transform:uppercase;
-  letter-spacing:.13em;
-  font-size:10px;
-  transition:.25s;
+.store-badge{
+  background:#fff;
+  border:1px solid #e5e1da;
+  padding:10px 14px;
+  border-radius:10px;
+  font-size:12px;
 }
 
-.add-button:hover{
-  background:#35332e;
-  transform:translateY(-2px);
+.store-badge strong{
+  letter-spacing:1px;
 }
-
 
 /* =========================
    STATS
@@ -251,599 +216,556 @@ a{
 .stats{
   display:grid;
   grid-template-columns:repeat(3,1fr);
-  gap:14px;
-  margin-bottom:35px;
+  gap:16px;
+  margin-bottom:30px;
 }
 
 .stat{
-  background:#fffdf8;
-  border:1px solid rgba(23,23,20,.09);
-  padding:25px;
+  background:#fff;
+  border-radius:16px;
+  padding:24px;
+  border:1px solid #e8e4dd;
 }
 
 .stat-label{
-  font-size:9px;
+  font-size:11px;
   text-transform:uppercase;
-  letter-spacing:.16em;
-  color:#817d74;
+  letter-spacing:1.5px;
+  color:#888;
+  margin-bottom:12px;
 }
 
-.stat-number{
-  font-family:"Playfair Display",serif;
-  font-size:42px;
-  margin-top:13px;
+.stat-value{
+  font-family:Georgia,serif;
+  font-size:30px;
 }
-
 
 /* =========================
-   TABLE
+   PRODUCTS
 ========================= */
 
 .products-box{
-  background:#fffdf8;
-  border:1px solid rgba(23,23,20,.09);
+  background:#fff;
+  border:1px solid #e8e4dd;
+  border-radius:20px;
+  overflow:hidden;
 }
 
-.products-head{
-  padding:22px 25px;
-  border-bottom:1px solid rgba(23,23,20,.1);
+.products-header{
+  padding:22px;
   display:flex;
+  gap:12px;
   justify-content:space-between;
   align-items:center;
-}
-
-.products-head h2{
-  font-size:13px;
-  font-weight:500;
+  border-bottom:1px solid #eee;
 }
 
 .search{
-  border:1px solid rgba(23,23,20,.15);
-  background:transparent;
-  height:38px;
-  width:230px;
-  padding:0 12px;
+  width:280px;
+  border:1px solid #ddd;
+  border-radius:9px;
+  padding:12px 14px;
   outline:none;
-  font-size:12px;
 }
 
 .search:focus{
-  border-color:#171714;
+  border-color:#111;
 }
 
-.table{
+.add-btn{
+  border:0;
+  background:#111;
+  color:#fff;
+  padding:12px 18px;
+  border-radius:9px;
+  cursor:pointer;
+}
+
+.add-btn:hover{
+  background:#292929;
+}
+
+.table-wrap{
+  overflow-x:auto;
+}
+
+table{
   width:100%;
   border-collapse:collapse;
 }
 
-.table th{
+th{
   text-align:left;
-  padding:15px 25px;
-  font-size:8px;
+  font-size:10px;
   text-transform:uppercase;
-  letter-spacing:.15em;
-  color:#817d74;
-  border-bottom:1px solid rgba(23,23,20,.1);
+  letter-spacing:1.3px;
+  color:#888;
+  padding:17px 22px;
+  border-bottom:1px solid #eee;
 }
 
-.table td{
-  padding:17px 25px;
-  border-bottom:1px solid rgba(23,23,20,.08);
-  font-size:12px;
-}
-
-.table tbody tr:hover{
-  background:#f8f5ee;
+td{
+  padding:18px 22px;
+  border-bottom:1px solid #f0f0f0;
+  font-size:13px;
 }
 
 .product-name{
-  font-weight:500;
-}
-
-.product-id{
-  color:#8b877e;
-  font-size:10px;
-  margin-top:4px;
-}
-
-.price{
-  font-family:"Playfair Display",serif;
-  font-size:17px;
+  font-weight:600;
 }
 
 .category{
-  color:#77736a;
+  color:#777;
 }
 
-.badge{
-  display:inline-flex;
-  padding:5px 9px;
-  border:1px solid rgba(23,23,20,.13);
-  font-size:8px;
-  text-transform:uppercase;
-  letter-spacing:.12em;
+.price{
+  font-weight:600;
 }
 
 .actions{
   display:flex;
-  gap:7px;
+  gap:8px;
 }
 
-.action{
-  border:1px solid rgba(23,23,20,.15);
-  background:transparent;
-  padding:7px 10px;
-  font-size:9px;
-  text-transform:uppercase;
-  letter-spacing:.1em;
+.action-btn{
+  border:1px solid #ddd;
+  background:#fff;
+  padding:8px 11px;
+  border-radius:7px;
+  cursor:pointer;
+  font-size:12px;
 }
 
-.action:hover{
-  background:#171714;
-  color:#fff;
+.action-btn:hover{
+  border-color:#111;
+}
+
+.delete-btn:hover{
+  border-color:#b00020;
+  color:#b00020;
 }
 
 .empty{
   text-align:center;
-  padding:90px 25px;
-  color:#77736a;
+  padding:60px 20px;
+  color:#888;
 }
-
-.empty-title{
-  font-family:"Playfair Display",serif;
-  font-size:34px;
-  color:#171714;
-  margin-bottom:10px;
-}
-
 
 /* =========================
    MODAL
 ========================= */
 
-.modal-overlay{
+#productModal{
+  display:none;
   position:fixed;
   inset:0;
-  background:rgba(23,23,20,.65);
-  display:none;
+  background:rgba(0,0,0,.45);
   align-items:center;
   justify-content:center;
   padding:20px;
-  z-index:100;
-}
-
-.modal-overlay.show{
-  display:flex;
+  z-index:20;
 }
 
 .modal{
-  width:min(650px,100%);
+  width:100%;
+  max-width:600px;
+  background:#fff;
+  border-radius:20px;
+  padding:30px;
   max-height:90vh;
-  overflow:auto;
-  background:#f3f0e9;
-  padding:35px;
+  overflow-y:auto;
 }
 
 .modal-head{
   display:flex;
   justify-content:space-between;
   align-items:center;
-  margin-bottom:30px;
+  margin-bottom:25px;
 }
 
 .modal-title{
-  font-family:"Playfair Display",serif;
-  font-size:30px;
+  font-family:Georgia,serif;
+  font-size:28px;
   font-weight:400;
 }
 
 .close{
-  border:1px solid rgba(23,23,20,.15);
-  background:transparent;
+  border:0;
+  background:#f2f2f2;
   width:35px;
   height:35px;
   border-radius:50%;
+  cursor:pointer;
+  font-size:18px;
 }
 
-.close:hover{
-  background:#171714;
-  color:#fff;
+.form-group{
+  margin-bottom:17px;
 }
 
-.form-grid{
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:20px;
-}
-
-.form-field{
-  margin-bottom:22px;
-}
-
-.form-field.full{
-  grid-column:1/-1;
-}
-
-.form-field label{
+.form-group label{
   display:block;
-  font-size:9px;
+  font-size:11px;
   text-transform:uppercase;
-  letter-spacing:.16em;
-  color:#77736a;
-  margin-bottom:9px;
+  letter-spacing:1px;
+  margin-bottom:7px;
+  color:#555;
 }
 
-.form-field input,
-.form-field textarea,
-.form-field select{
+.form-group input,
+.form-group textarea,
+.form-group select{
   width:100%;
-  border:1px solid rgba(23,23,20,.17);
-  background:#fffdf8;
-  padding:12px;
+  border:1px solid #ddd;
+  border-radius:9px;
+  padding:13px;
+  font-family:inherit;
+  font-size:14px;
   outline:none;
-  color:#171714;
 }
 
-.form-field textarea{
-  min-height:120px;
+.form-group textarea{
+  min-height:100px;
   resize:vertical;
 }
 
-.form-field input:focus,
-.form-field textarea:focus,
-.form-field select:focus{
-  border-color:#171714;
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus{
+  border-color:#111;
+}
+
+.form-row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:14px;
+}
+
+.size-options{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.size-option{
+  border:1px solid #ddd;
+  padding:9px 13px;
+  border-radius:7px;
+  cursor:pointer;
+  font-size:12px;
+}
+
+.size-option.selected{
+  background:#111;
+  color:#fff;
+  border-color:#111;
 }
 
 .modal-actions{
   display:flex;
   justify-content:flex-end;
   gap:10px;
-  border-top:1px solid rgba(23,23,20,.12);
-  padding-top:22px;
-  margin-top:8px;
+  margin-top:25px;
 }
 
-.cancel{
-  border:1px solid rgba(23,23,20,.18);
-  background:transparent;
-  padding:12px 18px;
-  font-size:10px;
-  text-transform:uppercase;
-  letter-spacing:.12em;
+.cancel-btn{
+  border:1px solid #ddd;
+  background:#fff;
+  padding:13px 18px;
+  border-radius:9px;
+  cursor:pointer;
 }
 
-.save{
+.save-btn{
   border:0;
-  background:#171714;
-  color:#f3f0e9;
-  padding:12px 20px;
-  font-size:10px;
-  text-transform:uppercase;
-  letter-spacing:.12em;
+  background:#111;
+  color:#fff;
+  padding:13px 22px;
+  border-radius:9px;
+  cursor:pointer;
 }
 
+.save-btn:disabled{
+  opacity:.5;
+  cursor:not-allowed;
+}
+
+.loading{
+  text-align:center;
+  padding:40px;
+  color:#777;
+}
 
 /* =========================
-   RESPONSIVE
+   MOBILE
 ========================= */
 
-@media(max-width:900px){
-
-  .page{
-    display:block;
-  }
+@media(max-width:800px){
 
   .sidebar{
-    min-height:auto;
-    height:auto;
     position:relative;
-    padding:20px;
+    width:100%;
+    height:auto;
+    padding:18px;
   }
 
   .brand{
-    padding:5px 0 20px;
+    margin-bottom:20px;
   }
 
-  .side-nav{
-    flex-direction:row;
-    overflow-x:auto;
-  }
-
-  .side-nav button,
-  .side-nav a{
-    width:auto;
-    white-space:nowrap;
-  }
-
-  .sidebar-bottom{
+  .nav-title{
     display:none;
   }
 
-  .topbar{
-    padding:0 20px;
+  .nav-item{
+    display:inline-block;
+    width:auto;
+    margin-right:5px;
   }
 
-  .content{
-    padding:25px 20px;
+  .logout{
+    position:static;
+    margin-top:12px;
+    width:100%;
+  }
+
+  .main{
+    margin-left:0;
+    padding:22px;
+  }
+
+  .topbar{
+    align-items:flex-start;
+    gap:15px;
+    flex-direction:column;
+  }
+
+  .page-title{
+    font-size:32px;
   }
 
   .stats{
     grid-template-columns:1fr;
   }
 
-  .page-intro{
-    align-items:flex-start;
-    gap:20px;
+  .products-header{
     flex-direction:column;
-  }
-
-  .products-head{
-    align-items:flex-start;
-    gap:15px;
-    flex-direction:column;
+    align-items:stretch;
   }
 
   .search{
     width:100%;
   }
 
-  .products-box{
-    overflow-x:auto;
-  }
-
-  .table{
-    min-width:700px;
-  }
-
-  .form-grid{
+  .form-row{
     grid-template-columns:1fr;
   }
 
-  .form-field.full{
-    grid-column:auto;
+  .login-card{
+    padding:28px 22px;
   }
-
 }
-
-@media(max-width:500px){
-
-  .topbar{
-    height:70px;
-  }
-
-  .page-title{
-    font-size:23px;
-  }
-
-  .view-site{
-    display:none;
-  }
-
-  .content{
-    padding:20px 15px;
-  }
-
-  .modal{
-    padding:25px 20px;
-  }
-
-}
-
 </style>
 </head>
 
 <body>
 
-<div class="page">
+<!-- =========================
+     LOGIN SCREEN
+========================= -->
 
-  <!-- SIDEBAR -->
+<section id="loginScreen">
+
+  <div class="login-card">
+
+    <div class="login-logo">
+      NOVAIR
+    </div>
+
+    <div class="login-subtitle">
+      Product Management
+    </div>
+
+    <div id="loginError" class="login-error"></div>
+
+    <form id="loginForm">
+
+      <label>Email</label>
+
+      <input
+        id="loginEmail"
+        type="email"
+        placeholder="Your admin email"
+        required
+      >
+
+      <label>Password</label>
+
+      <input
+        id="loginPassword"
+        type="password"
+        placeholder="Your password"
+        required
+      >
+
+      <button
+        class="login-btn"
+        type="submit"
+        id="loginButton"
+      >
+        Sign In
+      </button>
+
+    </form>
+
+  </div>
+
+</section>
+
+
+<!-- =========================
+     APP
+========================= -->
+
+<section id="app">
 
   <aside class="sidebar">
 
     <div class="brand">
       NOVAIR
-      <span>Store management</span>
     </div>
 
-    <div class="sidebar-label">
-      Workspace
+    <div class="nav-title">
+      Management
     </div>
 
-    <nav class="side-nav">
+    <a href="#" class="nav-item active">
+      Products
+    </a>
 
-      <a href="index.html">
-        Storefront
-      </a>
+    <a href="index.html" class="nav-item">
+      Website
+    </a>
 
-      <button class="active">
-        Products
-      </button>
-
-      <a href="shop.html">
-        Shop preview
-      </a>
-
-      <a href="about.html">
-        About page
-      </a>
-
-      <a href="contact.html">
-        Messages
-      </a>
-
-    </nav>
-
-    <div class="sidebar-bottom">
-
-      <div class="store-status">
-
-        <div class="status-label">
-          Store
-        </div>
-
-        <div class="status">
-          <span class="status-dot"></span>
-          NOVAIR / NOVAIR
-        </div>
-
-      </div>
-
-    </div>
+    <button class="logout" id="logoutButton">
+      Sign Out
+    </button>
 
   </aside>
 
 
-  <!-- MAIN -->
-
   <main class="main">
 
-    <header class="topbar">
+    <div class="topbar">
 
-      <div class="page-title">
-        Products
+      <div>
+        <div class="page-title">
+          Products
+        </div>
       </div>
 
-      <div class="top-actions">
+      <div class="store-badge">
+        Store:
+        <strong>NOVAIR</strong>
+      </div>
 
-        <a href="index.html" class="view-site">
-          View Store
-        </a>
+    </div>
 
-        <div class="avatar">
-          JK
+
+    <!-- STATS -->
+
+    <div class="stats">
+
+      <div class="stat">
+
+        <div class="stat-label">
+          Total Products
+        </div>
+
+        <div
+          class="stat-value"
+          id="totalProducts"
+        >
+          0
         </div>
 
       </div>
 
-    </header>
 
+      <div class="stat">
 
-    <section class="content">
-
-      <div class="page-intro">
-
-        <div class="intro-copy">
-
-          <h1>
-            Product management
-          </h1>
-
-          <p>
-            Add, edit and manage the NOVAIR collection.
-          </p>
-
+        <div class="stat-label">
+          Categories
         </div>
 
-        <button class="add-button" onclick="openAddProduct()">
+        <div
+          class="stat-value"
+          id="totalCategories"
+        >
+          0
+        </div>
+
+      </div>
+
+
+      <div class="stat">
+
+        <div class="stat-label">
+          Store Status
+        </div>
+
+        <div
+          class="stat-value"
+          style="font-size:20px"
+        >
+          Connected
+        </div>
+
+      </div>
+
+    </div>
+
+
+    <!-- PRODUCTS -->
+
+    <section class="products-box">
+
+      <div class="products-header">
+
+        <input
+          id="searchInput"
+          class="search"
+          type="text"
+          placeholder="Search products..."
+        >
+
+        <button
+          class="add-btn"
+          id="addProductButton"
+        >
           + Add Product
         </button>
 
       </div>
 
 
-      <!-- STATS -->
+      <div class="table-wrap">
 
-      <div class="stats">
-
-        <div class="stat">
-
-          <div class="stat-label">
-            Total products
-          </div>
-
-          <div class="stat-number" id="totalProducts">
-            0
-          </div>
-
-        </div>
-
-
-        <div class="stat">
-
-          <div class="stat-label">
-            Categories
-          </div>
-
-          <div class="stat-number" id="totalCategories">
-            0
-          </div>
-
-        </div>
-
-
-        <div class="stat">
-
-          <div class="stat-label">
-            Store
-          </div>
-
-          <div class="stat-number">
-            N
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <!-- PRODUCTS -->
-
-      <div class="products-box">
-
-        <div class="products-head">
-
-          <h2>
-            All products
-          </h2>
-
-          <input
-            type="search"
-            class="search"
-            id="searchInput"
-            placeholder="Search products..."
-          >
-
-        </div>
-
-
-        <table class="table">
+        <table>
 
           <thead>
 
             <tr>
-
               <th>Product</th>
-              <th>Price</th>
               <th>Category</th>
-              <th>Status</th>
+              <th>Price</th>
+              <th>Sizes</th>
               <th>Actions</th>
-
             </tr>
 
           </thead>
 
           <tbody id="productsTable">
-
-            <tr>
-
-              <td colspan="5">
-
-                <div class="empty">
-
-                  <div class="empty-title">
-                    No products yet
-                  </div>
-
-                  <p>
-                    Your NOVAIR collection will appear here.
-                  </p>
-
-                </div>
-
-              </td>
-
-            </tr>
 
           </tbody>
 
@@ -855,22 +777,27 @@ a{
 
   </main>
 
-</div>
+</section>
 
 
-<!-- ADD / EDIT MODAL -->
+<!-- =========================
+     PRODUCT MODAL
+========================= -->
 
-<div class="modal-overlay" id="productModal">
+<div id="productModal">
 
   <div class="modal">
 
     <div class="modal-head">
 
       <div class="modal-title" id="modalTitle">
-        Add product
+        Add Product
       </div>
 
-      <button class="close" onclick="closeModal()">
+      <button
+        class="close"
+        id="closeModalButton"
+      >
         ×
       </button>
 
@@ -879,27 +806,33 @@ a{
 
     <form id="productForm">
 
-      <div class="form-grid">
-
-        <div class="form-field full">
-
-          <label for="productName">
-            Product name
-          </label>
-
-          <input
-            id="productName"
-            type="text"
-            placeholder="Example: Essential Overshirt"
-            required
-          >
-
-        </div>
+      <input
+        type="hidden"
+        id="productId"
+      >
 
 
-        <div class="form-field">
+      <div class="form-group">
 
-          <label for="productPrice">
+        <label>
+          Product Name
+        </label>
+
+        <input
+          id="productName"
+          type="text"
+          placeholder="Example: Noir Oversized Tee"
+          required
+        >
+
+      </div>
+
+
+      <div class="form-row">
+
+        <div class="form-group">
+
+          <label>
             Price
           </label>
 
@@ -915,13 +848,13 @@ a{
         </div>
 
 
-        <div class="form-field">
+        <div class="form-group">
 
-          <label for="productCategory">
+          <label>
             Category
           </label>
 
-          <select id="productCategory" required>
+          <select id="productCategory">
 
             <option value="">
               Select category
@@ -947,47 +880,69 @@ a{
 
         </div>
 
-
-        <div class="form-field full">
-
-          <label for="productDescription">
-            Description
-          </label>
-
-          <textarea
-            id="productDescription"
-            placeholder="Describe the product..."
-          ></textarea>
-
-        </div>
+      </div>
 
 
-        <div class="form-field full">
+      <div class="form-group">
 
-          <label for="productImage">
-            Image URL
-          </label>
+        <label>
+          Description
+        </label>
 
-          <input
-            id="productImage"
-            type="url"
-            placeholder="https://..."
-          >
+        <textarea
+          id="productDescription"
+          placeholder="Product description..."
+        ></textarea>
 
-        </div>
+      </div>
 
 
-        <div class="form-field full">
+      <div class="form-group">
 
-          <label for="productSizes">
-            Sizes
-          </label>
+        <label>
+          Image URL
+        </label>
 
-          <input
-            id="productSizes"
-            type="text"
-            placeholder="S, M, L, XL"
-          >
+        <input
+          id="productImage"
+          type="url"
+          placeholder="https://..."
+        >
+
+      </div>
+
+
+      <div class="form-group">
+
+        <label>
+          Sizes
+        </label>
+
+        <div class="size-options">
+
+          <div class="size-option" data-size="XS">
+            XS
+          </div>
+
+          <div class="size-option" data-size="S">
+            S
+          </div>
+
+          <div class="size-option" data-size="M">
+            M
+          </div>
+
+          <div class="size-option" data-size="L">
+            L
+          </div>
+
+          <div class="size-option" data-size="XL">
+            XL
+          </div>
+
+          <div class="size-option" data-size="XXL">
+            XXL
+          </div>
 
         </div>
 
@@ -998,15 +953,16 @@ a{
 
         <button
           type="button"
-          class="cancel"
-          onclick="closeModal()"
+          class="cancel-btn"
+          id="cancelButton"
         >
           Cancel
         </button>
 
         <button
           type="submit"
-          class="save"
+          class="save-btn"
+          id="saveButton"
         >
           Save Product
         </button>
@@ -1022,336 +978,898 @@ a{
 
 <script>
 
-/*
-  NOVAIR PRODUCT MANAGEMENT
+/* ==========================================
+   SUPABASE CONFIG
+========================================== */
 
-  Current version:
-  - UI ready
-  - Add-product modal ready
-  - Local browser testing only
+const SUPABASE_URL =
+  "https://sjtykmeactnxwwywdjcr.supabase.co";
 
-  Supabase database connection will be added
-  after authentication is connected.
-*/
+const SUPABASE_PUBLISHABLE_KEY =
+  "sb_publishable_fB56OtJ845eqt7lIAwU-VA_VgM2ZqJW";
 
+const STORE_ID = "novair";
+
+const supabaseClient =
+  window.supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_PUBLISHABLE_KEY
+  );
+
+
+/* ==========================================
+   APP STATE
+========================================== */
 
 let products = [];
 
-let editingIndex = null;
+let editingProductId = null;
+
+let selectedSizes = [];
 
 
-/* OPEN ADD */
+/* ==========================================
+   ELEMENTS
+========================================== */
 
-function openAddProduct(){
+const loginScreen =
+  document.getElementById("loginScreen");
 
-  editingIndex = null;
+const app =
+  document.getElementById("app");
 
-  document.getElementById("modalTitle").textContent =
-    "Add product";
+const loginForm =
+  document.getElementById("loginForm");
 
-  document.getElementById("productForm").reset();
+const loginError =
+  document.getElementById("loginError");
 
-  document
-    .getElementById("productModal")
-    .classList.add("show");
+const loginButton =
+  document.getElementById("loginButton");
+
+const logoutButton =
+  document.getElementById("logoutButton");
+
+const productsTable =
+  document.getElementById("productsTable");
+
+const searchInput =
+  document.getElementById("searchInput");
+
+const productModal =
+  document.getElementById("productModal");
+
+const productForm =
+  document.getElementById("productForm");
+
+const addProductButton =
+  document.getElementById("addProductButton");
+
+const closeModalButton =
+  document.getElementById("closeModalButton");
+
+const cancelButton =
+  document.getElementById("cancelButton");
+
+const modalTitle =
+  document.getElementById("modalTitle");
+
+const totalProducts =
+  document.getElementById("totalProducts");
+
+const totalCategories =
+  document.getElementById("totalCategories");
+
+
+/* ==========================================
+   LOGIN ERROR
+========================================== */
+
+function showLoginError(message){
+
+  loginError.textContent = message;
+
+  loginError.style.display = "block";
 
 }
 
 
-/* CLOSE */
+/* ==========================================
+   CHECK SESSION
+========================================== */
 
-function closeModal(){
+async function checkSession(){
 
-  document
-    .getElementById("productModal")
-    .classList.remove("show");
+  const {
+    data,
+    error
+  } = await supabaseClient.auth.getSession();
+
+  if(error){
+
+    console.error(error);
+
+    showLoginError(
+      "Could not connect to Supabase."
+    );
+
+    return;
+
+  }
+
+  if(data.session){
+
+    await verifyStoreAccess(
+      data.session.user.id
+    );
+
+  }else{
+
+    showLogin();
+
+  }
 
 }
 
 
-/* SAVE */
+/* ==========================================
+   VERIFY NOVAIR MEMBERSHIP
+========================================== */
 
-document
-  .getElementById("productForm")
-  .addEventListener("submit",function(e){
+async function verifyStoreAccess(userId){
 
-    e.preventDefault();
-
-    const product = {
-
-      name:
-        document.getElementById("productName").value.trim(),
-
-      price:
-        Number(document.getElementById("productPrice").value),
-
-      category:
-        document.getElementById("productCategory").value,
-
-      description:
-        document.getElementById("productDescription").value.trim(),
-
-      image:
-        document.getElementById("productImage").value.trim(),
-
-      sizes:
-        document.getElementById("productSizes").value.trim()
-
-    };
+  const {
+    data,
+    error
+  } = await supabaseClient
+    .from("store_members")
+    .select("store_id, role")
+    .eq("store_id", STORE_ID)
+    .eq("user_id", userId)
+    .maybeSingle();
 
 
-    if(editingIndex === null){
+  if(error){
 
-      products.push(product);
+    console.error(error);
 
-    }else{
+    await supabaseClient.auth.signOut();
 
-      products[editingIndex] = product;
-
-    }
-
-
-    renderProducts();
-
-    closeModal();
-
-  });
-
-
-/* RENDER */
-
-function renderProducts(){
-
-  const table =
-    document.getElementById("productsTable");
-
-  const search =
-    document
-      .getElementById("searchInput")
-      .value
-      .toLowerCase()
-      .trim();
-
-
-  const filtered =
-    products.filter(product =>
-      product.name.toLowerCase().includes(search) ||
-      product.category.toLowerCase().includes(search)
+    showLoginError(
+      "Could not verify store access."
     );
 
-
-  document.getElementById("totalProducts").textContent =
-    products.length;
-
-
-  const categories =
-    new Set(
-      products.map(product => product.category)
-    );
-
-  document.getElementById("totalCategories").textContent =
-    categories.size;
-
-
-  if(filtered.length === 0){
-
-    table.innerHTML = `
-
-      <tr>
-
-        <td colspan="5">
-
-          <div class="empty">
-
-            <div class="empty-title">
-              ${products.length === 0
-                ? "No products yet"
-                : "No results"}
-            </div>
-
-            <p>
-              ${products.length === 0
-                ? "Your NOVAIR collection will appear here."
-                : "Try another search."}
-            </p>
-
-          </div>
-
-        </td>
-
-      </tr>
-
-    `;
+    showLogin();
 
     return;
 
   }
 
 
-  table.innerHTML = filtered.map((product,index) => `
+  if(!data){
 
-    <tr>
+    await supabaseClient.auth.signOut();
 
-      <td>
-
-        <div class="product-name">
-          ${escapeHTML(product.name)}
-        </div>
-
-        <div class="product-id">
-          NOVAIR-${String(index + 1).padStart(3,"0")}
-        </div>
-
-      </td>
-
-
-      <td>
-
-        <div class="price">
-          ₹${Number(product.price).toLocaleString("en-IN")}
-        </div>
-
-      </td>
-
-
-      <td>
-
-        <span class="category">
-          ${escapeHTML(product.category)}
-        </span>
-
-      </td>
-
-
-      <td>
-
-        <span class="badge">
-          Active
-        </span>
-
-      </td>
-
-
-      <td>
-
-        <div class="actions">
-
-          <button
-            class="action"
-            onclick="editProduct(${index})"
-          >
-            Edit
-          </button>
-
-          <button
-            class="action"
-            onclick="deleteProduct(${index})"
-          >
-            Delete
-          </button>
-
-        </div>
-
-      </td>
-
-    </tr>
-
-  `).join("");
-
-}
-
-
-/* EDIT */
-
-function editProduct(index){
-
-  const product = products[index];
-
-  editingIndex = index;
-
-  document.getElementById("modalTitle").textContent =
-    "Edit product";
-
-  document.getElementById("productName").value =
-    product.name;
-
-  document.getElementById("productPrice").value =
-    product.price;
-
-  document.getElementById("productCategory").value =
-    product.category;
-
-  document.getElementById("productDescription").value =
-    product.description;
-
-  document.getElementById("productImage").value =
-    product.image;
-
-  document.getElementById("productSizes").value =
-    product.sizes;
-
-  document
-    .getElementById("productModal")
-    .classList.add("show");
-
-}
-
-
-/* DELETE */
-
-function deleteProduct(index){
-
-  const product = products[index];
-
-  const confirmed =
-    confirm(
-      `Delete "${product.name}"?`
+    showLoginError(
+      "This account does not have access to NOVAIR."
     );
 
-  if(!confirmed) return;
+    showLogin();
 
-  products.splice(index,1);
+    return;
 
-  renderProducts();
-
-}
+  }
 
 
-/* SEARCH */
-
-document
-  .getElementById("searchInput")
-  .addEventListener("input",renderProducts);
-
-
-/* ESCAPE HTML */
-
-function escapeHTML(value){
-
-  return String(value)
-    .replace(/&/g,"&amp;")
-    .replace(/</g,"&lt;")
-    .replace(/>/g,"&gt;")
-    .replace(/"/g,"&quot;")
-    .replace(/'/g,"&#039;");
+  showApp();
 
 }
 
 
-/* CLOSE MODAL WHEN CLICKING OUTSIDE */
+/* ==========================================
+   SHOW LOGIN
+========================================== */
 
-document
-  .getElementById("productModal")
-  .addEventListener("click",function(e){
+function showLogin(){
 
-    if(e.target === this){      closeModal();
+  loginScreen.style.display = "flex";
+
+  app.style.display = "none";
+
+}
+
+
+/* ==========================================
+   SHOW APP
+========================================== */
+
+async function showApp(){
+
+  loginScreen.style.display = "none";
+
+  app.style.display = "block";
+
+  await loadProducts();
+
+}
+
+
+/* ==========================================
+   LOGIN
+========================================== */
+
+loginForm.addEventListener(
+  "submit",
+  async function(event){
+
+    event.preventDefault();
+
+    loginError.style.display = "none";
+
+    const email =
+      document.getElementById("loginEmail").value.trim();
+
+    const password =
+      document.getElementById("loginPassword").value;
+
+
+    loginButton.disabled = true;
+
+    loginButton.textContent = "Signing in...";
+
+
+    const {
+      data,
+      error
+    } = await supabaseClient.auth.signInWithPassword({
+      email: email,
+      password: password
+    });
+
+
+    if(error){
+
+      console.error(error);
+
+      showLoginError(
+        error.message
+      );
+
+      loginButton.disabled = false;
+
+      loginButton.textContent = "Sign In";
+
+      return;
+
     }
+
+
+    await verifyStoreAccess(
+      data.user.id
+    );
+
+
+    loginButton.disabled = false;
+
+    loginButton.textContent = "Sign In";
+
+  }
+);
+
+
+/* ==========================================
+   LOGOUT
+========================================== */
+
+logoutButton.addEventListener(
+  "click",
+  async function(){
+
+    await supabaseClient.auth.signOut();
+
+    products = [];
+
+    showLogin();
+
+  }
+);
+
+
+/* ==========================================
+   LOAD PRODUCTS
+========================================== */
+
+async function loadProducts(){
+
+  productsTable.innerHTML =
+    `
+      <tr>
+        <td colspan="5">
+          <div class="loading">
+            Loading products...
+          </div>
+        </td>
+      </tr>
+    `;
+
+
+  const {
+    data,
+    error
+  } = await supabaseClient
+    .from("products")
+    .select("*")
+    .eq("store_id", STORE_ID)
+    .order("created_at", {
+      ascending:false
+    });
+
+
+  if(error){
+
+    console.error(error);
+
+    productsTable.innerHTML =
+      `
+        <tr>
+          <td colspan="5">
+            <div class="empty">
+              Could not load products.
+            </div>
+          </td>
+        </tr>
+      `;
+
+    return;
+
+  }
+
+
+  products = data || [];
+
+  renderProducts(products);
+
+}
+
+
+/* ==========================================
+   RENDER PRODUCTS
+========================================== */
+
+function renderProducts(list){
+
+  productsTable.innerHTML = "";
+
+
+  if(list.length === 0){
+
+    productsTable.innerHTML =
+      `
+        <tr>
+          <td colspan="5">
+            <div class="empty">
+              No products yet.
+              <br><br>
+                            Click "+ Add Product" to create your first one.
+            </div>
+          </td>
+        </tr>
+      `;
+
+  }else{
+
+    list.forEach(function(product){
+
+      const row =
+        document.createElement("tr");
+
+      const sizes =
+        Array.isArray(product.sizes)
+          ? product.sizes.join(", ")
+          : "-";
+
+      row.innerHTML =
+        `
+          <td>
+            <div class="product-name">
+              ${escapeHtml(product.name)}
+            </div>
+          </td>
+
+          <td>
+            <div class="category">
+              ${escapeHtml(product.category || "-")}
+            </div>
+          </td>
+
+          <td>
+            <div class="price">
+              ₹${Number(product.price || 0).toLocaleString("en-IN")}
+            </div>
+          </td>
+
+          <td>
+            ${escapeHtml(sizes)}
+          </td>
+
+          <td>
+            <div class="actions">
+
+              <button
+                class="action-btn"
+                onclick="editProduct('${product.id}')"
+              >
+                Edit
+              </button>
+
+              <button
+                class="action-btn delete-btn"
+                onclick="deleteProduct('${product.id}')"
+              >
+                Delete
+              </button>
+
+            </div>
+          </td>
+        `;
+
+      productsTable.appendChild(row);
+
+    });
+
+  }
+
+  updateStats();
+
+}
+
+
+/* ==========================================
+   STATS
+========================================== */
+
+function updateStats(){
+
+  totalProducts.textContent =
+    products.length;
+
+  const categories =
+    new Set(
+      products
+        .map(function(product){
+          return product.category;
+        })
+        .filter(Boolean)
+    );
+
+  totalCategories.textContent =
+    categories.size;
+
+}
+
+
+/* ==========================================
+   SEARCH
+========================================== */
+
+searchInput.addEventListener(
+  "input",
+  function(){
+
+    const query =
+      searchInput.value
+        .trim()
+        .toLowerCase();
+
+    const filtered =
+      products.filter(function(product){
+
+        return (
+          String(product.name || "")
+            .toLowerCase()
+            .includes(query)
+          ||
+          String(product.category || "")
+            .toLowerCase()
+            .includes(query)
+        );
+
+      });
+
+    renderProducts(filtered);
+
+  }
+);
+
+
+/* ==========================================
+   OPEN ADD PRODUCT
+========================================== */
+
+addProductButton.addEventListener(
+  "click",
+  function(){
+
+    editingProductId = null;
+
+    selectedSizes = [];
+
+    productForm.reset();
+
+    document.getElementById("productId").value = "";
+
+    modalTitle.textContent =
+      "Add Product";
+
+    updateSizeButtons();
+
+    productModal.style.display =
+      "flex";
+
+  }
+);
+
+
+/* ==========================================
+   EDIT PRODUCT
+========================================== */
+
+window.editProduct =
+  function(productId){
+
+    const product =
+      products.find(function(item){
+        return item.id === productId;
+      });
+
+    if(!product) return;
+
+    editingProductId =
+      product.id;
+
+    document.getElementById("productId").value =
+      product.id;
+
+    document.getElementById("productName").value =
+      product.name || "";
+
+    document.getElementById("productPrice").value =
+      product.price || "";
+
+    document.getElementById("productCategory").value =
+      product.category || "";
+
+    document.getElementById("productDescription").value =
+      product.description || "";
+
+    document.getElementById("productImage").value =
+      product.image_url || "";
+
+    selectedSizes =
+      Array.isArray(product.sizes)
+        ? [...product.sizes]
+        : [];
+
+    updateSizeButtons();
+
+    modalTitle.textContent =
+      "Edit Product";
+
+    productModal.style.display =
+      "flex";
+
+  };
+
+
+/* ==========================================
+   DELETE PRODUCT
+========================================== */
+
+window.deleteProduct =
+  async function(productId){
+
+    const product =
+      products.find(function(item){
+        return item.id === productId;
+      });
+
+    if(!product) return;
+
+    const confirmed =
+      confirm(
+        `Delete "${product.name}"?`
+      );
+
+    if(!confirmed) return;
+
+    const {
+      error
+    } = await supabaseClient
+      .from("products")
+      .delete()
+      .eq("id", productId)
+      .eq("store_id", STORE_ID);
+
+    if(error){
+
+      console.error(error);
+
+      alert(
+        "Could not delete the product."
+      );
+
+      return;
+
+    }
+
+    await loadProducts();
+
+  };
+
+
+/* ==========================================
+   SIZE BUTTONS
+========================================== */
+
+document
+  .querySelectorAll(".size-option")
+  .forEach(function(button){
+
+    button.addEventListener(
+      "click",
+      function(){
+
+        const size =
+          button.dataset.size;
+
+        if(selectedSizes.includes(size)){
+
+          selectedSizes =
+            selectedSizes.filter(
+              function(item){
+                return item !== size;
+              }
+            );
+
+        }else{
+
+          selectedSizes.push(size);
+
+        }
+
+        updateSizeButtons();
+
+      }
+    );
 
   });
 
+
+function updateSizeButtons(){
+
+  document
+    .querySelectorAll(".size-option")
+    .forEach(function(button){
+
+      const size =
+        button.dataset.size;
+
+      button.classList.toggle(
+        "selected",
+        selectedSizes.includes(size)
+      );
+
+    });
+
+}
+
+
+/* ==========================================
+   SAVE PRODUCT
+========================================== */
+
+productForm.addEventListener(
+  "submit",
+  async function(event){
+
+    event.preventDefault();
+
+    const saveButton =
+      document.getElementById("saveButton");
+
+    const name =
+      document.getElementById("productName")
+        .value
+        .trim();
+
+    const price =
+      Number(
+        document.getElementById("productPrice")
+          .value
+      );
+
+    const category =
+      document.getElementById("productCategory")
+        .value;
+
+    const description =
+      document.getElementById("productDescription")
+        .value
+        .trim();
+
+    const imageUrl =
+      document.getElementById("productImage")
+        .value
+        .trim();
+
+    if(!name){
+
+      alert("Please enter a product name.");
+      return;
+
+    }
+
+    if(Number.isNaN(price)){
+
+      alert("Please enter a valid price.");
+      return;
+
+    }
+
+    saveButton.disabled = true;
+
+    saveButton.textContent =
+      "Saving...";
+
+    const productData = {
+
+      store_id: STORE_ID,
+
+      name: name,
+
+      price: price,
+
+      category:
+        category || null,
+
+      description:
+        description || null,
+
+      image_url:
+        imageUrl || null,
+
+      sizes:
+        selectedSizes
+
+    };
+
+    let error;
+
+    if(editingProductId){
+
+      const result =
+        await supabaseClient
+          .from("products")
+          .update(productData)
+          .eq("id", editingProductId)
+          .eq("store_id", STORE_ID);
+
+      error =
+        result.error;
+
+    }else{
+
+      const result =
+        await supabaseClient
+          .from("products")
+          .insert(productData);
+
+      error =
+        result.error;
+
+    }
+
+    if(error){
+
+      console.error(error);
+
+      alert(
+        "Could not save the product.\n\n" +
+        error.message
+      );
+
+      saveButton.disabled = false;
+
+      saveButton.textContent =
+        "Save Product";
+
+      return;
+
+    }
+
+    closeModal();
+
+    await loadProducts();
+
+    saveButton.disabled = false;
+
+    saveButton.textContent =
+      "Save Product";
+
+  }
+);
+
+
+/* ==========================================
+   CLOSE MODAL
+========================================== */
+
+function closeModal(){
+
+  productModal.style.display =
+    "none";
+
+  productForm.reset();
+
+  editingProductId = null;
+
+  selectedSizes = [];
+
+  updateSizeButtons();
+
+}
+
+
+closeModalButton.addEventListener(
+  "click",
+  closeModal
+);
+
+
+cancelButton.addEventListener(
+  "click",
+  closeModal
+);
+
+
+productModal.addEventListener(
+  "click",
+  function(event){
+
+    if(event.target === productModal){
+
+      closeModal();
+
+    }
+
+  }
+);
+
+
+/* ==========================================
+   HTML ESCAPE
+========================================== */
+
+function escapeHtml(value){
+
+  return String(value)
+    .replaceAll("&","&amp;")
+    .replaceAll("<","&lt;")
+    .replaceAll(">","&gt;")
+    .replaceAll('"',"&quot;")
+    .replaceAll("'","&#039;");
+
+}
+
+
+/* ==========================================
+   START
+========================================== */
+
+checkSession();
 
 </script>
 
 </body>
 </html>
- 
+            
